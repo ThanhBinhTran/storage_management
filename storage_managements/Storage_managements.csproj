@@ -48,8 +48,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataStruct_Item.cs" />
-    <Compile Include="lib_item.cs" />
+    <Compile Include="DataStruct_Storage_Item.cs" />
+    <Compile Include="DataStruct_Storage_Transaction.cs" />
+    <Compile Include="DataStruct_Storage_prepare_Item.cs" />
+    <Compile Include="DataStruct_Database_Item.cs" />
+    <Compile Include="lib_datagrid.cs" />
+    <Compile Include="lib_date_time.cs" />
+    <Compile Include="lib_json.cs" />
     <Compile Include="lib_list.cs" />
     <Compile Include="lib_text.cs" />
     <Compile Include="Program_Parameters.cs" />

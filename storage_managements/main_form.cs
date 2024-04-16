@@ -17,14 +17,14 @@ namespace storage_managements
 		// for debug only
 		public int i = 0;
 
-		// Declare a list of datastruct_goods
-		public List<DataStruct_Item> item_list = new List<DataStruct_Item>();
+		// Declare a list of items information
+		public List<DataStruct_Database_Item> database_items = new List<DataStruct_Database_Item>();
 
-		// Create a new BindingSource object.
-		public BindingSource bindingSource_item_list = new BindingSource();
+		// Declare a list of going to _transaction
+		public List<DataStruct_Storage_prepare_Item> pre_transaction_items = new List<DataStruct_Storage_prepare_Item>();
 
-		
-
+		// Declare a list of items in storage
+		public List<DataStruct_Storage_Item> storage_items = new List<DataStruct_Storage_Item>();
 		public main_form()
 		{
 			InitializeComponent();
@@ -39,45 +39,21 @@ namespace storage_managements
 		private void Initial_Program()
         {
 			// create path
-			//Create_Path(Program_Parameters.dataPath); (//BINHBINH OPEN)
+			Program_Parameters.create_paths();
 
 			// read item information
-			lib_item.Read_Items(item_list);
-			if (item_list.Count > 0)
-            {
-				textbox_dis(item_list.First().name);
-			}
-			else
-            {
-				Console.WriteLine("No item found");
-            }
+			lib_json.Read_Database_Item(database_items);
 
-			// Set the DataSource of the BindingSource.
-			bindingSource_item_list.DataSource = item_list;
+			// read storage items
+			lib_json.Read_Storage_Item(storage_items);
 
 			// show table info
-			ShowTable_Item_Info();
+			lib_datagrid.ShowTable_Item_Info(dgv: datagrid_items, itemlist: database_items);
+			lib_datagrid.ShowTable_Item_Info(dgv: datagrid_storage_items, itemlist: database_items);
+			
 		}
-		/* create path for program if nonexist*/
-		private void Create_Path(string folderPath)
-        {
-			try
-			{
-				if (!Directory.Exists(folderPath))
-				{
-					Directory.CreateDirectory(folderPath);
-					Console.WriteLine($"Directory '{folderPath}' created successfully.");
-				}
-				else
-				{
-					Console.WriteLine($"Directory '{folderPath}' already exists.");
-				}
-			}
-			catch (Exception ex)
-			{
-				Console.WriteLine($"Error creating directory: {ex.Message}");
-			}
-		}
+		
+
 
 		/** read goods information from json file **/
 
@@ -95,18 +71,18 @@ namespace storage_managements
 			string ID = lib_text.get_textbox_text(item_textbox_new_ID);
 			string name = lib_text.get_textbox_text(item_textbox_new_name);
 			string unit = lib_text.get_textbox_text(item_textbox_new_unit);
-			int idx = lib_list.is_exist_item_list_ID(ID: ID, items: item_list);
+			int idx = lib_list.get_idx_database_item_by_ID(ID: ID, items: database_items);
 			if (idx == -1) // add new
             {
-				lib_list.add_item(item_list, ID: ID, name: name, unit: unit);
+				lib_list.add_database_item(database_items, ID: ID, name: name, unit: unit);
 				lib_text.display_debug(label_debug, "add new item");
 			}
 			else // update existed one
             {
-				lib_list.update_item_idx(item_list, ID: ID, name: name, unit: unit, idx:idx);
+				lib_list.update_database_item_by_idx(database_items, ID: ID, name: name, unit: unit, idx:idx);
 				lib_text.display_debug(label_debug, "update existed one at " + idx);
 			}
-			lib_item.Write_Item(item_list: item_list);
+			lib_json.Write_Database_Item(items: database_items);
 			return true;
         }
 
@@ -118,11 +94,11 @@ namespace storage_managements
 		/**************************************************************/
 		private void button1_Click(object sender, EventArgs e)
 		{
-			lib_list.add_item(item_list, ID: "123", name: "Đường", unit: "Bao 50Kg");
-			lib_list.add_item(item_list, ID: "456", name: "Bột", unit: "Bao 25Kg");
-			lib_list.add_item(item_list, ID: "789", name: "Dầu", unit: "Canh");
-			lib_item.Write_Item(item_list);
-			label_debug.Text = "write " + item_list.Count + " items";
+			lib_list.add_database_item(database_items, ID: "123", name: "Đường", unit: "Bao 50Kg");
+			lib_list.add_database_item(database_items, ID: "456", name: "Bột", unit: "Bao 25Kg");
+			lib_list.add_database_item(database_items, ID: "789", name: "Dầu", unit: "Canh");
+			lib_json.Write_Database_Item(database_items);
+			label_debug.Text = "write " + database_items.Count + " items";
 		}
 
 
@@ -139,21 +115,11 @@ namespace storage_managements
 
         private void button1_Click_1(object sender, EventArgs e)
         {
-			ShowTable_Item_Info();
+			lib_datagrid.ShowTable_Item_Info(dgv: datagrid_items, itemlist: database_items);
+			//ShowTable_Item_Info(table_item, itemlist:item_list);
 
 		}
-		private void ShowTable_Item_Info()
-        {
-			bindingSource_item_list.DataSource = item_list;
-			label_debug.Text = "read table " + item_list.Count + " items";
-			lib_list.print_item_list(item_List: item_list);
-			
-			table_item.DataSource = bindingSource_item_list;
-			table_item.Columns["ID"].HeaderText = "Mã Sản Phẩm";
-			table_item.Columns["name"].HeaderText = "Tên Sản Phẩm";
-			table_item.Columns["unit"].HeaderText = "Đơn vị";
-			table_item.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-		}
+
 
         private void label1_Click(object sender, EventArgs e)
         {
@@ -163,7 +129,68 @@ namespace storage_managements
         private void button2_Click(object sender, EventArgs e)
         {
 			Add_item();
-			ShowTable_Item_Info();
+			lib_datagrid.ShowTable_Item_Info(dgv: datagrid_items, itemlist: database_items);
+			//ShowTable_Item_Info(table_item, item_list);
+		}
+
+        private void tab_view_SelectedIndexChanged(object sender, EventArgs e)
+        {
+			lib_datagrid.ShowTable_Item_Info(dgv: datagrid_storage_items, itemlist: database_items);
+		}
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+			pre_transaction_items.Clear();
+			foreach (DataGridViewRow row in datagrid_storage_items.Rows)
+			{
+
+				bool isChecked = Convert.ToBoolean(row.Cells[0].Value);
+
+				if (isChecked)
+				{
+					DataStruct_Storage_prepare_Item item = new DataStruct_Storage_prepare_Item();
+					item.ID = row.Cells["ID"].Value.ToString();
+					item.name = row.Cells["name"].Value.ToString();
+					item.unit = row.Cells["unit"].Value.ToString();
+					item.quantity = 1;
+					item.transction_time = lib_date_time.get_currenttime();
+					pre_transaction_items.Add(item);
+				}
+			}
+			lib_datagrid.datagridview_source_storage(dgv: datagrid_storage_transaction, itemlist: pre_transaction_items);
+
+		}
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+			lib_datagrid.datagridview_source_storage(dgv: datagrid_storage_transaction, itemlist: pre_transaction_items);
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+			foreach (DataGridViewRow row in datagrid_storage_transaction.Rows)
+			{
+				try
+				{
+					DataStruct_Storage_Item item = new DataStruct_Storage_Item();
+					string ID = row.Cells["ID"].Value.ToString();
+					string name = row.Cells["name"].Value.ToString();
+					string unit = row.Cells["unit"].Value.ToString();
+					// Using int.Parse
+					int quantity;
+					quantity = int.Parse(row.Cells["quantity"].Value.ToString());
+					DateTime transction_time = lib_date_time.get_currenttime();
+					lib_list.record_storage_item_transaction(items: storage_items, ID: ID, name: name,
+						unit: unit, quantity: quantity, in_out: 1);
+					lib_json.Write_Storage_Item(items: storage_items);
+				}
+				catch (FormatException)
+				{
+					Console.WriteLine("12345_Invalid format");
+				}
+
+
+			}
 		}
     }
 }
