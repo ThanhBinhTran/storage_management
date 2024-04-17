@@ -12,5 +12,22 @@ namespace storage_managements
         {
             return DateTime.Now;
         }
+        public static string get_year()
+        {
+            return DateTime.Now.Year.ToString();
+        }
+        public static string get_month()
+        {
+            return DateTime.Now.Month.ToString();
+        }
+        public static string get_day()
+        {
+            return DateTime.Now.Day.ToString();
+        }
+
+        public static string getID_byDateTime()
+        {
+            return string.Format("{0:yyMMddHHmmssf}", DateTime.Now);
+        }
     }
 }

@@ -48,10 +48,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataStruct_Storage_Item.cs" />
-    <Compile Include="DataStruct_Storage_Transaction.cs" />
-    <Compile Include="DataStruct_Storage_prepare_Item.cs" />
-    <Compile Include="DataStruct_Database_Item.cs" />
+    <Compile Include="DS_Company.cs" />
+    <Compile Include="DS_Item.cs" />
+    <Compile Include="DS_Transaction.cs" />
+    <Compile Include="DS_Storage_prepare_Item.cs" />
+    <Compile Include="DS_Database_Item.cs" />
+    <Compile Include="lib_comboBox.cs" />
     <Compile Include="lib_datagrid.cs" />
     <Compile Include="lib_date_time.cs" />
     <Compile Include="lib_json.cs" />

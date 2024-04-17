@@ -9,17 +9,15 @@ namespace storage_managements
 		public const string backupPath = dataPath + @"backup\\";
 		public const string filePath_goods = dataPath +  @"goods.json";
 		public const string filePath_storage = dataPath + @"storage.json";
-
+		public const string filePath_company = dataPath + @"company.json";
+		public const string filePath_consumer = dataPath + @"consumer.json";
+		public const string filePath_transaction = dataPath + @"transaction.json";
 		/* create path for program if nonexist*/
 		public static void create_paths()
         {
 			Create_Path(Program_Parameters.dataPath);
 			Create_Path(Program_Parameters.backupPath);
-			//Create_file(Program_Parameters.filePath_storage);
-			//Create_file(Program_Parameters.filePath_goods);
 		}
-
-
 
 		private static void Create_file(string filepath)
         {
