@@ -22,9 +22,11 @@ namespace storage_managements
 
 		// list of pre-transaction items
 		public List<DS_Storage_prepare_Item> pre_transaction_items = new List<DS_Storage_prepare_Item>();
+		private List<DS_Storage_prepare_Item> display_storage = new List<DS_Storage_prepare_Item>();
 
 		// list of storage items
 		public List<DS_Item> storage_items = new List<DS_Item>();
+
 
 		// list of consumers
 		public List<DS_Company> consumers = new List<DS_Company>();
@@ -183,19 +185,100 @@ namespace storage_managements
 			return true;
 		}
 
-		private void watch_storage(int quantity)
-        {
-			List<DS_Storage_prepare_Item> tempstorage = new List<DS_Storage_prepare_Item>();
+		/*
+		 * relation = 0, less thanh low threshold
+		 * relation = 1, greater than up threshold
+		 */
+
+
+		private void display_storage_items_by_ID(string ID)
+		{
+			storage_items_filter_by_ID(ID: ID);
+			datagrid_display_temp_storage();
+		}
+		private void display_storage_items_by_name(string name)
+		{
+			storage_items_filter_by_name(name:name);
+			datagrid_display_temp_storage();
+		}
+		private void display_storage_items_by_quantity(int threshold = int.MaxValue,
+			display_relation relation = display_relation.lessthan)
+		{
+			storage_items_filter_by_quantity(threshold: threshold, relation: relation);
+			datagrid_display_temp_storage();
+		}
+
+
+		private void storage_items_filter_by_ID(string ID)
+		{
+			display_storage.Clear();
 			foreach (DS_Item item in storage_items)
 			{
-				if (item.quantity <= quantity)
+				if(item.storage_item.ID.ToLower().Contains(ID.ToLower()))
+                {
+					DS_Storage_prepare_Item preitem = new DS_Storage_prepare_Item
+					{
+						ID = item.storage_item.ID,
+						name = item.storage_item.name,
+						unit = item.storage_item.unit,
+						quantity = item.quantity
+					};
+					display_storage.Add(preitem);
+				}					
+			}
+		}
+
+		private void storage_items_filter_by_name(string name)
+		{
+			display_storage.Clear();
+			foreach (DS_Item item in storage_items)
+			{
+				if (item.storage_item.name.ToLower().Contains(name.ToLower()))
 				{
-					DS_Storage_prepare_Item preitem = new DS_Storage_prepare_Item{ID = item.storage_item.ID,
-						name = item.storage_item.name, unit = item.storage_item.unit, quantity = item.quantity };
-					tempstorage.Add(preitem);
+					DS_Storage_prepare_Item preitem = new DS_Storage_prepare_Item
+					{
+						ID = item.storage_item.ID,
+						name = item.storage_item.name,
+						unit = item.storage_item.unit,
+						quantity = item.quantity
+					};
+					display_storage.Add(preitem);
 				}
 			}
-			lib_datagrid.datagridview_source_storage(dgv: datagrid_storage, items: tempstorage);
+		}
+
+		private void storage_items_filter_by_quantity(int threshold = int.MaxValue,
+			display_relation relation = display_relation.lessthan)
+        {
+			display_storage.Clear();
+			bool insert = false;
+			foreach (DS_Item item in storage_items)
+			{
+				insert = false;
+				if (relation == display_relation.lessthan)
+				{
+					insert = item.quantity <= threshold;
+				}
+				else if (relation == display_relation.greaterthan)
+				{
+					insert = item.quantity > threshold;
+				}
+				if (insert)
+				{
+					DS_Storage_prepare_Item preitem = new DS_Storage_prepare_Item
+					{
+						ID = item.storage_item.ID,
+						name = item.storage_item.name,
+						unit = item.storage_item.unit,
+						quantity = item.quantity
+					};
+					display_storage.Add(preitem);
+				}
+			}
+		}
+		private void datagrid_display_temp_storage()
+        {
+			lib_datagrid.datagridview_source_storage(dgv: datagrid_storage, items: display_storage);
 		}
 		/**************************************************************/
 		private void button1_Click(object sender, EventArgs e)
@@ -280,7 +363,7 @@ namespace storage_managements
 
         private void button6_Click(object sender, EventArgs e)
         {
-			watch_storage(int.MaxValue);
+			
         }
 
         private void button7_Click(object sender, EventArgs e)
@@ -291,12 +374,12 @@ namespace storage_managements
 
         private void button8_Click(object sender, EventArgs e)
         {
-			watch_storage(0);
+			display_storage_items_by_quantity(0);
 		}
 
         private void button9_Click(object sender, EventArgs e)
         {
-			watch_storage((int)numericUpDown1.Value);
+			display_storage_items_by_quantity((int)numeric_threshold.Value);
 		}
 
         private void flowLayoutPanel2_Paint(object sender, PaintEventArgs e)
@@ -351,6 +434,84 @@ namespace storage_managements
         private void button_add_consumer_Click_1(object sender, EventArgs e)
         {
 			Add_Consumer();
+		}
+
+        private void radioButton4_CheckedChanged(object sender, EventArgs e)
+        {
+			display_storage_items_by_quantity();
+		}
+
+        private void radioButton6_CheckedChanged(object sender, EventArgs e)
+        {
+			display_storage_items_by_quantity(threshold:0);
+		}
+
+        private void radioButton7_CheckedChanged(object sender, EventArgs e)
+        {
+			display_storage_items_by_quantity(threshold: (int)numeric_threshold.Value, relation: display_relation.lessthan);
+		}
+
+        private void radioButton5_CheckedChanged(object sender, EventArgs e)
+        {
+			display_storage_items_by_quantity(threshold: 0, relation: display_relation.greaterthan);
+		}
+
+        private void radioButton8_CheckedChanged(object sender, EventArgs e)
+        {
+			display_storage_items_by_quantity(threshold: (int)numeric_threshold.Value-1, relation: display_relation.greaterthan);
+		}
+
+        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
+        {
+			if(radioButton_less_than.Checked)
+            {
+				display_storage_items_by_quantity(threshold: (int)numeric_threshold.Value, relation: display_relation.lessthan);
+			}				
+			else if(radioButton_greater_than.Checked)
+			{ 
+				display_storage_items_by_quantity(threshold: (int)numeric_threshold.Value -1, relation: display_relation.greaterthan);
+			}
+        }
+
+        private void textbox_search_ID_TextChanged(object sender, EventArgs e)
+        {
+			display_storage_items_by_ID(textbox_search_ID.Text.Trim());
+        }
+
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+			//display_storage_items_by_name();
+		}
+
+        private void textBox_search_name_TextChanged(object sender, EventArgs e)
+        {
+			display_storage_items_by_name(textBox_search_name.Text.Trim());
+		}
+
+        private void button2_Click_1(object sender, EventArgs e)
+        {
+			List<DS_Transaction> transactions = new List<DS_Transaction>();
+			List<DS_Transaction_Grid> transactions_history = new List<DS_Transaction_Grid>();
+			lib_json.Read_Transactions(items: transactions);
+			foreach(DS_Transaction transitem in transactions)
+            {
+				foreach (DS_Storage_prepare_Item trans_item in transitem.transaction_items)
+                {
+					DS_Transaction_Grid trans_history = new DS_Transaction_Grid
+					{
+						ID = transitem.ID,
+						company_name = transitem.company_name,
+						item_ID = trans_item.ID,
+						item_name = trans_item.name,
+						item_quantity = trans_item.quantity,
+						item_unit = trans_item.unit,
+						transaction_time = transitem.transaction_time,
+						transaction_direction = transitem.transaction_direction
+					};
+					transactions_history.Add(trans_history);
+				}					
+            }
+			dataGrid_transaction.DataSource = transactions_history;
 		}
     }
 }

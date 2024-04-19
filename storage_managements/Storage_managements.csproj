@@ -50,6 +50,7 @@
   <ItemGroup>
     <Compile Include="DS_Company.cs" />
     <Compile Include="DS_Item.cs" />
+    <Compile Include="DS_Transaction_Grid.cs" />
     <Compile Include="DS_Transaction.cs" />
     <Compile Include="DS_Storage_prepare_Item.cs" />
     <Compile Include="DS_Database_Item.cs" />
