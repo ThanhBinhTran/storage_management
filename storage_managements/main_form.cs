@@ -53,7 +53,7 @@ namespace storage_managements
 			lib_comboBox.add_items(comboBox_company, companies);
 			lib_comboBox.add_items(comboBox_consumer, consumers);
 			// show table info
-			lib_datagrid.ShowTable_Item_Info(dgv: datagrid_items, items: database_items);
+			lib_datagrid.ShowTable_Item_Info(dgv: datagrid_information, items: database_items);
 			lib_datagrid.ShowTable_Item_Info(dgv: datagrid_storage_items_info, items: database_items);
 			
 		}
@@ -94,30 +94,41 @@ namespace storage_managements
 
 		private bool Add_Conpany()
 		{
+			bool result;
 			if (lib_text.is_textbox_empty(textbox_new_conpany_ID) ||
 				lib_text.is_textbox_empty(textbox_new_company_name))
 			{
+				lib_message.show_messagebox(mstr: "Mã, tên công ty chưa có", mbutton: MessageBoxButtons.OK, micon: MessageBoxIcon.Error);
 				return false;
 			}
 
 			string ID = lib_text.get_textbox_text(textbox_new_conpany_ID);
 			string name = lib_text.get_textbox_text(textbox_new_company_name);
-			lib_list.do_add_update_conpany(items: companies, ID: ID, name: name);
-			lib_json.Write_Company(items: companies);
+			result = lib_list.do_add_update_conpany(items: companies, ID: ID, name: name);
+			if (result)
+			{
+				lib_json.Write_Company(items: companies);
+			}
 			return true;
 		}
 		private bool Add_Consumer()
 		{
+			bool result;
 			if (lib_text.is_textbox_empty(textbox_new_consumer_ID) ||
 				lib_text.is_textbox_empty(textbox_new_consumer_name))
 			{
+				lib_message.show_messagebox(mstr: "Mã, tên khách chưa có", mbutton: MessageBoxButtons.OK, micon: MessageBoxIcon.Error);
 				return false;
 			}
 
 			string ID = lib_text.get_textbox_text(textbox_new_consumer_ID);
 			string name = lib_text.get_textbox_text(textbox_new_consumer_name);
-			lib_list.do_add_update_conpany(items: consumers, ID: ID, name: name);
-			lib_json.Write_Consumer(items: consumers);
+			result = lib_list.do_add_update_conpany(items: consumers, ID: ID, name: name);
+			if (result)
+            {
+				lib_json.Write_Consumer(items: consumers);
+			}				
+			
 			return true;
 		}
 
@@ -126,6 +137,8 @@ namespace storage_managements
 			string pre_fix = "";
 			if(lib_text.is_string_empty(company_name))
             {
+				lib_message.show_messagebox(mstr: Program_Parameters.message_company_empty,mbutton:MessageBoxButtons.OK,
+					micon:MessageBoxIcon.Error);
 				return false;
             }
 			List < DS_Transaction> transactions = new List<DS_Transaction>();
@@ -207,7 +220,7 @@ namespace storage_managements
 
         private void button1_Click_1(object sender, EventArgs e)
         {
-			lib_datagrid.ShowTable_Item_Info(dgv: datagrid_items, items: database_items);
+			lib_datagrid.ShowTable_Item_Info(dgv: datagrid_information, items: database_items);
 			//ShowTable_Item_Info(table_item, itemlist:item_list);
 
 		}
@@ -221,7 +234,7 @@ namespace storage_managements
         private void button2_Click(object sender, EventArgs e)
         {
 			Add_Database_Item();
-			lib_datagrid.ShowTable_Item_Info(dgv: datagrid_items, items: database_items);
+			lib_datagrid.ShowTable_Item_Info(dgv: datagrid_information, items: database_items);
 		}
 
         private void tab_view_SelectedIndexChanged(object sender, EventArgs e)
@@ -259,8 +272,10 @@ namespace storage_managements
 
         private void button4_Click(object sender, EventArgs e)
         {
+			
 			do_transaction(in_out: 1, company_name: textBox_transaction_company.Text);
 			label_message.Text = lib_date_time.getID_byDateTime();
+			
 		}
 
         private void button6_Click(object sender, EventArgs e)
@@ -296,13 +311,19 @@ namespace storage_managements
 
         private void button_add_company_Click(object sender, EventArgs e)
         {
-			Add_Conpany();
-        }
+			lib_datagrid.datagridview_source_company(dgv: datagrid_information, items: companies);
+			List<string> oldlheader = new List<string> { "ID", "name" };
+			List<string> newlheader = new List<string> { "Mã c.ty", "Tên cty" };
+			lib_datagrid.datagridview_rename_header(dgv: datagrid_information, oldHeader: oldlheader, newHeader: newlheader);
+		}
 
         private void button_add_consumer_Click(object sender, EventArgs e)
         {
-			Add_Consumer();
-        }
+			lib_datagrid.datagridview_source_company(dgv: datagrid_information, items: consumers);
+			List<string> oldlheader = new List<string> { "ID", "name" };
+			List<string> newlheader = new List<string> { "Mã Khách", "Tên Khách" };
+			lib_datagrid.datagridview_rename_header(dgv: datagrid_information, oldHeader: oldlheader, newHeader: newlheader);
+		}
 
         private void comboBox_company_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -316,7 +337,20 @@ namespace storage_managements
 
         private void button1_Click_2(object sender, EventArgs e)
         {
-			label_message.Text = lib_date_time.getID_byDateTime();
+			
+			//disply message 
+			lib_message.show_messagebox("hello binh");
+
         }
+
+        private void button_add_company_Click_1(object sender, EventArgs e)
+        {
+			Add_Conpany();
+		}
+
+        private void button_add_consumer_Click_1(object sender, EventArgs e)
+        {
+			Add_Consumer();
+		}
     }
 }

@@ -12,6 +12,8 @@ namespace storage_managements
 		public const string filePath_company = dataPath + @"company.json";
 		public const string filePath_consumer = dataPath + @"consumer.json";
 		public const string filePath_transaction = dataPath + @"transaction.json";
+
+		public const string message_company_empty = "Tên công ty hoặc khách hàng đang trống";
 		/* create path for program if nonexist*/
 		public static void create_paths()
         {

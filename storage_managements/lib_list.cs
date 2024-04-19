@@ -143,9 +143,20 @@ namespace storage_managements
             items[idx].name = name;
         }
 
-        public static void do_add_update_conpany(List<DS_Company> items, string ID, string name) 
+        public static bool do_add_update_conpany(List<DS_Company> items, string ID, string name) 
         {
             int idx = lib_list.get_idx_conpany_item_by_ID(ID: ID, items: items);
+            bool result = false;
+            if(idx > -1)
+            {
+                result = lib_message.show_messagebox(mstr: "Trùng mã, vẫn tiếp tục?", micon: System.Windows.Forms.MessageBoxIcon.Question,
+                    mbutton: System.Windows.Forms.MessageBoxButtons.OKCancel);
+                
+            }
+            if (result)
+            {
+                return false;
+            }
             if (idx == -1) // new one
             {
                 lib_list.add_conpany_item(items: items, ID: ID, name: name);
@@ -154,6 +165,7 @@ namespace storage_managements
             {
                 lib_list.update_conpany_by_idx(items: items, idx: idx, name: name);
             }
+            return true;
         }
         public static void print_conpany_items(List<DS_Company> items)
         {

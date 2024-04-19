@@ -58,6 +58,7 @@
     <Compile Include="lib_date_time.cs" />
     <Compile Include="lib_json.cs" />
     <Compile Include="lib_list.cs" />
+    <Compile Include="lib_message.cs" />
     <Compile Include="lib_text.cs" />
     <Compile Include="Program_Parameters.cs" />
     <Compile Include="main_form.cs">
