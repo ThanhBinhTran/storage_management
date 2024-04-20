@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace storage_managements
 {
@@ -11,6 +8,10 @@ namespace storage_managements
         public static DateTime GetCurrentTime()
         {
             return DateTime.Now;
+        }
+        public static string GetTimeOnly(DateTime dt)
+        {
+            return string.Format("{0:yyyy/MM/dd HH:mm:ss}", dt);
         }
         public static string GetYear()
         {
@@ -29,6 +30,7 @@ namespace storage_managements
         {
             return string.Format("{0:yyMMddHHmmssf}", DateTime.Now);
         }
+
 
         public static List<DateTime> GetAllDatesBetween(DateTime startDate, DateTime endDate)
         {
@@ -55,7 +57,7 @@ namespace storage_managements
         public static string GetTransactionPathFromCurrentDate()
         {
             return DateToTransactionPath(dt: DateTime.Now);
-            
+
         }
     }
 }

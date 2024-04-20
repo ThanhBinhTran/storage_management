@@ -67,19 +67,8 @@ namespace storage_managements
             this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
             this.dataGrid_transaction = new System.Windows.Forms.DataGridView();
             this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.flowLayoutPanel5 = new System.Windows.Forms.FlowLayoutPanel();
-            this.radioButton_transactions = new System.Windows.Forms.RadioButton();
-            this.radioButton_transaction_by_import = new System.Windows.Forms.RadioButton();
-            this.radioButton_transaction_by_export = new System.Windows.Forms.RadioButton();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.flowLayoutPanel6 = new System.Windows.Forms.FlowLayoutPanel();
-            this.radioButton_transaction_by_items = new System.Windows.Forms.RadioButton();
-            this.radioButton_transaction_by_companies = new System.Windows.Forms.RadioButton();
-            this.button2 = new System.Windows.Forms.Button();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.flowLayoutPanel7 = new System.Windows.Forms.FlowLayoutPanel();
-            this.label8 = new System.Windows.Forms.Label();
             this.dateTimePicker_from = new System.Windows.Forms.DateTimePicker();
             this.label13 = new System.Windows.Forms.Label();
             this.dateTimePicker_to = new System.Windows.Forms.DateTimePicker();
@@ -114,6 +103,11 @@ namespace storage_managements
             this.label_message = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.label8 = new System.Windows.Forms.Label();
+            this.comboBox_transaction_display = new System.Windows.Forms.ComboBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.comboBox_history_transaction_sort = new System.Windows.Forms.ComboBox();
+            this.flowLayoutPanel5 = new System.Windows.Forms.FlowLayoutPanel();
             layout_L1 = new System.Windows.Forms.TableLayoutPanel();
             layout_L1.SuspendLayout();
             this.flowLayoutPanel3.SuspendLayout();
@@ -133,10 +127,6 @@ namespace storage_managements
             this.tableLayoutPanel6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGrid_transaction)).BeginInit();
             this.flowLayoutPanel2.SuspendLayout();
-            this.groupBox1.SuspendLayout();
-            this.flowLayoutPanel5.SuspendLayout();
-            this.groupBox4.SuspendLayout();
-            this.flowLayoutPanel6.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.flowLayoutPanel7.SuspendLayout();
             this.tab_database_info.SuspendLayout();
@@ -147,6 +137,7 @@ namespace storage_managements
             this.flowLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
             this.flowLayoutPanel4.SuspendLayout();
+            this.flowLayoutPanel5.SuspendLayout();
             this.SuspendLayout();
             // 
             // layout_L1
@@ -644,8 +635,7 @@ namespace storage_managements
             // 
             // flowLayoutPanel2
             // 
-            this.flowLayoutPanel2.Controls.Add(this.groupBox1);
-            this.flowLayoutPanel2.Controls.Add(this.groupBox4);
+            this.flowLayoutPanel2.Controls.Add(this.flowLayoutPanel5);
             this.flowLayoutPanel2.Controls.Add(this.groupBox5);
             this.flowLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel2.Location = new System.Drawing.Point(3, 263);
@@ -654,130 +644,10 @@ namespace storage_managements
             this.flowLayoutPanel2.Size = new System.Drawing.Size(1186, 181);
             this.flowLayoutPanel2.TabIndex = 1;
             // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.flowLayoutPanel5);
-            this.groupBox1.Location = new System.Drawing.Point(3, 2);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.groupBox1.Size = new System.Drawing.Size(488, 86);
-            this.groupBox1.TabIndex = 3;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "phân loại";
-            // 
-            // flowLayoutPanel5
-            // 
-            this.flowLayoutPanel5.Controls.Add(this.radioButton_transactions);
-            this.flowLayoutPanel5.Controls.Add(this.radioButton_transaction_by_import);
-            this.flowLayoutPanel5.Controls.Add(this.radioButton_transaction_by_export);
-            this.flowLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowLayoutPanel5.Location = new System.Drawing.Point(3, 33);
-            this.flowLayoutPanel5.Name = "flowLayoutPanel5";
-            this.flowLayoutPanel5.Size = new System.Drawing.Size(482, 51);
-            this.flowLayoutPanel5.TabIndex = 0;
-            // 
-            // radioButton_transactions
-            // 
-            this.radioButton_transactions.AutoSize = true;
-            this.radioButton_transactions.Location = new System.Drawing.Point(3, 2);
-            this.radioButton_transactions.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.radioButton_transactions.Name = "radioButton_transactions";
-            this.radioButton_transactions.Size = new System.Drawing.Size(114, 36);
-            this.radioButton_transactions.TabIndex = 3;
-            this.radioButton_transactions.TabStop = true;
-            this.radioButton_transactions.Text = "Tất cả";
-            this.radioButton_transactions.UseVisualStyleBackColor = true;
-            this.radioButton_transactions.CheckedChanged += new System.EventHandler(this.radioButton3_CheckedChanged);
-            // 
-            // radioButton_transaction_by_import
-            // 
-            this.radioButton_transaction_by_import.AutoSize = true;
-            this.radioButton_transaction_by_import.Location = new System.Drawing.Point(123, 2);
-            this.radioButton_transaction_by_import.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.radioButton_transaction_by_import.Name = "radioButton_transaction_by_import";
-            this.radioButton_transaction_by_import.Size = new System.Drawing.Size(104, 36);
-            this.radioButton_transaction_by_import.TabIndex = 4;
-            this.radioButton_transaction_by_import.TabStop = true;
-            this.radioButton_transaction_by_import.Text = "Nhập";
-            this.radioButton_transaction_by_import.UseVisualStyleBackColor = true;
-            this.radioButton_transaction_by_import.CheckedChanged += new System.EventHandler(this.radioButton_transaction_import_CheckedChanged);
-            // 
-            // radioButton_transaction_by_export
-            // 
-            this.radioButton_transaction_by_export.AutoSize = true;
-            this.radioButton_transaction_by_export.Location = new System.Drawing.Point(233, 2);
-            this.radioButton_transaction_by_export.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.radioButton_transaction_by_export.Name = "radioButton_transaction_by_export";
-            this.radioButton_transaction_by_export.Size = new System.Drawing.Size(95, 36);
-            this.radioButton_transaction_by_export.TabIndex = 2;
-            this.radioButton_transaction_by_export.TabStop = true;
-            this.radioButton_transaction_by_export.Text = "Xuất";
-            this.radioButton_transaction_by_export.UseVisualStyleBackColor = true;
-            this.radioButton_transaction_by_export.CheckedChanged += new System.EventHandler(this.radioButton_transaction_export_CheckedChanged);
-            // 
-            // groupBox4
-            // 
-            this.groupBox4.Controls.Add(this.flowLayoutPanel6);
-            this.groupBox4.Location = new System.Drawing.Point(497, 3);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(674, 85);
-            this.groupBox4.TabIndex = 4;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Sắp xếp theo:";
-            // 
-            // flowLayoutPanel6
-            // 
-            this.flowLayoutPanel6.Controls.Add(this.radioButton_transaction_by_items);
-            this.flowLayoutPanel6.Controls.Add(this.radioButton_transaction_by_companies);
-            this.flowLayoutPanel6.Controls.Add(this.button2);
-            this.flowLayoutPanel6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowLayoutPanel6.Location = new System.Drawing.Point(3, 34);
-            this.flowLayoutPanel6.Name = "flowLayoutPanel6";
-            this.flowLayoutPanel6.Size = new System.Drawing.Size(668, 48);
-            this.flowLayoutPanel6.TabIndex = 0;
-            // 
-            // radioButton_transaction_by_items
-            // 
-            this.radioButton_transaction_by_items.AutoSize = true;
-            this.radioButton_transaction_by_items.Location = new System.Drawing.Point(3, 2);
-            this.radioButton_transaction_by_items.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.radioButton_transaction_by_items.Name = "radioButton_transaction_by_items";
-            this.radioButton_transaction_by_items.Size = new System.Drawing.Size(154, 36);
-            this.radioButton_transaction_by_items.TabIndex = 1;
-            this.radioButton_transaction_by_items.TabStop = true;
-            this.radioButton_transaction_by_items.Text = "Mặt hàng";
-            this.radioButton_transaction_by_items.UseVisualStyleBackColor = true;
-            this.radioButton_transaction_by_items.CheckedChanged += new System.EventHandler(this.radioButton_transaction_by_items_CheckedChanged);
-            // 
-            // radioButton_transaction_by_companies
-            // 
-            this.radioButton_transaction_by_companies.AutoSize = true;
-            this.radioButton_transaction_by_companies.Location = new System.Drawing.Point(163, 2);
-            this.radioButton_transaction_by_companies.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.radioButton_transaction_by_companies.Name = "radioButton_transaction_by_companies";
-            this.radioButton_transaction_by_companies.Size = new System.Drawing.Size(220, 36);
-            this.radioButton_transaction_by_companies.TabIndex = 2;
-            this.radioButton_transaction_by_companies.TabStop = true;
-            this.radioButton_transaction_by_companies.Text = "Tên c.ty/khách";
-            this.radioButton_transaction_by_companies.UseVisualStyleBackColor = true;
-            this.radioButton_transaction_by_companies.CheckedChanged += new System.EventHandler(this.radioButton_transaction_by_companies_CheckedChanged);
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(389, 2);
-            this.button2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(148, 42);
-            this.button2.TabIndex = 1;
-            this.button2.Text = "button2";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click_1);
-            // 
             // groupBox5
             // 
             this.groupBox5.Controls.Add(this.flowLayoutPanel7);
-            this.groupBox5.Location = new System.Drawing.Point(3, 94);
+            this.groupBox5.Location = new System.Drawing.Point(3, 109);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Size = new System.Drawing.Size(1161, 87);
             this.groupBox5.TabIndex = 5;
@@ -786,7 +656,6 @@ namespace storage_managements
             // 
             // flowLayoutPanel7
             // 
-            this.flowLayoutPanel7.Controls.Add(this.label8);
             this.flowLayoutPanel7.Controls.Add(this.dateTimePicker_from);
             this.flowLayoutPanel7.Controls.Add(this.label13);
             this.flowLayoutPanel7.Controls.Add(this.dateTimePicker_to);
@@ -796,18 +665,9 @@ namespace storage_managements
             this.flowLayoutPanel7.Size = new System.Drawing.Size(1155, 50);
             this.flowLayoutPanel7.TabIndex = 0;
             // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(3, 0);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(56, 32);
-            this.label8.TabIndex = 1;
-            this.label8.Text = "Từ:";
-            // 
             // dateTimePicker_from
             // 
-            this.dateTimePicker_from.Location = new System.Drawing.Point(65, 3);
+            this.dateTimePicker_from.Location = new System.Drawing.Point(3, 3);
             this.dateTimePicker_from.Name = "dateTimePicker_from";
             this.dateTimePicker_from.Size = new System.Drawing.Size(200, 38);
             this.dateTimePicker_from.TabIndex = 0;
@@ -816,7 +676,7 @@ namespace storage_managements
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(271, 0);
+            this.label13.Location = new System.Drawing.Point(209, 0);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(63, 32);
             this.label13.TabIndex = 2;
@@ -824,7 +684,7 @@ namespace storage_managements
             // 
             // dateTimePicker_to
             // 
-            this.dateTimePicker_to.Location = new System.Drawing.Point(340, 3);
+            this.dateTimePicker_to.Location = new System.Drawing.Point(278, 3);
             this.dateTimePicker_to.Name = "dateTimePicker_to";
             this.dateTimePicker_to.Size = new System.Drawing.Size(200, 38);
             this.dateTimePicker_to.TabIndex = 3;
@@ -1173,6 +1033,60 @@ namespace storage_managements
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click_2);
             // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(3, 0);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(120, 32);
+            this.label8.TabIndex = 4;
+            this.label8.Text = "Hiển thị:";
+            // 
+            // comboBox_transaction_display
+            // 
+            this.comboBox_transaction_display.FormattingEnabled = true;
+            this.comboBox_transaction_display.Items.AddRange(new object[] {
+            "Tất cả",
+            "Nhập hàng",
+            "Xuất hàng"});
+            this.comboBox_transaction_display.Location = new System.Drawing.Point(129, 3);
+            this.comboBox_transaction_display.Name = "comboBox_transaction_display";
+            this.comboBox_transaction_display.Size = new System.Drawing.Size(306, 39);
+            this.comboBox_transaction_display.TabIndex = 5;
+            this.comboBox_transaction_display.SelectedIndexChanged += new System.EventHandler(this.comboBox_transaction_display_SelectedIndexChanged);
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(441, 0);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(190, 32);
+            this.label14.TabIndex = 6;
+            this.label14.Text = "Sắp xếp theo:";
+            // 
+            // comboBox_history_transaction_sort
+            // 
+            this.comboBox_history_transaction_sort.FormattingEnabled = true;
+            this.comboBox_history_transaction_sort.Items.AddRange(new object[] {
+            "Mặt hàng",
+            "Tên cty/khách"});
+            this.comboBox_history_transaction_sort.Location = new System.Drawing.Point(637, 3);
+            this.comboBox_history_transaction_sort.Name = "comboBox_history_transaction_sort";
+            this.comboBox_history_transaction_sort.Size = new System.Drawing.Size(284, 39);
+            this.comboBox_history_transaction_sort.TabIndex = 7;
+            this.comboBox_history_transaction_sort.SelectedIndexChanged += new System.EventHandler(this.comboBox_history_transaction_sort_SelectedIndexChanged);
+            // 
+            // flowLayoutPanel5
+            // 
+            this.flowLayoutPanel5.Controls.Add(this.label8);
+            this.flowLayoutPanel5.Controls.Add(this.comboBox_transaction_display);
+            this.flowLayoutPanel5.Controls.Add(this.label14);
+            this.flowLayoutPanel5.Controls.Add(this.comboBox_history_transaction_sort);
+            this.flowLayoutPanel5.Location = new System.Drawing.Point(3, 3);
+            this.flowLayoutPanel5.Name = "flowLayoutPanel5";
+            this.flowLayoutPanel5.Size = new System.Drawing.Size(1120, 100);
+            this.flowLayoutPanel5.TabIndex = 6;
+            // 
             // main_form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -1203,12 +1117,6 @@ namespace storage_managements
             this.tableLayoutPanel6.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGrid_transaction)).EndInit();
             this.flowLayoutPanel2.ResumeLayout(false);
-            this.groupBox1.ResumeLayout(false);
-            this.flowLayoutPanel5.ResumeLayout(false);
-            this.flowLayoutPanel5.PerformLayout();
-            this.groupBox4.ResumeLayout(false);
-            this.flowLayoutPanel6.ResumeLayout(false);
-            this.flowLayoutPanel6.PerformLayout();
             this.groupBox5.ResumeLayout(false);
             this.flowLayoutPanel7.ResumeLayout(false);
             this.flowLayoutPanel7.PerformLayout();
@@ -1223,6 +1131,8 @@ namespace storage_managements
             this.tableLayoutPanel3.PerformLayout();
             this.flowLayoutPanel4.ResumeLayout(false);
             this.flowLayoutPanel4.PerformLayout();
+            this.flowLayoutPanel5.ResumeLayout(false);
+            this.flowLayoutPanel5.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1283,10 +1193,6 @@ namespace storage_managements
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel6;
         private System.Windows.Forms.DataGridView dataGrid_transaction;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel2;
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.RadioButton radioButton_transactions;
-        private System.Windows.Forms.RadioButton radioButton_transaction_by_export;
-        private System.Windows.Forms.RadioButton radioButton_transaction_by_items;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.RadioButton radioButton_all;
@@ -1294,25 +1200,23 @@ namespace storage_managements
         private System.Windows.Forms.RadioButton radioButton_in_storage;
         private System.Windows.Forms.RadioButton radioButton_less_than;
         private System.Windows.Forms.RadioButton radioButton_greater_than;
-        private System.Windows.Forms.Button button2;
         private System.Windows.Forms.DataGridViewCheckBoxColumn storage_item_select;
-        private System.Windows.Forms.RadioButton radioButton_transaction_by_import;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel7;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.RadioButton radioButton_items;
         private System.Windows.Forms.RadioButton radioButton_company;
         private System.Windows.Forms.RadioButton radioButton_consumer;
-        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel5;
-        private System.Windows.Forms.GroupBox groupBox4;
-        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel6;
-        private System.Windows.Forms.RadioButton radioButton_transaction_by_companies;
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel7;
-        private System.Windows.Forms.Label label8;
         private System.Windows.Forms.DateTimePicker dateTimePicker_from;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.DateTimePicker dateTimePicker_to;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.ComboBox comboBox_transaction_display;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.ComboBox comboBox_history_transaction_sort;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel5;
     }
 }
 

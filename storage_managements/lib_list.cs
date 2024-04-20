@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 namespace storage_managements
 {
@@ -13,10 +10,11 @@ namespace storage_managements
          */
         public static void add_database_item(List<DS_Storage_Item> items, string ID, string name, string unit)
         {
-            DS_Storage_Item item = new DS_Storage_Item { 
+            DS_Storage_Item item = new DS_Storage_Item
+            {
                 ID = ID,
-				name = name,
-				unit = unit
+                name = name,
+                unit = unit
             };
             items.Add(item);
         }
@@ -45,8 +43,8 @@ namespace storage_managements
             {
                 result = lib_message.show_messagebox(mstr: "Mã đã được dùng.\nVẫn muốn ghi đè?", mbutton: MessageBoxButtons.OKCancel,
                     micon: MessageBoxIcon.Warning);
-            }    
-            if(result)
+            }
+            if (result)
             {
                 if (idx == -1) // new one
                 {
@@ -56,7 +54,7 @@ namespace storage_managements
                 {
                     lib_list.update_database_item_by_idx(items: items, ID: ID, name: name, unit: unit, idx: idx);
                 }
-            }    
+            }
 
         }
         public static void print_database_items(List<DS_Storage_Item> items)
@@ -98,7 +96,7 @@ namespace storage_managements
         {
             items[idx].quantity += quantity;
         }
-        public static void do_add_update_storage_item(List<DS_Storage_Item> items, string ID, string name, 
+        public static void do_add_update_storage_item(List<DS_Storage_Item> items, string ID, string name,
             string unit, int quantity, direction dir) // in = 1 ; out = -1 
         {
             int in_out = 0;
@@ -106,10 +104,10 @@ namespace storage_managements
             {
                 in_out = 1;
             }
-            else if(dir == direction.export)
+            else if (dir == direction.export)
             {
                 in_out = -1;
-            }    
+            }
             int idx = lib_list.get_idx_storage_item_by_ID(ID: ID, items: items);
             if (idx == -1) // new one
             {
@@ -158,15 +156,15 @@ namespace storage_managements
             items[idx].name = name;
         }
 
-        public static bool do_add_update_conpany(List<DS_Company> items, string ID, string name) 
+        public static bool do_add_update_conpany(List<DS_Company> items, string ID, string name)
         {
             int idx = lib_list.get_idx_conpany_item_by_ID(ID: ID, items: items);
             bool result = false;
-            if(idx > -1)
+            if (idx > -1)
             {
                 result = lib_message.show_messagebox(mstr: "Trùng mã, vẫn tiếp tục?", micon: System.Windows.Forms.MessageBoxIcon.Question,
                     mbutton: System.Windows.Forms.MessageBoxButtons.OKCancel);
-                
+
             }
             if (result)
             {

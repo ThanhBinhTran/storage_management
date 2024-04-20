@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
+﻿using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace storage_managements
@@ -38,7 +34,7 @@ namespace storage_managements
             else
             {
                 tb.BackColor = Color.White;
-            }    
+            }
         }
 
     }
