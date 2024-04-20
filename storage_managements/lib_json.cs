@@ -11,19 +11,19 @@ namespace storage_managements
 		/*
 		 * database for items information
 		 */
-		public static bool Read_Database_Item(List<DS_Database_Item> items)
+		public static bool Read_Database_Item(List<DS_Storage_Item> items)
 		{
 			string filepath = Program_Parameters.filePath_goods;
 			try
 			{
-				List<DS_Database_Item> read_items = new List<DS_Database_Item>();
+				List<DS_Storage_Item> read_items = new List<DS_Storage_Item>();
 				// Read JSON data from file
 				string json = File.ReadAllText(filepath);
 				Console.WriteLine("read item information " + filepath);
 				// Deserialize JSON to a list of Player objects
-				read_items = JsonConvert.DeserializeObject<List<DS_Database_Item>>(json);
+				read_items = JsonConvert.DeserializeObject<List<DS_Storage_Item>>(json);
 				Console.WriteLine("read item information: " + items.Count + "items");
-                foreach (DS_Database_Item item in read_items)
+                foreach (DS_Storage_Item item in read_items)
                 {
 					items.Add(item);
                 }
@@ -35,7 +35,7 @@ namespace storage_managements
 				return false;
 			}
 		}
-		public static void Write_Database_Item(List<DS_Database_Item> items)
+		public static void Write_Database_Item(List<DS_Storage_Item> items)
 		{
 			string filepath = Program_Parameters.filePath_goods;
 			string json_str = JsonConvert.SerializeObject(items, Formatting.Indented);
@@ -50,18 +50,18 @@ namespace storage_managements
 		/*
 		 * storage information
 		 */
-		public static bool Read_Storage_Item(List<DS_Item> items)
+		public static bool Read_Storage_Item(List<DS_Storage_Item> items)
 		{
 			try
 			{
-				List<DS_Item> read_items = new List<DS_Item>();
+				List<DS_Storage_Item> read_items = new List<DS_Storage_Item>();
 				// Read JSON data from file
 				string json = File.ReadAllText(Program_Parameters.filePath_storage);
 				Console.WriteLine("read item information " + Program_Parameters.filePath_storage);
 				// Deserialize JSON to a list of Player objects
-				read_items = JsonConvert.DeserializeObject<List<DS_Item>>(json);
+				read_items = JsonConvert.DeserializeObject<List<DS_Storage_Item>>(json);
 				Console.WriteLine("read item information: " + items.Count + "items");
-				foreach (DS_Item item in read_items)
+				foreach (DS_Storage_Item item in read_items)
 				{
 					items.Add(item);
 				}
@@ -73,7 +73,7 @@ namespace storage_managements
 				return false;
 			}
 		}
-		public static void Write_Storage_Item(List<DS_Item> items)
+		public static void Write_Storage_Item(List<DS_Storage_Item> items)
 		{
 			string filepath = Program_Parameters.filePath_storage;
 			string json_str = JsonConvert.SerializeObject(items, Formatting.Indented);

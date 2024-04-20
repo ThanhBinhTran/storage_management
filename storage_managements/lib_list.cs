@@ -11,22 +11,22 @@ namespace storage_managements
         /*
          * database items
          */
-        public static void add_database_item(List<DS_Database_Item> items, string ID, string name, string unit)
+        public static void add_database_item(List<DS_Storage_Item> items, string ID, string name, string unit)
         {
-            DS_Database_Item item = new DS_Database_Item { 
+            DS_Storage_Item item = new DS_Storage_Item { 
                 ID = ID,
 				name = name,
 				unit = unit
             };
             items.Add(item);
         }
-        public static void update_database_item_by_idx(List<DS_Database_Item> items, string ID, string name, string unit, int idx)
+        public static void update_database_item_by_idx(List<DS_Storage_Item> items, string ID, string name, string unit, int idx)
         {
             items[idx].ID = ID;
             items[idx].name = name;
             items[idx].unit = unit;
         }
-        public static int get_idx_database_item_by_ID(string ID, List<DS_Database_Item> items)
+        public static int get_idx_database_item_by_ID(string ID, List<DS_Storage_Item> items)
         {
             for (int i = 0; i < items.Count; i++)
             {
@@ -37,7 +37,7 @@ namespace storage_managements
             }
             return -1;
         }
-        public static void do_add_update_database_item(List<DS_Database_Item> items, string ID, string name, string unit)
+        public static void do_add_update_database_item(List<DS_Storage_Item> items, string ID, string name, string unit)
         {
             int idx = lib_list.get_idx_database_item_by_ID(ID: ID, items: items);
             if (idx == -1) // new one
@@ -49,10 +49,10 @@ namespace storage_managements
                 lib_list.update_database_item_by_idx(items: items, ID: ID, name: name, unit: unit, idx: idx);
             }
         }
-        public static void print_database_items(List<DS_Database_Item> items)
+        public static void print_database_items(List<DS_Storage_Item> items)
         {
             Console.WriteLine("list size: " + items.Count);
-            foreach (DS_Database_Item item in items)
+            foreach (DS_Storage_Item item in items)
             {
                 item.print_item();
             }
@@ -61,38 +61,34 @@ namespace storage_managements
         /*
          * storage items
          */
-        public static void add_storage_item(List<DS_Item> items, string ID, string name, string unit, int quantity)
+        public static void add_storage_item(List<DS_Storage_Item> items, string ID, string name, string unit, int quantity)
         {
-            DS_Database_Item item = new DS_Database_Item
+            DS_Storage_Item item = new DS_Storage_Item
             {
                 ID = ID,
                 name = name,
-                unit = unit
+                unit = unit,
+                quantity = quantity
             };
-            DS_Item storage_item = new DS_Item
-            {
-                storage_item = item,
-                quantity = quantity,
-            };
-            items.Add(storage_item);
+            items.Add(item);
 
         }
-        public static int get_idx_storage_item_by_ID(string ID, List<DS_Item> items)
+        public static int get_idx_storage_item_by_ID(string ID, List<DS_Storage_Item> items)
         {
             for (int i = 0; i < items.Count; i++)
             {
-                if (items[i].storage_item.ID == ID)
+                if (items[i].ID == ID)
                 {
                     return i;
                 }
             }
             return -1;
         }
-        public static void update_storage_item_quantity_by_idx(List<DS_Item> items, int idx, int quantity)
+        public static void update_storage_item_quantity_by_idx(List<DS_Storage_Item> items, int idx, int quantity)
         {
             items[idx].quantity += quantity;
         }
-        public static void do_add_update_storage_item(List<DS_Item> items, string ID, string name, 
+        public static void do_add_update_storage_item(List<DS_Storage_Item> items, string ID, string name, 
             string unit, int quantity, int in_out) // in = 1 ; out = -1 
         {
             int idx = lib_list.get_idx_storage_item_by_ID(ID: ID, items: items);
@@ -105,10 +101,10 @@ namespace storage_managements
                 lib_list.update_storage_item_quantity_by_idx(items: items, idx: idx, quantity: quantity * in_out);
             }
         }
-        public static void print_storage_items(List<DS_Item> items)
+        public static void print_storage_items(List<DS_Storage_Item> items)
         {
             Console.WriteLine("list size: " + items.Count);
-            foreach (DS_Item item in items)
+            foreach (DS_Storage_Item item in items)
             {
                 item.print_item();
             }

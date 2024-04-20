@@ -35,7 +35,7 @@ namespace storage_managements
 			dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 		}
 		
-		public static void datagridview_source_item(DataGridView dgv, List<DS_Database_Item> items)
+		public static void datagridview_source_item(DataGridView dgv, List<DS_Storage_Item> items)
 		{
 			BindingSource source = new BindingSource();
 			source.DataSource = items;
@@ -53,7 +53,7 @@ namespace storage_managements
 			}
 		}
 		
-		public static void ShowTable_Item_Info(DataGridView dgv, List<DS_Database_Item> items)
+		public static void ShowTable_Item_Info(DataGridView dgv, List<DS_Storage_Item> items)
 		{
 			datagridview_source_item(dgv:dgv, items:items);
 

@@ -18,14 +18,14 @@ namespace storage_managements
 		 * declaeration 
 		 */
 		// list of items information
-		public List<DS_Database_Item> database_items = new List<DS_Database_Item>();
+		public List<DS_Storage_Item> database_items = new List<DS_Storage_Item>();
 
 		// list of pre-transaction items
 		public List<DS_Storage_prepare_Item> pre_transaction_items = new List<DS_Storage_prepare_Item>();
 		private List<DS_Storage_prepare_Item> display_storage = new List<DS_Storage_prepare_Item>();
 
 		// list of storage items
-		public List<DS_Item> storage_items = new List<DS_Item>();
+		public List<DS_Storage_Item> storage_items = new List<DS_Storage_Item>();
 
 
 		// list of consumers
@@ -212,15 +212,15 @@ namespace storage_managements
 		private void storage_items_filter_by_ID(string ID)
 		{
 			display_storage.Clear();
-			foreach (DS_Item item in storage_items)
+			foreach (DS_Storage_Item item in storage_items)
 			{
-				if(item.storage_item.ID.ToLower().Contains(ID.ToLower()))
+				if(item.ID.ToLower().Contains(ID.ToLower()))
                 {
 					DS_Storage_prepare_Item preitem = new DS_Storage_prepare_Item
 					{
-						ID = item.storage_item.ID,
-						name = item.storage_item.name,
-						unit = item.storage_item.unit,
+						ID = item.ID,
+						name = item.name,
+						unit = item.unit,
 						quantity = item.quantity
 					};
 					display_storage.Add(preitem);
@@ -231,15 +231,15 @@ namespace storage_managements
 		private void storage_items_filter_by_name(string name)
 		{
 			display_storage.Clear();
-			foreach (DS_Item item in storage_items)
+			foreach (DS_Storage_Item item in storage_items)
 			{
-				if (item.storage_item.name.ToLower().Contains(name.ToLower()))
+				if (item.name.ToLower().Contains(name.ToLower()))
 				{
 					DS_Storage_prepare_Item preitem = new DS_Storage_prepare_Item
 					{
-						ID = item.storage_item.ID,
-						name = item.storage_item.name,
-						unit = item.storage_item.unit,
+						ID = item.ID,
+						name = item.name,
+						unit = item.unit,
 						quantity = item.quantity
 					};
 					display_storage.Add(preitem);
@@ -252,7 +252,7 @@ namespace storage_managements
         {
 			display_storage.Clear();
 			bool insert = false;
-			foreach (DS_Item item in storage_items)
+			foreach (DS_Storage_Item item in storage_items)
 			{
 				insert = false;
 				if (relation == display_relation.lessthan)
@@ -267,9 +267,9 @@ namespace storage_managements
 				{
 					DS_Storage_prepare_Item preitem = new DS_Storage_prepare_Item
 					{
-						ID = item.storage_item.ID,
-						name = item.storage_item.name,
-						unit = item.storage_item.unit,
+						ID = item.ID,
+						name = item.name,
+						unit = item.unit,
 						quantity = item.quantity
 					};
 					display_storage.Add(preitem);
