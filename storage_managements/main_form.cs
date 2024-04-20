@@ -22,7 +22,12 @@ namespace storage_managements
 		private List<DS_Storage_Item> storages_display = new List<DS_Storage_Item>();
 		// list of pre-transaction items
 		private List<DS_Storage_Item> pre_transaction_items = new List<DS_Storage_Item>();
-
+		
+		/*
+		 * Tab transactions
+		 */
+		private List<DS_Transaction_Grid> transactions_history = new List<DS_Transaction_Grid>();
+		private List<DS_Transaction> retrieve_transactions = new List<DS_Transaction>(); // retrieve  transaction for search.
 
 		/*
 		 * tab information (items, company, consumer)
@@ -138,7 +143,7 @@ namespace storage_managements
 			return true;
 		}
 
-		private bool do_transaction(int in_out, string company_name) // in = import, out = export
+		private bool do_transaction(direction dir, string company_name) // in = import, out = export
         {
 			string pre_fix = "";
 			if(lib_form_text.is_string_empty(company_name))
@@ -147,8 +152,8 @@ namespace storage_managements
 					micon:MessageBoxIcon.Error);
 				return false;
             }
-			List < DS_Transaction> transactions = new List<DS_Transaction>();
-			DS_Transaction transaction = new DS_Transaction();
+			List < DS_Transaction> inday_transactions = new List<DS_Transaction>();
+			DS_Transaction cur_transaction = new DS_Transaction();
 			List<DS_Storage_Item> transaction_items = new List<DS_Storage_Item>();
 			foreach (DS_Storage_Item item in pre_transaction_items)
             {
@@ -162,38 +167,62 @@ namespace storage_managements
 				transaction_items.Add(s_preitem);
 
 				lib_list.do_add_update_storage_item(items: storages, ID: ID, name: name,
-						unit: unit, quantity: quantity, in_out: in_out);
+						unit: unit, quantity: quantity, dir: dir);
 			}
-			if (in_out == 1)
-			{
+			cur_transaction.transaction_direction = dir;
+			if(dir == direction.import)
+            {
 				pre_fix = "N";
-				transaction.transaction_direction = direction.import;
-			}
-			else
-			{
-				pre_fix = "X";
-				transaction.transaction_direction = direction.export;
-			}
-			transaction.transaction_items = transaction_items;
-			transaction.ID = pre_fix + lib_date_time.getID_byDateTime();
-			transaction.company_name = company_name;
-			transaction.transaction_time = lib_date_time.get_currenttime();
 
-			transaction.print_item();
+			}else if(dir == direction.export)
+            {
+				pre_fix = "X";
+			}				
+			cur_transaction.transaction_items = transaction_items;
+			cur_transaction.ID = pre_fix + lib_date_time.getID_byDateTime();
+			cur_transaction.company_name = company_name;
+			cur_transaction.transaction_time = lib_date_time.get_currenttime();
+
+			cur_transaction.print_item();
 			// get exist transaction in the same day.
-			lib_json.Read_Transactions(items: transactions);
-			transactions.Add(transaction);
+			string file_path = lib_date_time.get_current_transaction_date();
+			lib_json.Read_Transactions(items: inday_transactions, filepath:file_path);
+			inday_transactions.Add(cur_transaction);
 			
-			lib_json.Write_Transaction(items: transactions);
+			lib_json.Write_Transaction(items: inday_transactions, filepath: file_path);
 			lib_json.Write_Storage_Item(items: storages);
 
 			return true;
 		}
 
-		/*
-		 * relation = 0, less thanh low threshold
-		 * relation = 1, greater than up threshold
-		 */
+		private void retrieve_transaction()
+		{
+			retrieve_transactions.Clear();
+			string file_path = lib_date_time.get_current_transaction_date();
+			lib_json.Read_Transactions(items: retrieve_transactions,filepath: file_path);
+		}
+		private void show_transaction()
+        {
+			transactions_history.Clear();
+			foreach (DS_Transaction transitem in retrieve_transactions)
+			{
+				foreach (DS_Storage_Item trans_item in transitem.transaction_items)
+				{
+					DS_Transaction_Grid trans_history = new DS_Transaction_Grid
+					{
+						ID = transitem.ID,
+						company_name = transitem.company_name,
+						item_ID = trans_item.ID,
+						item_name = trans_item.name,
+						item_quantity = trans_item.quantity,
+						item_unit = trans_item.unit,
+						transaction_time = transitem.transaction_time,
+						transaction_direction = transitem.transaction_direction
+					};
+					transactions_history.Add(trans_history);
+				}
+			}
+		}
 
 
 		private void display_storage_items_by_ID(string ID)
@@ -252,6 +281,35 @@ namespace storage_managements
 			}
 		}
 
+		private void transaction_filter_by_import_export(direction dir = direction.import)
+		{
+			transactions_history.Clear();
+			foreach (DS_Transaction transitem in retrieve_transactions)
+			{
+				if(transitem.transaction_direction == dir)
+                {
+					foreach (DS_Storage_Item trans_item in transitem.transaction_items)
+					{
+						DS_Transaction_Grid trans_history = new DS_Transaction_Grid
+						{
+							ID = transitem.ID,
+							company_name = transitem.company_name,
+							item_ID = trans_item.ID,
+							item_name = trans_item.name,
+							item_quantity = trans_item.quantity,
+							item_unit = trans_item.unit,
+							transaction_time = transitem.transaction_time,
+							transaction_direction = transitem.transaction_direction
+						};
+						transactions_history.Add(trans_history);
+					}
+				}					
+			}
+		}
+		private void transaction_filter_by_date()
+        {
+
+        }
 		private void storage_items_filter_by_quantity(int threshold = int.MaxValue,
 			display_relation relation = display_relation.lessthan)
         {
@@ -291,11 +349,15 @@ namespace storage_managements
 		}
 		private void datagrid_display_companies()
 		{
-			lib_datagrid.datagrid_display_items(dgv: datagrid_information, items: database_items);
+			lib_datagrid.datagrid_display_companies(dgv: datagrid_information, items: companies);
 		}
 		private void datagrid_display_consumers()
 		{
-			lib_datagrid.datagrid_display_items(dgv: datagrid_information, items: database_items);
+			lib_datagrid.datagrid_display_companies(dgv: datagrid_information, items: consumers, company: 1);
+		}
+		private void datagrid_display_transactions()
+		{
+			lib_datagrid.datagrid_display_transactions(dgv: dataGrid_transaction, items: transactions_history);
 		}
 		/**************************************************************/
 		private void button1_Click(object sender, EventArgs e)
@@ -370,16 +432,16 @@ namespace storage_managements
 
         private void button5_Click(object sender, EventArgs e)
         {
-			do_transaction(in_out: -1, company_name: textBox_transaction_consumer.Text);
+			do_transaction(dir: direction.export, company_name: textBox_transaction_consumer.Text);
 			label_message.Text = lib_date_time.getID_byDateTime();
+			lib_form_text.color_textbox(textBox_transaction_consumer);
 		}
 
         private void button4_Click(object sender, EventArgs e)
         {
-			
-			do_transaction(in_out: 1, company_name: textBox_transaction_company.Text);
+			do_transaction(dir: direction.import, company_name: textBox_transaction_company.Text);
 			label_message.Text = lib_date_time.getID_byDateTime();
-			
+			lib_form_text.color_textbox(textBox_transaction_company);
 		}
 
         private void button6_Click(object sender, EventArgs e)
@@ -509,28 +571,42 @@ namespace storage_managements
 
         private void button2_Click_1(object sender, EventArgs e)
         {
-			List<DS_Transaction> transactions = new List<DS_Transaction>();
-			List<DS_Transaction_Grid> transactions_history = new List<DS_Transaction_Grid>();
-			lib_json.Read_Transactions(items: transactions);
-			foreach(DS_Transaction transitem in transactions)
-            {
-				foreach (DS_Storage_Item trans_item in transitem.transaction_items)
-                {
-					DS_Transaction_Grid trans_history = new DS_Transaction_Grid
-					{
-						ID = transitem.ID,
-						company_name = transitem.company_name,
-						item_ID = trans_item.ID,
-						item_name = trans_item.name,
-						item_quantity = trans_item.quantity,
-						item_unit = trans_item.unit,
-						transaction_time = transitem.transaction_time,
-						transaction_direction = transitem.transaction_direction
-					};
-					transactions_history.Add(trans_history);
-				}					
-            }
-			dataGrid_transaction.DataSource = transactions_history;
+			retrieve_transaction();
+			show_transaction();
+			// Use OrderBy to sort the people by Age
+			var temp_transactions_history = transactions_history.OrderBy(p => p.item_ID).ToList();
+			transactions_history = temp_transactions_history;
+			datagrid_display_transactions();
 		}
+
+        private void radioButton_transaction_export_CheckedChanged(object sender, EventArgs e)
+        {
+			retrieve_transaction();
+			transaction_filter_by_import_export(dir:direction.export);
+			datagrid_display_transactions();
+		}
+
+        private void radioButton_transaction_import_CheckedChanged(object sender, EventArgs e)
+        {
+			retrieve_transaction();
+			transaction_filter_by_import_export(dir: direction.import);
+			
+			datagrid_display_transactions();
+		}
+
+        private void radioButton2_CheckedChanged(object sender, EventArgs e)
+        {
+			datagrid_display_companies();
+        }
+
+        private void radioButton_consumer_CheckedChanged(object sender, EventArgs e)
+        {
+			datagrid_display_consumers();
+        }
+
+        private void radioButton_items_CheckedChanged(object sender, EventArgs e)
+        {
+			datagrid_display_items();
+        }
     }
 }

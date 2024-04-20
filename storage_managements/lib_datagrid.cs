@@ -82,5 +82,21 @@ namespace storage_managements
 
 			datagridview_rename_header(dgv, oldHeader: oldlheader, newHeader: newlheader);
 		}
+
+		private static void datagridview_source_transactions(DataGridView dgv, List<DS_Transaction_Grid> items)
+        {
+			BindingSource source = new BindingSource();
+			source.DataSource = items;
+			dgv.DataSource = source;
+			source.ResetBindings(false);
+			dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+		}
+		public static void datagrid_display_transactions(DataGridView dgv, List<DS_Transaction_Grid> items, int company = 0)
+		{
+			datagridview_source_transactions(dgv: dgv, items: items);
+			//List<string> oldlheader = new List<string> { "ID", "name" };
+			//List<string> newlheader = new List<string> { "ID", "name" };
+			//datagridview_rename_header(dgv, oldHeader: oldlheader, newHeader: newlheader);
+		}
 	}
 }

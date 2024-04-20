@@ -69,7 +69,7 @@ namespace storage_managements
             this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.radioButton3 = new System.Windows.Forms.RadioButton();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
+            this.radioButton_transaction_export = new System.Windows.Forms.RadioButton();
             this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.button2 = new System.Windows.Forms.Button();
             this.tab_database_info = new System.Windows.Forms.TabPage();
@@ -91,14 +91,19 @@ namespace storage_managements
             this.textbox_new_item_name = new System.Windows.Forms.TextBox();
             this.textbox_new_company_name = new System.Windows.Forms.TextBox();
             this.textbox_new_consumer_name = new System.Windows.Forms.TextBox();
-            this.button_add_consumer1 = new System.Windows.Forms.Button();
-            this.button_add_company1 = new System.Windows.Forms.Button();
             this.button_add_company = new System.Windows.Forms.Button();
             this.button_add_consumer = new System.Windows.Forms.Button();
             this.flowLayoutPanel4 = new System.Windows.Forms.FlowLayoutPanel();
             this.label_message = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.radioButton_transaction_import = new System.Windows.Forms.RadioButton();
+            this.tableLayoutPanel7 = new System.Windows.Forms.TableLayoutPanel();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.radioButton_items = new System.Windows.Forms.RadioButton();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.radioButton_company = new System.Windows.Forms.RadioButton();
+            this.radioButton_consumer = new System.Windows.Forms.RadioButton();
             layout_L1 = new System.Windows.Forms.TableLayoutPanel();
             layout_L1.SuspendLayout();
             this.flowLayoutPanel3.SuspendLayout();
@@ -124,6 +129,9 @@ namespace storage_managements
             ((System.ComponentModel.ISupportInitialize)(this.datagrid_information)).BeginInit();
             this.tableLayoutPanel3.SuspendLayout();
             this.flowLayoutPanel4.SuspendLayout();
+            this.tableLayoutPanel7.SuspendLayout();
+            this.groupBox3.SuspendLayout();
+            this.flowLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // layout_L1
@@ -138,12 +146,13 @@ namespace storage_managements
             layout_L1.Dock = System.Windows.Forms.DockStyle.Fill;
             layout_L1.Font = new System.Drawing.Font("Times New Roman", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             layout_L1.Location = new System.Drawing.Point(0, 0);
+            layout_L1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             layout_L1.Name = "layout_L1";
             layout_L1.RowCount = 3;
-            layout_L1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
+            layout_L1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 41F));
             layout_L1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            layout_L1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 48F));
-            layout_L1.Size = new System.Drawing.Size(1259, 645);
+            layout_L1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 39F));
+            layout_L1.Size = new System.Drawing.Size(1085, 524);
             layout_L1.TabIndex = 7;
             // 
             // flowLayoutPanel3
@@ -155,50 +164,56 @@ namespace storage_managements
             this.flowLayoutPanel3.Controls.Add(this.button3);
             this.flowLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel3.Font = new System.Drawing.Font("Tahoma", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.flowLayoutPanel3.Location = new System.Drawing.Point(3, 3);
+            this.flowLayoutPanel3.Location = new System.Drawing.Point(2, 2);
+            this.flowLayoutPanel3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.flowLayoutPanel3.Name = "flowLayoutPanel3";
-            this.flowLayoutPanel3.Size = new System.Drawing.Size(1253, 44);
+            this.flowLayoutPanel3.Size = new System.Drawing.Size(1081, 37);
             this.flowLayoutPanel3.TabIndex = 0;
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(3, 0);
+            this.label6.Location = new System.Drawing.Point(2, 0);
+            this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(101, 29);
+            this.label6.Size = new System.Drawing.Size(80, 23);
             this.label6.TabIndex = 7;
             this.label6.Text = "Tìm mã:";
             // 
             // textbox_search_ID
             // 
-            this.textbox_search_ID.Location = new System.Drawing.Point(110, 3);
+            this.textbox_search_ID.Location = new System.Drawing.Point(86, 2);
+            this.textbox_search_ID.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.textbox_search_ID.Name = "textbox_search_ID";
-            this.textbox_search_ID.Size = new System.Drawing.Size(242, 35);
+            this.textbox_search_ID.Size = new System.Drawing.Size(182, 30);
             this.textbox_search_ID.TabIndex = 5;
             this.textbox_search_ID.TextChanged += new System.EventHandler(this.textbox_search_ID_TextChanged);
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(358, 0);
+            this.label7.Location = new System.Drawing.Point(272, 0);
+            this.label7.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(53, 29);
+            this.label7.Size = new System.Drawing.Size(42, 23);
             this.label7.TabIndex = 8;
             this.label7.Text = "Tên";
             // 
             // textBox_search_name
             // 
-            this.textBox_search_name.Location = new System.Drawing.Point(417, 3);
+            this.textBox_search_name.Location = new System.Drawing.Point(318, 2);
+            this.textBox_search_name.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.textBox_search_name.Name = "textBox_search_name";
-            this.textBox_search_name.Size = new System.Drawing.Size(188, 35);
+            this.textBox_search_name.Size = new System.Drawing.Size(142, 30);
             this.textBox_search_name.TabIndex = 9;
             this.textBox_search_name.TextChanged += new System.EventHandler(this.textBox_search_name_TextChanged);
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(611, 3);
+            this.button3.Location = new System.Drawing.Point(464, 2);
+            this.button3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(98, 41);
+            this.button3.Size = new System.Drawing.Size(74, 33);
             this.button3.TabIndex = 6;
             this.button3.Text = "Thêm";
             this.button3.UseVisualStyleBackColor = true;
@@ -211,20 +226,22 @@ namespace storage_managements
             this.tab_view.Controls.Add(this.tab_transaction_history);
             this.tab_view.Controls.Add(this.tab_database_info);
             this.tab_view.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tab_view.Location = new System.Drawing.Point(3, 53);
+            this.tab_view.Location = new System.Drawing.Point(2, 43);
+            this.tab_view.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.tab_view.Name = "tab_view";
             this.tab_view.SelectedIndex = 0;
-            this.tab_view.Size = new System.Drawing.Size(1244, 536);
+            this.tab_view.Size = new System.Drawing.Size(1058, 436);
             this.tab_view.TabIndex = 6;
             this.tab_view.SelectedIndexChanged += new System.EventHandler(this.tab_view_SelectedIndexChanged);
             // 
             // tab_storage_info
             // 
             this.tab_storage_info.Controls.Add(this.tableLayoutPanel2);
-            this.tab_storage_info.Location = new System.Drawing.Point(4, 40);
+            this.tab_storage_info.Location = new System.Drawing.Point(4, 35);
+            this.tab_storage_info.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.tab_storage_info.Name = "tab_storage_info";
-            this.tab_storage_info.Padding = new System.Windows.Forms.Padding(3);
-            this.tab_storage_info.Size = new System.Drawing.Size(1236, 492);
+            this.tab_storage_info.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tab_storage_info.Size = new System.Drawing.Size(925, 397);
             this.tab_storage_info.TabIndex = 2;
             this.tab_storage_info.Text = "Kho";
             this.tab_storage_info.UseVisualStyleBackColor = true;
@@ -235,12 +252,13 @@ namespace storage_managements
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel2.Controls.Add(this.datagrid_storage, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.groupBox2, 0, 1);
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(6, 6);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(4, 5);
+            this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 2;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 75F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(1224, 490);
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 61F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(918, 398);
             this.tableLayoutPanel2.TabIndex = 0;
             // 
             // datagrid_storage
@@ -249,12 +267,13 @@ namespace storage_managements
             this.datagrid_storage.AllowUserToDeleteRows = false;
             this.datagrid_storage.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.datagrid_storage.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.datagrid_storage.Location = new System.Drawing.Point(3, 3);
+            this.datagrid_storage.Location = new System.Drawing.Point(2, 2);
+            this.datagrid_storage.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.datagrid_storage.Name = "datagrid_storage";
             this.datagrid_storage.ReadOnly = true;
             this.datagrid_storage.RowHeadersWidth = 51;
             this.datagrid_storage.RowTemplate.Height = 24;
-            this.datagrid_storage.Size = new System.Drawing.Size(1218, 409);
+            this.datagrid_storage.Size = new System.Drawing.Size(914, 333);
             this.datagrid_storage.TabIndex = 0;
             // 
             // groupBox2
@@ -267,9 +286,11 @@ namespace storage_managements
             this.groupBox2.Controls.Add(this.radioButton_in_storage);
             this.groupBox2.Controls.Add(this.numeric_threshold);
             this.groupBox2.Controls.Add(this.radioButton_all);
-            this.groupBox2.Location = new System.Drawing.Point(3, 418);
+            this.groupBox2.Location = new System.Drawing.Point(2, 340);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(1218, 69);
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox2.Size = new System.Drawing.Size(914, 56);
             this.groupBox2.TabIndex = 21;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Xem kho";
@@ -279,9 +300,10 @@ namespace storage_managements
             this.radioButton_greater_than.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.radioButton_greater_than.AutoSize = true;
-            this.radioButton_greater_than.Location = new System.Drawing.Point(658, 19);
+            this.radioButton_greater_than.Location = new System.Drawing.Point(494, 15);
+            this.radioButton_greater_than.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.radioButton_greater_than.Name = "radioButton_greater_than";
-            this.radioButton_greater_than.Size = new System.Drawing.Size(237, 36);
+            this.radioButton_greater_than.Size = new System.Drawing.Size(183, 30);
             this.radioButton_greater_than.TabIndex = 21;
             this.radioButton_greater_than.TabStop = true;
             this.radioButton_greater_than.Text = "Hàng nhiều hơn";
@@ -293,9 +315,10 @@ namespace storage_managements
             this.radioButton_less_than.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.radioButton_less_than.AutoSize = true;
-            this.radioButton_less_than.Location = new System.Drawing.Point(471, 19);
+            this.radioButton_less_than.Location = new System.Drawing.Point(353, 15);
+            this.radioButton_less_than.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.radioButton_less_than.Name = "radioButton_less_than";
-            this.radioButton_less_than.Size = new System.Drawing.Size(181, 36);
+            this.radioButton_less_than.Size = new System.Drawing.Size(141, 30);
             this.radioButton_less_than.TabIndex = 3;
             this.radioButton_less_than.TabStop = true;
             this.radioButton_less_than.Text = "Hàng ít hơn";
@@ -307,9 +330,10 @@ namespace storage_managements
             this.radioButton_out_of_storage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.radioButton_out_of_storage.AutoSize = true;
-            this.radioButton_out_of_storage.Location = new System.Drawing.Point(350, 22);
+            this.radioButton_out_of_storage.Location = new System.Drawing.Point(262, 18);
+            this.radioButton_out_of_storage.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.radioButton_out_of_storage.Name = "radioButton_out_of_storage";
-            this.radioButton_out_of_storage.Size = new System.Drawing.Size(115, 36);
+            this.radioButton_out_of_storage.Size = new System.Drawing.Size(90, 30);
             this.radioButton_out_of_storage.TabIndex = 2;
             this.radioButton_out_of_storage.TabStop = true;
             this.radioButton_out_of_storage.Text = "đã hết";
@@ -321,9 +345,10 @@ namespace storage_managements
             this.radioButton_in_storage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.radioButton_in_storage.AutoSize = true;
-            this.radioButton_in_storage.Location = new System.Drawing.Point(126, 22);
+            this.radioButton_in_storage.Location = new System.Drawing.Point(94, 18);
+            this.radioButton_in_storage.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.radioButton_in_storage.Name = "radioButton_in_storage";
-            this.radioButton_in_storage.Size = new System.Drawing.Size(225, 36);
+            this.radioButton_in_storage.Size = new System.Drawing.Size(174, 30);
             this.radioButton_in_storage.TabIndex = 1;
             this.radioButton_in_storage.TabStop = true;
             this.radioButton_in_storage.Text = "đang trong kho";
@@ -335,14 +360,15 @@ namespace storage_managements
             this.numeric_threshold.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.numeric_threshold.Location = new System.Drawing.Point(1105, 23);
+            this.numeric_threshold.Location = new System.Drawing.Point(829, 19);
+            this.numeric_threshold.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.numeric_threshold.Maximum = new decimal(new int[] {
             1410065408,
             2,
             0,
             0});
             this.numeric_threshold.Name = "numeric_threshold";
-            this.numeric_threshold.Size = new System.Drawing.Size(107, 38);
+            this.numeric_threshold.Size = new System.Drawing.Size(80, 32);
             this.numeric_threshold.TabIndex = 20;
             this.numeric_threshold.Value = new decimal(new int[] {
             5,
@@ -356,9 +382,10 @@ namespace storage_managements
             this.radioButton_all.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.radioButton_all.AutoSize = true;
-            this.radioButton_all.Location = new System.Drawing.Point(6, 22);
+            this.radioButton_all.Location = new System.Drawing.Point(4, 18);
+            this.radioButton_all.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.radioButton_all.Name = "radioButton_all";
-            this.radioButton_all.Size = new System.Drawing.Size(114, 36);
+            this.radioButton_all.Size = new System.Drawing.Size(89, 30);
             this.radioButton_all.TabIndex = 0;
             this.radioButton_all.TabStop = true;
             this.radioButton_all.Text = "Tất cả";
@@ -368,10 +395,11 @@ namespace storage_managements
             // tab_inport_export
             // 
             this.tab_inport_export.Controls.Add(this.tableLayoutPanel1);
-            this.tab_inport_export.Location = new System.Drawing.Point(4, 40);
+            this.tab_inport_export.Location = new System.Drawing.Point(4, 35);
+            this.tab_inport_export.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.tab_inport_export.Name = "tab_inport_export";
-            this.tab_inport_export.Padding = new System.Windows.Forms.Padding(3);
-            this.tab_inport_export.Size = new System.Drawing.Size(1236, 492);
+            this.tab_inport_export.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tab_inport_export.Size = new System.Drawing.Size(925, 397);
             this.tab_inport_export.TabIndex = 1;
             this.tab_inport_export.Text = "Xuất/nhập kho";
             this.tab_inport_export.UseVisualStyleBackColor = true;
@@ -383,13 +411,14 @@ namespace storage_managements
             this.tableLayoutPanel1.Controls.Add(this.datagrid_storage_items_info, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.datagrid_storage_transaction, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel4, 0, 2);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(20, 15);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(15, 12);
+            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 3;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1210, 471);
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 81F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(908, 383);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // datagrid_storage_items_info
@@ -400,11 +429,12 @@ namespace storage_managements
             this.datagrid_storage_items_info.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.storage_item_select});
             this.datagrid_storage_items_info.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.datagrid_storage_items_info.Location = new System.Drawing.Point(3, 3);
+            this.datagrid_storage_items_info.Location = new System.Drawing.Point(2, 2);
+            this.datagrid_storage_items_info.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.datagrid_storage_items_info.Name = "datagrid_storage_items_info";
             this.datagrid_storage_items_info.RowHeadersWidth = 51;
             this.datagrid_storage_items_info.RowTemplate.Height = 24;
-            this.datagrid_storage_items_info.Size = new System.Drawing.Size(1204, 179);
+            this.datagrid_storage_items_info.Size = new System.Drawing.Size(904, 147);
             this.datagrid_storage_items_info.TabIndex = 1;
             // 
             // storage_item_select
@@ -421,11 +451,12 @@ namespace storage_managements
             // 
             this.datagrid_storage_transaction.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.datagrid_storage_transaction.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.datagrid_storage_transaction.Location = new System.Drawing.Point(3, 188);
+            this.datagrid_storage_transaction.Location = new System.Drawing.Point(2, 153);
+            this.datagrid_storage_transaction.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.datagrid_storage_transaction.Name = "datagrid_storage_transaction";
             this.datagrid_storage_transaction.RowHeadersWidth = 51;
             this.datagrid_storage_transaction.RowTemplate.Height = 24;
-            this.datagrid_storage_transaction.Size = new System.Drawing.Size(1204, 179);
+            this.datagrid_storage_transaction.Size = new System.Drawing.Size(904, 147);
             this.datagrid_storage_transaction.TabIndex = 2;
             // 
             // tableLayoutPanel4
@@ -435,18 +466,20 @@ namespace storage_managements
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel4.Controls.Add(this.button7, 1, 0);
             this.tableLayoutPanel4.Controls.Add(this.tableLayoutPanel5, 0, 0);
-            this.tableLayoutPanel4.Location = new System.Drawing.Point(3, 373);
+            this.tableLayoutPanel4.Location = new System.Drawing.Point(2, 304);
+            this.tableLayoutPanel4.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
             this.tableLayoutPanel4.RowCount = 1;
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(1102, 95);
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(826, 77);
             this.tableLayoutPanel4.TabIndex = 4;
             // 
             // button7
             // 
-            this.button7.Location = new System.Drawing.Point(981, 3);
+            this.button7.Location = new System.Drawing.Point(736, 2);
+            this.button7.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(118, 89);
+            this.button7.Size = new System.Drawing.Size(88, 72);
             this.button7.TabIndex = 19;
             this.button7.Text = "Xóa bảng";
             this.button7.UseVisualStyleBackColor = true;
@@ -457,8 +490,8 @@ namespace storage_managements
             this.tableLayoutPanel5.ColumnCount = 4;
             this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 38.19444F));
             this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 61.80556F));
-            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 390F));
-            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 118F));
+            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 292F));
+            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 89F));
             this.tableLayoutPanel5.Controls.Add(this.comboBox_consumer, 1, 1);
             this.tableLayoutPanel5.Controls.Add(this.label11, 0, 0);
             this.tableLayoutPanel5.Controls.Add(this.button5, 3, 1);
@@ -467,37 +500,41 @@ namespace storage_managements
             this.tableLayoutPanel5.Controls.Add(this.textBox_transaction_company, 2, 0);
             this.tableLayoutPanel5.Controls.Add(this.textBox_transaction_consumer, 2, 1);
             this.tableLayoutPanel5.Controls.Add(this.comboBox_company, 1, 0);
-            this.tableLayoutPanel5.Location = new System.Drawing.Point(3, 3);
+            this.tableLayoutPanel5.Location = new System.Drawing.Point(2, 2);
+            this.tableLayoutPanel5.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.tableLayoutPanel5.Name = "tableLayoutPanel5";
             this.tableLayoutPanel5.RowCount = 2;
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel5.Size = new System.Drawing.Size(972, 89);
+            this.tableLayoutPanel5.Size = new System.Drawing.Size(729, 72);
             this.tableLayoutPanel5.TabIndex = 20;
             // 
             // comboBox_consumer
             // 
             this.comboBox_consumer.FormattingEnabled = true;
-            this.comboBox_consumer.Location = new System.Drawing.Point(180, 47);
+            this.comboBox_consumer.Location = new System.Drawing.Point(134, 38);
+            this.comboBox_consumer.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.comboBox_consumer.Name = "comboBox_consumer";
-            this.comboBox_consumer.Size = new System.Drawing.Size(280, 39);
+            this.comboBox_consumer.Size = new System.Drawing.Size(211, 34);
             this.comboBox_consumer.TabIndex = 24;
             this.comboBox_consumer.SelectedIndexChanged += new System.EventHandler(this.comboBox_consumer_SelectedIndexChanged);
             // 
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(3, 0);
+            this.label11.Location = new System.Drawing.Point(2, 0);
+            this.label11.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(115, 32);
+            this.label11.Size = new System.Drawing.Size(88, 26);
             this.label11.TabIndex = 19;
             this.label11.Text = "Tên cty:";
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(856, 47);
+            this.button5.Location = new System.Drawing.Point(641, 38);
+            this.button5.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(98, 38);
+            this.button5.Size = new System.Drawing.Size(74, 31);
             this.button5.TabIndex = 18;
             this.button5.Text = "Xuất";
             this.button5.UseVisualStyleBackColor = true;
@@ -505,9 +542,10 @@ namespace storage_managements
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(856, 3);
+            this.button4.Location = new System.Drawing.Point(641, 2);
+            this.button4.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(98, 38);
+            this.button4.Size = new System.Drawing.Size(74, 31);
             this.button4.TabIndex = 17;
             this.button4.Text = "Nhập";
             this.button4.UseVisualStyleBackColor = true;
@@ -516,42 +554,47 @@ namespace storage_managements
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(3, 44);
+            this.label12.Location = new System.Drawing.Point(2, 36);
+            this.label12.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(155, 32);
+            this.label12.Size = new System.Drawing.Size(118, 26);
             this.label12.TabIndex = 20;
             this.label12.Text = "Tên khách:";
             // 
             // textBox_transaction_company
             // 
-            this.textBox_transaction_company.Location = new System.Drawing.Point(466, 3);
+            this.textBox_transaction_company.Location = new System.Drawing.Point(349, 2);
+            this.textBox_transaction_company.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.textBox_transaction_company.Name = "textBox_transaction_company";
-            this.textBox_transaction_company.Size = new System.Drawing.Size(384, 38);
+            this.textBox_transaction_company.Size = new System.Drawing.Size(288, 32);
             this.textBox_transaction_company.TabIndex = 21;
             // 
             // textBox_transaction_consumer
             // 
-            this.textBox_transaction_consumer.Location = new System.Drawing.Point(466, 47);
+            this.textBox_transaction_consumer.Location = new System.Drawing.Point(349, 38);
+            this.textBox_transaction_consumer.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.textBox_transaction_consumer.Name = "textBox_transaction_consumer";
-            this.textBox_transaction_consumer.Size = new System.Drawing.Size(384, 38);
+            this.textBox_transaction_consumer.Size = new System.Drawing.Size(288, 32);
             this.textBox_transaction_consumer.TabIndex = 22;
             // 
             // comboBox_company
             // 
             this.comboBox_company.FormattingEnabled = true;
-            this.comboBox_company.Location = new System.Drawing.Point(180, 3);
+            this.comboBox_company.Location = new System.Drawing.Point(134, 2);
+            this.comboBox_company.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.comboBox_company.Name = "comboBox_company";
-            this.comboBox_company.Size = new System.Drawing.Size(280, 39);
+            this.comboBox_company.Size = new System.Drawing.Size(211, 34);
             this.comboBox_company.TabIndex = 23;
             this.comboBox_company.SelectedIndexChanged += new System.EventHandler(this.comboBox_company_SelectedIndexChanged);
             // 
             // tab_transaction_history
             // 
             this.tab_transaction_history.Controls.Add(this.tableLayoutPanel6);
-            this.tab_transaction_history.Location = new System.Drawing.Point(4, 40);
+            this.tab_transaction_history.Location = new System.Drawing.Point(4, 35);
+            this.tab_transaction_history.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.tab_transaction_history.Name = "tab_transaction_history";
-            this.tab_transaction_history.Padding = new System.Windows.Forms.Padding(3);
-            this.tab_transaction_history.Size = new System.Drawing.Size(1236, 492);
+            this.tab_transaction_history.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tab_transaction_history.Size = new System.Drawing.Size(925, 397);
             this.tab_transaction_history.TabIndex = 3;
             this.tab_transaction_history.Text = "Xem giao dịch";
             this.tab_transaction_history.UseVisualStyleBackColor = true;
@@ -561,48 +604,56 @@ namespace storage_managements
             this.tableLayoutPanel6.ColumnCount = 1;
             this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel6.Controls.Add(this.dataGrid_transaction, 0, 0);
+            this.tableLayoutPanel6.Controls.Add(this.button2, 0, 2);
             this.tableLayoutPanel6.Controls.Add(this.flowLayoutPanel2, 0, 1);
-            this.tableLayoutPanel6.Location = new System.Drawing.Point(6, 6);
+            this.tableLayoutPanel6.Location = new System.Drawing.Point(4, 5);
+            this.tableLayoutPanel6.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.tableLayoutPanel6.Name = "tableLayoutPanel6";
             this.tableLayoutPanel6.RowCount = 3;
             this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 52.13483F));
-            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 24.94382F));
-            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 22.69663F));
-            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel6.Size = new System.Drawing.Size(1192, 445);
+            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 36.74033F));
+            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 11.32597F));
+            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 16F));
+            this.tableLayoutPanel6.Size = new System.Drawing.Size(894, 362);
             this.tableLayoutPanel6.TabIndex = 0;
             // 
             // dataGrid_transaction
             // 
             this.dataGrid_transaction.AllowUserToAddRows = false;
             this.dataGrid_transaction.AllowUserToDeleteRows = false;
+            this.dataGrid_transaction.BackgroundColor = System.Drawing.SystemColors.ButtonFace;
             this.dataGrid_transaction.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGrid_transaction.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGrid_transaction.Location = new System.Drawing.Point(3, 3);
+            this.dataGrid_transaction.Location = new System.Drawing.Point(2, 2);
+            this.dataGrid_transaction.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.dataGrid_transaction.Name = "dataGrid_transaction";
             this.dataGrid_transaction.ReadOnly = true;
             this.dataGrid_transaction.RowHeadersWidth = 51;
             this.dataGrid_transaction.RowTemplate.Height = 24;
-            this.dataGrid_transaction.Size = new System.Drawing.Size(1186, 226);
+            this.dataGrid_transaction.Size = new System.Drawing.Size(890, 184);
             this.dataGrid_transaction.TabIndex = 0;
             // 
             // flowLayoutPanel2
             // 
             this.flowLayoutPanel2.Controls.Add(this.groupBox1);
-            this.flowLayoutPanel2.Controls.Add(this.button2);
-            this.flowLayoutPanel2.Location = new System.Drawing.Point(3, 235);
+            this.flowLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flowLayoutPanel2.Location = new System.Drawing.Point(2, 190);
+            this.flowLayoutPanel2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.flowLayoutPanel2.Name = "flowLayoutPanel2";
-            this.flowLayoutPanel2.Size = new System.Drawing.Size(1045, 105);
+            this.flowLayoutPanel2.Size = new System.Drawing.Size(890, 128);
             this.flowLayoutPanel2.TabIndex = 1;
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.radioButton_transaction_import);
             this.groupBox1.Controls.Add(this.radioButton3);
-            this.groupBox1.Controls.Add(this.radioButton2);
+            this.groupBox1.Controls.Add(this.radioButton_transaction_export);
             this.groupBox1.Controls.Add(this.radioButton1);
-            this.groupBox1.Location = new System.Drawing.Point(3, 3);
+            this.groupBox1.Location = new System.Drawing.Point(2, 2);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(595, 109);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Size = new System.Drawing.Size(851, 113);
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Hiển thị theo:";
@@ -610,31 +661,35 @@ namespace storage_managements
             // radioButton3
             // 
             this.radioButton3.AutoSize = true;
-            this.radioButton3.Location = new System.Drawing.Point(236, 37);
+            this.radioButton3.Location = new System.Drawing.Point(177, 30);
+            this.radioButton3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.radioButton3.Name = "radioButton3";
-            this.radioButton3.Size = new System.Drawing.Size(154, 36);
+            this.radioButton3.Size = new System.Drawing.Size(120, 30);
             this.radioButton3.TabIndex = 3;
             this.radioButton3.TabStop = true;
             this.radioButton3.Text = "Mặt hàng";
             this.radioButton3.UseVisualStyleBackColor = true;
             // 
-            // radioButton2
+            // radioButton_transaction_export
             // 
-            this.radioButton2.AutoSize = true;
-            this.radioButton2.Location = new System.Drawing.Point(411, 37);
-            this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(171, 36);
-            this.radioButton2.TabIndex = 2;
-            this.radioButton2.TabStop = true;
-            this.radioButton2.Text = "Xuất/Nhâp";
-            this.radioButton2.UseVisualStyleBackColor = true;
+            this.radioButton_transaction_export.AutoSize = true;
+            this.radioButton_transaction_export.Location = new System.Drawing.Point(308, 30);
+            this.radioButton_transaction_export.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.radioButton_transaction_export.Name = "radioButton_transaction_export";
+            this.radioButton_transaction_export.Size = new System.Drawing.Size(75, 30);
+            this.radioButton_transaction_export.TabIndex = 2;
+            this.radioButton_transaction_export.TabStop = true;
+            this.radioButton_transaction_export.Text = "Xuất";
+            this.radioButton_transaction_export.UseVisualStyleBackColor = true;
+            this.radioButton_transaction_export.CheckedChanged += new System.EventHandler(this.radioButton_transaction_export_CheckedChanged);
             // 
             // radioButton1
             // 
             this.radioButton1.AutoSize = true;
-            this.radioButton1.Location = new System.Drawing.Point(26, 37);
+            this.radioButton1.Location = new System.Drawing.Point(20, 30);
+            this.radioButton1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(102, 36);
+            this.radioButton1.Size = new System.Drawing.Size(81, 30);
             this.radioButton1.TabIndex = 1;
             this.radioButton1.TabStop = true;
             this.radioButton1.Text = "Ngày";
@@ -642,9 +697,10 @@ namespace storage_managements
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(604, 3);
+            this.button2.Location = new System.Drawing.Point(2, 322);
+            this.button2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(151, 84);
+            this.button2.Size = new System.Drawing.Size(111, 34);
             this.button2.TabIndex = 1;
             this.button2.Text = "button2";
             this.button2.UseVisualStyleBackColor = true;
@@ -654,10 +710,11 @@ namespace storage_managements
             // 
             this.tab_database_info.Controls.Add(this.item_layout_L2_top);
             this.tab_database_info.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tab_database_info.Location = new System.Drawing.Point(4, 40);
+            this.tab_database_info.Location = new System.Drawing.Point(4, 35);
+            this.tab_database_info.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.tab_database_info.Name = "tab_database_info";
-            this.tab_database_info.Padding = new System.Windows.Forms.Padding(3);
-            this.tab_database_info.Size = new System.Drawing.Size(1236, 492);
+            this.tab_database_info.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tab_database_info.Size = new System.Drawing.Size(1050, 397);
             this.tab_database_info.TabIndex = 0;
             this.tab_database_info.Text = "Thông tin";
             this.tab_database_info.UseVisualStyleBackColor = true;
@@ -667,16 +724,14 @@ namespace storage_managements
             this.item_layout_L2_top.ColumnCount = 1;
             this.item_layout_L2_top.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.item_layout_L2_top.Controls.Add(this.datagrid_information, 0, 0);
-            this.item_layout_L2_top.Controls.Add(this.tableLayoutPanel3, 0, 1);
-            this.item_layout_L2_top.Location = new System.Drawing.Point(6, 6);
+            this.item_layout_L2_top.Controls.Add(this.tableLayoutPanel7, 0, 1);
+            this.item_layout_L2_top.Location = new System.Drawing.Point(4, 5);
+            this.item_layout_L2_top.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.item_layout_L2_top.Name = "item_layout_L2_top";
             this.item_layout_L2_top.RowCount = 2;
-            this.item_layout_L2_top.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 70F));
-            this.item_layout_L2_top.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 30F));
-            this.item_layout_L2_top.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.item_layout_L2_top.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.item_layout_L2_top.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.item_layout_L2_top.Size = new System.Drawing.Size(1151, 480);
+            this.item_layout_L2_top.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.item_layout_L2_top.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 140F));
+            this.item_layout_L2_top.Size = new System.Drawing.Size(1042, 390);
             this.item_layout_L2_top.TabIndex = 6;
             // 
             // datagrid_information
@@ -685,58 +740,59 @@ namespace storage_managements
             this.datagrid_information.AllowUserToDeleteRows = false;
             this.datagrid_information.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.datagrid_information.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.datagrid_information.Location = new System.Drawing.Point(3, 3);
+            this.datagrid_information.Location = new System.Drawing.Point(2, 2);
+            this.datagrid_information.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.datagrid_information.Name = "datagrid_information";
             this.datagrid_information.ReadOnly = true;
             this.datagrid_information.RowHeadersWidth = 51;
             this.datagrid_information.RowTemplate.Height = 24;
-            this.datagrid_information.Size = new System.Drawing.Size(1145, 330);
+            this.datagrid_information.Size = new System.Drawing.Size(1038, 246);
             this.datagrid_information.TabIndex = 4;
             this.datagrid_information.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
             // tableLayoutPanel3
             // 
             this.tableLayoutPanel3.ColumnCount = 7;
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 14.28571F));
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 14.28571F));
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 14.28571F));
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 14.28571F));
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 14.97797F));
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 11.89427F));
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 15.94714F));
-            this.tableLayoutPanel3.Controls.Add(this.button_add_goods, 6, 0);
-            this.tableLayoutPanel3.Controls.Add(this.textbox_new_item_unit, 5, 0);
-            this.tableLayoutPanel3.Controls.Add(this.label5, 4, 0);
-            this.tableLayoutPanel3.Controls.Add(this.label3, 2, 2);
-            this.tableLayoutPanel3.Controls.Add(this.label2, 2, 1);
-            this.tableLayoutPanel3.Controls.Add(this.label4, 2, 0);
-            this.tableLayoutPanel3.Controls.Add(this.textbox_new_consumer_ID, 1, 2);
-            this.tableLayoutPanel3.Controls.Add(this.textbox_new_company_ID, 1, 1);
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12.39954F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.18829F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 6.773823F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 14.69575F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 15.39365F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 14.10106F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20.21152F));
             this.tableLayoutPanel3.Controls.Add(this.textbox_new_item_ID, 1, 0);
-            this.tableLayoutPanel3.Controls.Add(this.label10, 0, 2);
-            this.tableLayoutPanel3.Controls.Add(this.label1, 0, 0);
-            this.tableLayoutPanel3.Controls.Add(this.label9, 0, 1);
-            this.tableLayoutPanel3.Controls.Add(this.textbox_new_item_name, 3, 0);
-            this.tableLayoutPanel3.Controls.Add(this.textbox_new_company_name, 3, 1);
+            this.tableLayoutPanel3.Controls.Add(this.textbox_new_company_ID, 1, 1);
             this.tableLayoutPanel3.Controls.Add(this.textbox_new_consumer_name, 3, 2);
-            this.tableLayoutPanel3.Controls.Add(this.button_add_consumer1, 6, 2);
-            this.tableLayoutPanel3.Controls.Add(this.button_add_company1, 6, 1);
-            this.tableLayoutPanel3.Controls.Add(this.button_add_company, 4, 1);
-            this.tableLayoutPanel3.Controls.Add(this.button_add_consumer, 4, 2);
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(3, 339);
+            this.tableLayoutPanel3.Controls.Add(this.textbox_new_company_name, 3, 1);
+            this.tableLayoutPanel3.Controls.Add(this.label2, 2, 1);
+            this.tableLayoutPanel3.Controls.Add(this.label3, 2, 2);
+            this.tableLayoutPanel3.Controls.Add(this.label9, 0, 1);
+            this.tableLayoutPanel3.Controls.Add(this.label1, 0, 0);
+            this.tableLayoutPanel3.Controls.Add(this.button_add_consumer, 6, 2);
+            this.tableLayoutPanel3.Controls.Add(this.label4, 2, 0);
+            this.tableLayoutPanel3.Controls.Add(this.textbox_new_item_name, 3, 0);
+            this.tableLayoutPanel3.Controls.Add(this.label5, 4, 0);
+            this.tableLayoutPanel3.Controls.Add(this.textbox_new_item_unit, 5, 0);
+            this.tableLayoutPanel3.Controls.Add(this.button_add_goods, 6, 0);
+            this.tableLayoutPanel3.Controls.Add(this.button_add_company, 6, 1);
+            this.tableLayoutPanel3.Controls.Add(this.label10, 0, 2);
+            this.tableLayoutPanel3.Controls.Add(this.textbox_new_consumer_ID, 1, 2);
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(2, 2);
+            this.tableLayoutPanel3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 3;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 41F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(1135, 138);
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 33F));
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(871, 108);
             this.tableLayoutPanel3.TabIndex = 10;
             // 
             // button_add_goods
             // 
-            this.button_add_goods.Location = new System.Drawing.Point(956, 3);
+            this.button_add_goods.Location = new System.Drawing.Point(695, 2);
+            this.button_add_goods.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.button_add_goods.Name = "button_add_goods";
-            this.button_add_goods.Size = new System.Drawing.Size(176, 38);
+            this.button_add_goods.Size = new System.Drawing.Size(132, 31);
             this.button_add_goods.TabIndex = 9;
             this.button_add_goods.Text = "Thêm sp";
             this.button_add_goods.UseVisualStyleBackColor = true;
@@ -744,143 +800,137 @@ namespace storage_managements
             // 
             // textbox_new_item_unit
             // 
-            this.textbox_new_item_unit.Location = new System.Drawing.Point(821, 3);
+            this.textbox_new_item_unit.Location = new System.Drawing.Point(572, 2);
+            this.textbox_new_item_unit.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.textbox_new_item_unit.Name = "textbox_new_item_unit";
-            this.textbox_new_item_unit.Size = new System.Drawing.Size(129, 36);
+            this.textbox_new_item_unit.Size = new System.Drawing.Size(118, 30);
             this.textbox_new_item_unit.TabIndex = 8;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(651, 0);
+            this.label5.Location = new System.Drawing.Point(438, 0);
+            this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(85, 29);
+            this.label5.Size = new System.Drawing.Size(67, 25);
             this.label5.TabIndex = 7;
             this.label5.Text = "Đơn vị";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(327, 96);
+            this.label3.Location = new System.Drawing.Point(251, 74);
+            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(138, 29);
+            this.label3.Size = new System.Drawing.Size(54, 34);
             this.label3.TabIndex = 5;
             this.label3.Text = "Tên khách:";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(327, 48);
+            this.label2.Location = new System.Drawing.Point(251, 37);
+            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(103, 29);
+            this.label2.Size = new System.Drawing.Size(47, 25);
             this.label2.TabIndex = 3;
-            this.label2.Text = "Tên cty:";
+            this.label2.Text = "Tên";
             this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(327, 0);
+            this.label4.Location = new System.Drawing.Point(251, 0);
+            this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(56, 29);
+            this.label4.Size = new System.Drawing.Size(47, 25);
             this.label4.TabIndex = 5;
             this.label4.Text = "Tên";
             // 
             // textbox_new_consumer_ID
             // 
-            this.textbox_new_consumer_ID.Location = new System.Drawing.Point(165, 99);
+            this.textbox_new_consumer_ID.Location = new System.Drawing.Point(110, 76);
+            this.textbox_new_consumer_ID.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.textbox_new_consumer_ID.Name = "textbox_new_consumer_ID";
-            this.textbox_new_consumer_ID.Size = new System.Drawing.Size(156, 36);
+            this.textbox_new_consumer_ID.Size = new System.Drawing.Size(137, 30);
             this.textbox_new_consumer_ID.TabIndex = 11;
             // 
             // textbox_new_company_ID
             // 
-            this.textbox_new_company_ID.Location = new System.Drawing.Point(165, 51);
+            this.textbox_new_company_ID.Location = new System.Drawing.Point(110, 39);
+            this.textbox_new_company_ID.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.textbox_new_company_ID.Name = "textbox_new_company_ID";
-            this.textbox_new_company_ID.Size = new System.Drawing.Size(156, 36);
+            this.textbox_new_company_ID.Size = new System.Drawing.Size(137, 30);
             this.textbox_new_company_ID.TabIndex = 12;
             // 
             // textbox_new_item_ID
             // 
-            this.textbox_new_item_ID.Location = new System.Drawing.Point(165, 3);
+            this.textbox_new_item_ID.Location = new System.Drawing.Point(110, 2);
+            this.textbox_new_item_ID.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.textbox_new_item_ID.Name = "textbox_new_item_ID";
-            this.textbox_new_item_ID.Size = new System.Drawing.Size(156, 36);
+            this.textbox_new_item_ID.Size = new System.Drawing.Size(137, 30);
             this.textbox_new_item_ID.TabIndex = 4;
             // 
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(3, 96);
+            this.label10.Location = new System.Drawing.Point(2, 74);
+            this.label10.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(130, 29);
+            this.label10.Size = new System.Drawing.Size(98, 25);
             this.label10.TabIndex = 10;
-            this.label10.Text = "Mã khách:";
+            this.label10.Text = "Mã khách";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(3, 0);
+            this.label1.Location = new System.Drawing.Point(2, 0);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(48, 29);
+            this.label1.Size = new System.Drawing.Size(40, 25);
             this.label1.TabIndex = 3;
             this.label1.Text = "Mã";
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(3, 48);
+            this.label9.Location = new System.Drawing.Point(2, 37);
+            this.label9.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(95, 29);
+            this.label9.Size = new System.Drawing.Size(70, 25);
             this.label9.TabIndex = 11;
-            this.label9.Text = "Mã cty:";
+            this.label9.Text = "Mã cty";
             // 
             // textbox_new_item_name
             // 
-            this.textbox_new_item_name.Location = new System.Drawing.Point(489, 3);
+            this.textbox_new_item_name.Location = new System.Drawing.Point(310, 2);
+            this.textbox_new_item_name.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.textbox_new_item_name.Name = "textbox_new_item_name";
-            this.textbox_new_item_name.Size = new System.Drawing.Size(156, 36);
+            this.textbox_new_item_name.Size = new System.Drawing.Size(124, 30);
             this.textbox_new_item_name.TabIndex = 6;
             // 
             // textbox_new_company_name
             // 
-            this.textbox_new_company_name.Location = new System.Drawing.Point(489, 51);
+            this.textbox_new_company_name.Location = new System.Drawing.Point(310, 39);
+            this.textbox_new_company_name.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.textbox_new_company_name.Name = "textbox_new_company_name";
-            this.textbox_new_company_name.Size = new System.Drawing.Size(156, 36);
+            this.textbox_new_company_name.Size = new System.Drawing.Size(118, 30);
             this.textbox_new_company_name.TabIndex = 4;
             // 
             // textbox_new_consumer_name
             // 
-            this.textbox_new_consumer_name.Location = new System.Drawing.Point(489, 99);
+            this.textbox_new_consumer_name.Location = new System.Drawing.Point(310, 76);
+            this.textbox_new_consumer_name.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.textbox_new_consumer_name.Name = "textbox_new_consumer_name";
-            this.textbox_new_consumer_name.Size = new System.Drawing.Size(156, 36);
+            this.textbox_new_consumer_name.Size = new System.Drawing.Size(118, 30);
             this.textbox_new_consumer_name.TabIndex = 6;
-            // 
-            // button_add_consumer1
-            // 
-            this.button_add_consumer1.Location = new System.Drawing.Point(956, 99);
-            this.button_add_consumer1.Name = "button_add_consumer1";
-            this.button_add_consumer1.Size = new System.Drawing.Size(176, 36);
-            this.button_add_consumer1.TabIndex = 9;
-            this.button_add_consumer1.Text = "Xem khách";
-            this.button_add_consumer1.UseVisualStyleBackColor = true;
-            this.button_add_consumer1.Click += new System.EventHandler(this.button_add_consumer_Click);
-            // 
-            // button_add_company1
-            // 
-            this.button_add_company1.Location = new System.Drawing.Point(956, 51);
-            this.button_add_company1.Name = "button_add_company1";
-            this.button_add_company1.Size = new System.Drawing.Size(176, 38);
-            this.button_add_company1.TabIndex = 10;
-            this.button_add_company1.Text = "Xem cty";
-            this.button_add_company1.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.button_add_company1.UseVisualStyleBackColor = true;
-            this.button_add_company1.Click += new System.EventHandler(this.button_add_company_Click);
             // 
             // button_add_company
             // 
-            this.button_add_company.Location = new System.Drawing.Point(651, 51);
+            this.button_add_company.Location = new System.Drawing.Point(695, 39);
+            this.button_add_company.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.button_add_company.Name = "button_add_company";
-            this.button_add_company.Size = new System.Drawing.Size(164, 38);
+            this.button_add_company.Size = new System.Drawing.Size(123, 31);
             this.button_add_company.TabIndex = 13;
             this.button_add_company.Text = "Thêm cty";
             this.button_add_company.UseVisualStyleBackColor = true;
@@ -888,9 +938,10 @@ namespace storage_managements
             // 
             // button_add_consumer
             // 
-            this.button_add_consumer.Location = new System.Drawing.Point(651, 99);
+            this.button_add_consumer.Location = new System.Drawing.Point(695, 76);
+            this.button_add_consumer.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.button_add_consumer.Name = "button_add_consumer";
-            this.button_add_consumer.Size = new System.Drawing.Size(164, 36);
+            this.button_add_consumer.Size = new System.Drawing.Size(149, 29);
             this.button_add_consumer.TabIndex = 14;
             this.button_add_consumer.Text = "Thêm khách";
             this.button_add_consumer.UseVisualStyleBackColor = true;
@@ -900,36 +951,124 @@ namespace storage_managements
             // 
             this.flowLayoutPanel4.Controls.Add(this.label_message);
             this.flowLayoutPanel4.Controls.Add(this.button1);
-            this.flowLayoutPanel4.Location = new System.Drawing.Point(3, 600);
+            this.flowLayoutPanel4.Location = new System.Drawing.Point(2, 487);
+            this.flowLayoutPanel4.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.flowLayoutPanel4.Name = "flowLayoutPanel4";
-            this.flowLayoutPanel4.Size = new System.Drawing.Size(870, 41);
+            this.flowLayoutPanel4.Size = new System.Drawing.Size(882, 33);
             this.flowLayoutPanel4.TabIndex = 7;
             // 
             // label_message
             // 
             this.label_message.AutoSize = true;
-            this.label_message.Location = new System.Drawing.Point(3, 0);
+            this.label_message.Location = new System.Drawing.Point(2, 0);
+            this.label_message.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label_message.Name = "label_message";
-            this.label_message.Size = new System.Drawing.Size(141, 33);
+            this.label_message.Size = new System.Drawing.Size(111, 25);
             this.label_message.TabIndex = 0;
             this.label_message.Text = "Thông báo:";
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(150, 3);
+            this.button1.Location = new System.Drawing.Point(117, 2);
+            this.button1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(320, 38);
+            this.button1.Size = new System.Drawing.Size(240, 31);
             this.button1.TabIndex = 1;
             this.button1.Text = "test_function";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click_2);
             // 
+            // radioButton_transaction_import
+            // 
+            this.radioButton_transaction_import.AutoSize = true;
+            this.radioButton_transaction_import.Location = new System.Drawing.Point(308, 64);
+            this.radioButton_transaction_import.Margin = new System.Windows.Forms.Padding(2);
+            this.radioButton_transaction_import.Name = "radioButton_transaction_import";
+            this.radioButton_transaction_import.Size = new System.Drawing.Size(82, 30);
+            this.radioButton_transaction_import.TabIndex = 4;
+            this.radioButton_transaction_import.TabStop = true;
+            this.radioButton_transaction_import.Text = "Nhập";
+            this.radioButton_transaction_import.UseVisualStyleBackColor = true;
+            this.radioButton_transaction_import.CheckedChanged += new System.EventHandler(this.radioButton_transaction_import_CheckedChanged);
+            // 
+            // tableLayoutPanel7
+            // 
+            this.tableLayoutPanel7.ColumnCount = 2;
+            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 84.55598F));
+            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 15.44402F));
+            this.tableLayoutPanel7.Controls.Add(this.groupBox3, 1, 0);
+            this.tableLayoutPanel7.Controls.Add(this.tableLayoutPanel3, 0, 0);
+            this.tableLayoutPanel7.Location = new System.Drawing.Point(3, 253);
+            this.tableLayoutPanel7.Name = "tableLayoutPanel7";
+            this.tableLayoutPanel7.RowCount = 1;
+            this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel7.Size = new System.Drawing.Size(1036, 134);
+            this.tableLayoutPanel7.TabIndex = 11;
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.flowLayoutPanel1);
+            this.groupBox3.Location = new System.Drawing.Point(878, 3);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(150, 128);
+            this.groupBox3.TabIndex = 0;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Xem thông tin";
+            // 
+            // radioButton_items
+            // 
+            this.radioButton_items.AutoSize = true;
+            this.radioButton_items.Location = new System.Drawing.Point(3, 3);
+            this.radioButton_items.Name = "radioButton_items";
+            this.radioButton_items.Size = new System.Drawing.Size(112, 29);
+            this.radioButton_items.TabIndex = 0;
+            this.radioButton_items.TabStop = true;
+            this.radioButton_items.Text = "Mặt hàng";
+            this.radioButton_items.UseVisualStyleBackColor = true;
+            this.radioButton_items.CheckedChanged += new System.EventHandler(this.radioButton_items_CheckedChanged);
+            // 
+            // flowLayoutPanel1
+            // 
+            this.flowLayoutPanel1.Controls.Add(this.radioButton_items);
+            this.flowLayoutPanel1.Controls.Add(this.radioButton_company);
+            this.flowLayoutPanel1.Controls.Add(this.radioButton_consumer);
+            this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 26);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(144, 99);
+            this.flowLayoutPanel1.TabIndex = 0;
+            // 
+            // radioButton_company
+            // 
+            this.radioButton_company.AutoSize = true;
+            this.radioButton_company.Location = new System.Drawing.Point(3, 38);
+            this.radioButton_company.Name = "radioButton_company";
+            this.radioButton_company.Size = new System.Drawing.Size(65, 29);
+            this.radioButton_company.TabIndex = 1;
+            this.radioButton_company.TabStop = true;
+            this.radioButton_company.Text = "C.ty";
+            this.radioButton_company.UseVisualStyleBackColor = true;
+            this.radioButton_company.CheckedChanged += new System.EventHandler(this.radioButton2_CheckedChanged);
+            // 
+            // radioButton_consumer
+            // 
+            this.radioButton_consumer.AutoSize = true;
+            this.radioButton_consumer.Location = new System.Drawing.Point(3, 73);
+            this.radioButton_consumer.Name = "radioButton_consumer";
+            this.radioButton_consumer.Size = new System.Drawing.Size(87, 29);
+            this.radioButton_consumer.TabIndex = 2;
+            this.radioButton_consumer.TabStop = true;
+            this.radioButton_consumer.Text = "Khách";
+            this.radioButton_consumer.UseVisualStyleBackColor = true;
+            this.radioButton_consumer.CheckedChanged += new System.EventHandler(this.radioButton_consumer_CheckedChanged);
+            // 
             // main_form
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1259, 645);
+            this.ClientSize = new System.Drawing.Size(1085, 524);
             this.Controls.Add(layout_L1);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "main_form";
             this.Text = "Storage managements";
             layout_L1.ResumeLayout(false);
@@ -962,6 +1101,10 @@ namespace storage_managements
             this.tableLayoutPanel3.PerformLayout();
             this.flowLayoutPanel4.ResumeLayout(false);
             this.flowLayoutPanel4.PerformLayout();
+            this.tableLayoutPanel7.ResumeLayout(false);
+            this.groupBox3.ResumeLayout(false);
+            this.flowLayoutPanel1.ResumeLayout(false);
+            this.flowLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1000,10 +1143,8 @@ namespace storage_managements
         private System.Windows.Forms.NumericUpDown numeric_threshold;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox textbox_new_consumer_name;
-        private System.Windows.Forms.Button button_add_consumer1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox textbox_new_company_name;
-        private System.Windows.Forms.Button button_add_company1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
         private System.Windows.Forms.TextBox textbox_new_consumer_ID;
         private System.Windows.Forms.TextBox textbox_new_company_ID;
@@ -1026,7 +1167,7 @@ namespace storage_managements
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel2;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.RadioButton radioButton3;
-        private System.Windows.Forms.RadioButton radioButton2;
+        private System.Windows.Forms.RadioButton radioButton_transaction_export;
         private System.Windows.Forms.RadioButton radioButton1;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.GroupBox groupBox2;
@@ -1037,6 +1178,13 @@ namespace storage_managements
         private System.Windows.Forms.RadioButton radioButton_greater_than;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.DataGridViewCheckBoxColumn storage_item_select;
+        private System.Windows.Forms.RadioButton radioButton_transaction_import;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel7;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
+        private System.Windows.Forms.RadioButton radioButton_items;
+        private System.Windows.Forms.RadioButton radioButton_company;
+        private System.Windows.Forms.RadioButton radioButton_consumer;
     }
 }
 

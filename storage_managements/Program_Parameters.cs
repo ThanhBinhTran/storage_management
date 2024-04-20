@@ -17,7 +17,8 @@ namespace storage_managements
 		public const string filePath_storage = dataPath + @"storage.json";
 		public const string filePath_company = dataPath + @"company.json";
 		public const string filePath_consumer = dataPath + @"consumer.json";
-		public const string filePath_transaction = dataPath + @"transaction.json";
+
+		public const string filename_transaction = @"transaction.json";
 
 		public const string message_company_empty = "Tên công ty hoặc khách hàng đang trống";
 
@@ -26,8 +27,13 @@ namespace storage_managements
 		/* create path for program if nonexist*/
 		public static void create_paths()
         {
+			string year = lib_date_time.get_year();
+			string month = lib_date_time.get_month();
+
 			Create_Path(Program_Parameters.dataPath);
 			Create_Path(Program_Parameters.backupPath);
+			Create_Path(Program_Parameters.dataPath + year + "\\");
+			Create_Path(Program_Parameters.dataPath + year + "\\" + month);
 		}
 
 		private static void Create_file(string filepath)

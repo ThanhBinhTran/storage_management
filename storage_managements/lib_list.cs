@@ -99,8 +99,17 @@ namespace storage_managements
             items[idx].quantity += quantity;
         }
         public static void do_add_update_storage_item(List<DS_Storage_Item> items, string ID, string name, 
-            string unit, int quantity, int in_out) // in = 1 ; out = -1 
+            string unit, int quantity, direction dir) // in = 1 ; out = -1 
         {
+            int in_out = 0;
+            if (dir == direction.import)
+            {
+                in_out = 1;
+            }
+            else if(dir == direction.export)
+            {
+                in_out = -1;
+            }    
             int idx = lib_list.get_idx_storage_item_by_ID(ID: ID, items: items);
             if (idx == -1) // new one
             {

@@ -16,11 +16,10 @@ namespace storage_managements
 
         public int item_quantity { get; set; }
         public string item_unit { get; set; }
-        
 
-        public DateTime transaction_time { get; set; }
+
         public direction transaction_direction { get; set; }
-
+        public DateTime transaction_time { get; set; }
         public void print_item()
         {
             Console.WriteLine("ID: " + ID);

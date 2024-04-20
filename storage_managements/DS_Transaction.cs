@@ -18,8 +18,9 @@ namespace storage_managements
 
         public List<DS_Storage_Item> transaction_items { get; set; }
 
-        public DateTime transaction_time { get; set; }
         public direction transaction_direction { get; set; }
+        public DateTime transaction_time { get; set; }
+
 
         public void print_item()
         {

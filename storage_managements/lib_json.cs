@@ -141,9 +141,9 @@ namespace storage_managements
 		/*
 		 * Transactions
 		 */
-		public static bool Read_Transactions(List<DS_Transaction> items)
+		public static bool Read_Transactions(List<DS_Transaction> items, string filepath)
 		{
-			string filepath = Program_Parameters.filePath_transaction;
+			
 			try
 			{
 				List<DS_Transaction> read_items = new List<DS_Transaction>();
@@ -165,9 +165,8 @@ namespace storage_managements
 				return false;
 			}
 		}
-		public static void Write_Transaction(List<DS_Transaction> items)
+		public static void Write_Transaction(List<DS_Transaction> items, string filepath)
 		{
-			string filepath = Program_Parameters.filePath_transaction;
 			string json_str = JsonConvert.SerializeObject(items, Formatting.Indented);
 
 			// Write JSON to a file
