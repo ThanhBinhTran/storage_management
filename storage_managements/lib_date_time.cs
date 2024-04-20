@@ -8,35 +8,54 @@ namespace storage_managements
 {
     class lib_date_time
     {
-        public static DateTime get_currenttime()
+        public static DateTime GetCurrentTime()
         {
             return DateTime.Now;
         }
-        public static string get_year()
+        public static string GetYear()
         {
             return string.Format("{0:yyyy}", DateTime.Now);
         }
-        public static string get_month()
+        public static string GetMonth()
         {
             return string.Format("{0:MM}", DateTime.Now);
         }
-        public static string get_day()
+        public static string GetDay()
         {
             return string.Format("{0:dd}", DateTime.Now);
         }
 
-        public static string getID_byDateTime()
+        public static string GetIDByDateTime()
         {
             return string.Format("{0:yyMMddHHmmssf}", DateTime.Now);
         }
 
-        public static string get_current_transaction_date()
+        public static List<DateTime> GetAllDatesBetween(DateTime startDate, DateTime endDate)
         {
-            string year = lib_date_time.get_year();
-            string month = lib_date_time.get_month();
-            string day = lib_date_time.get_day();
+            var dates = new List<DateTime>();
+
+            for (DateTime date = startDate; date <= endDate; date = date.AddDays(1))
+            {
+                dates.Add(date);
+                Console.WriteLine(date.ToString());
+                Console.WriteLine(lib_date_time.DateToTransactionPath(dt: date));
+            }
+
+            return dates;
+        }
+
+        public static string DateToTransactionPath(DateTime dt)
+        {
+            string year = string.Format("{0:yyyy}", dt);
+            string month = string.Format("{0:MM}", dt);
+            string day = string.Format("{0:dd}", dt);
             string transaction_filename = year + month + day + Program_Parameters.filename_transaction;
-            return string.Format("{0}//{1}//{2}//{3}",Program_Parameters.dataPath, year, month, transaction_filename);
+            return string.Format(@"{0}{1}\\{2}\\{3}", Program_Parameters.dataPath, year, month, transaction_filename);
+        }
+        public static string GetTransactionPathFromCurrentDate()
+        {
+            return DateToTransactionPath(dt: DateTime.Now);
+            
         }
     }
 }

@@ -27,8 +27,8 @@ namespace storage_managements
 		/* create path for program if nonexist*/
 		public static void create_paths()
         {
-			string year = lib_date_time.get_year();
-			string month = lib_date_time.get_month();
+			string year = lib_date_time.GetYear();
+			string month = lib_date_time.GetMonth();
 
 			Create_Path(Program_Parameters.dataPath);
 			Create_Path(Program_Parameters.backupPath);

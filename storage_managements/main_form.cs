@@ -179,13 +179,13 @@ namespace storage_managements
 				pre_fix = "X";
 			}				
 			cur_transaction.transaction_items = transaction_items;
-			cur_transaction.ID = pre_fix + lib_date_time.getID_byDateTime();
+			cur_transaction.ID = pre_fix + lib_date_time.GetIDByDateTime();
 			cur_transaction.company_name = company_name;
-			cur_transaction.transaction_time = lib_date_time.get_currenttime();
+			cur_transaction.transaction_time = lib_date_time.GetCurrentTime();
 
 			cur_transaction.print_item();
 			// get exist transaction in the same day.
-			string file_path = lib_date_time.get_current_transaction_date();
+			string file_path = lib_date_time.GetTransactionPathFromCurrentDate();
 			lib_json.Read_Transactions(items: inday_transactions, filepath:file_path);
 			inday_transactions.Add(cur_transaction);
 			
@@ -198,7 +198,7 @@ namespace storage_managements
 		private void retrieve_transaction()
 		{
 			retrieve_transactions.Clear();
-			string file_path = lib_date_time.get_current_transaction_date();
+			string file_path = lib_date_time.GetTransactionPathFromCurrentDate();
 			lib_json.Read_Transactions(items: retrieve_transactions,filepath: file_path);
 		}
 		private void show_transaction()
@@ -281,12 +281,12 @@ namespace storage_managements
 			}
 		}
 
-		private void transaction_filter_by_import_export(direction dir = direction.import)
+		private void transactions_filter(direction dir = direction.import, bool all_transaction=false)
 		{
 			transactions_history.Clear();
 			foreach (DS_Transaction transitem in retrieve_transactions)
 			{
-				if(transitem.transaction_direction == dir)
+				if(transitem.transaction_direction == dir || all_transaction)
                 {
 					foreach (DS_Storage_Item trans_item in transitem.transaction_items)
 					{
@@ -433,14 +433,14 @@ namespace storage_managements
         private void button5_Click(object sender, EventArgs e)
         {
 			do_transaction(dir: direction.export, company_name: textBox_transaction_consumer.Text);
-			label_message.Text = lib_date_time.getID_byDateTime();
+			label_message.Text = lib_date_time.GetIDByDateTime();
 			lib_form_text.color_textbox(textBox_transaction_consumer);
 		}
 
         private void button4_Click(object sender, EventArgs e)
         {
 			do_transaction(dir: direction.import, company_name: textBox_transaction_company.Text);
-			label_message.Text = lib_date_time.getID_byDateTime();
+			label_message.Text = lib_date_time.GetIDByDateTime();
 			lib_form_text.color_textbox(textBox_transaction_company);
 		}
 
@@ -497,9 +497,17 @@ namespace storage_managements
 
         private void button1_Click_2(object sender, EventArgs e)
         {
+			DateTime time_from = dateTimePicker_from.Value;
+			DateTime time_to = dateTimePicker_to.Value;
+			if (time_from > time_to)
+            {
+				lib_message.show_messagebox("lớn hơn");
+            }
+            {
+				lib_message.show_messagebox("nhỏ hơn");
+			}
+			lib_date_time.GetAllDatesBetween(time_from, time_to);
 			
-			//disply message 
-			lib_message.show_messagebox("hello binh");
 
         }
 
@@ -573,23 +581,20 @@ namespace storage_managements
         {
 			retrieve_transaction();
 			show_transaction();
-			// Use OrderBy to sort the people by Age
-			var temp_transactions_history = transactions_history.OrderBy(p => p.item_ID).ToList();
-			transactions_history = temp_transactions_history;
 			datagrid_display_transactions();
 		}
 
         private void radioButton_transaction_export_CheckedChanged(object sender, EventArgs e)
         {
 			retrieve_transaction();
-			transaction_filter_by_import_export(dir:direction.export);
+			transactions_filter(dir:direction.export);
 			datagrid_display_transactions();
 		}
 
         private void radioButton_transaction_import_CheckedChanged(object sender, EventArgs e)
         {
 			retrieve_transaction();
-			transaction_filter_by_import_export(dir: direction.import);
+			transactions_filter(dir: direction.import);
 			
 			datagrid_display_transactions();
 		}
@@ -608,5 +613,38 @@ namespace storage_managements
         {
 			datagrid_display_items();
         }
+
+        private void radioButton3_CheckedChanged(object sender, EventArgs e)
+        {
+			retrieve_transaction();
+			transactions_filter(all_transaction:true);
+
+			datagrid_display_transactions();
+		}
+
+        private void dateTimePicker_from_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void radioButton_transaction_by_items_CheckedChanged(object sender, EventArgs e)
+        {
+			retrieve_transaction();
+			show_transaction();
+			// Use OrderBy to sort the item ID
+			var temp_transactions_history = transactions_history.OrderBy(th => th.item_ID).ToList();
+			transactions_history = temp_transactions_history;
+			datagrid_display_transactions();
+		}
+
+        private void radioButton_transaction_by_companies_CheckedChanged(object sender, EventArgs e)
+        {
+			retrieve_transaction();
+			show_transaction();
+			// Use OrderBy to sort the company
+			var temp_transactions_history = transactions_history.OrderBy(th => th.company_name).ToList();
+			transactions_history = temp_transactions_history;
+			datagrid_display_transactions();
+		}
     }
 }
