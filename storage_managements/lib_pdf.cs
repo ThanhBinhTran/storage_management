@@ -31,21 +31,25 @@ namespace storage_managements
             List<string> transHeader = new List<string> { "Thời gian", "Giao dịch", "Đối tác","Sản Phẩm",
                 "Số Lượng", "Quy cách"};
             DocumentAddTables(doc: document, headerList: transHeader, transItems: items);
-            DocumentAddParagraph(doc: document, str: "Ngay 12/12/2024");
-            DocumentAddTables(doc: document, headerList: transHeader, transItems: items);
 
             // Close the document
             document.Close();
         }
         private static PdfPTable CreatePdfTableHeader(List<string> headerList)
         {
-            PdfPTable table;
             int headCount = headerList.Count;
             if (headCount <= 0)
             {
                 return null;
             }
-            table = new PdfPTable(headCount);
+            PdfPTable table = new PdfPTable(headCount);
+            // Define the relative widths of the columns
+            // Make sure this array has the same number of elements as the number of columns in your table
+            float[] widths = new float[] { 2.5f, 1f, 1f, 2f, 1f, 1f };
+
+
+            // Set the relative widths of the table
+            table.SetWidths(widths);
             // headers field
             foreach (string itemstr in headerList)
             {
@@ -53,29 +57,62 @@ namespace storage_managements
             }
             return table;
         }
+
+        private static void CreatePdfTableRow(PdfPTable table, DS_Transaction_Grid item)
+        {
+            string time = lib_date_time.GetTimeOnly(item.transaction_time);
+            string direction = "Xuất";
+            string company_name = item.company_name;
+            string item_name = item.item_name;
+            string item_quantity = item.item_quantity.ToString();
+            string item_unit = item.item_unit;
+            //"Thời gian", "Giao dịch", "Đối tác","Sản Phẩm", "Số Lượng", "Quy cách"
+            table.AddCell(new Paragraph(time, font));
+            table.AddCell(new Paragraph(direction, font));
+            table.AddCell(new Paragraph(company_name, font));
+            table.AddCell(new Paragraph(item_name, font));
+            table.AddCell(new Paragraph(item_quantity, font));
+            table.AddCell(new Paragraph(item_unit, font));
+        }
         private static PdfPTable CreatePdfTableData(PdfPTable table, List<DS_Transaction_Grid> transItems)
         {
             //data field
             foreach (DS_Transaction_Grid item in transItems)
             {
-                string time = lib_date_time.GetTimeOnly(item.transaction_time);
-                string direction = "Xuất";
-                string company_name = item.company_name;
-                string item_name = item.item_name;
-                string item_quantity = item.item_quantity.ToString();
-                string item_unit = item.item_unit;
-                //"Thời gian", "Giao dịch", "Đối tác","Sản Phẩm", "Số Lượng", "Quy cách"
-                table.AddCell(new Paragraph(time, font));
-                table.AddCell(new Paragraph(direction, font));
-                table.AddCell(new Paragraph(company_name, font));
-                table.AddCell(new Paragraph(item_name, font));
-                table.AddCell(new Paragraph(item_quantity, font));
-                table.AddCell(new Paragraph(item_unit, font));
+                CreatePdfTableRow(table: table, item: item);
             }
             return table;
         }
-        private static void DocumentAddTables(Document doc, List<string> headerList, List<DS_Transaction_Grid> transItems)
+        private static void DocumentAddTables(Document doc, List<string> headerList, List<DS_Transaction_Grid> transItems, int sortby = 0)
         {
+            bool first = true;
+            string company_name = "";
+            string item_name = "";
+            PdfPTable groupTable = CreatePdfTableHeader(headerList: headerList);
+            foreach (DS_Transaction_Grid item in transItems)
+            {
+                if (company_name != item.company_name)
+                {
+                    company_name = item.company_name;
+                    DocumentAddParagraph(doc: doc, str: item.company_name);
+                    if (first)
+                    {
+                        first = false;
+                    }
+                    else
+                    {
+                        doc.Add(groupTable);
+                        groupTable.Rows.Clear();
+
+                        groupTable = CreatePdfTableHeader(headerList: headerList);
+                    }
+
+                }
+                if (groupTable != null)
+                {
+                    CreatePdfTableRow(table: groupTable, item: item);
+                }
+            }
             PdfPTable table = CreatePdfTableHeader(headerList: headerList);
             if (table != null)
             {
