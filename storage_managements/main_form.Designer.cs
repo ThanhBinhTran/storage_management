@@ -50,6 +50,7 @@ namespace storage_managements
             this.tab_inport_export = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.datagrid_storage_items_info = new System.Windows.Forms.DataGridView();
+            this.storage_item_select = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.datagrid_storage_transaction = new System.Windows.Forms.DataGridView();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.button7 = new System.Windows.Forms.Button();
@@ -82,7 +83,7 @@ namespace storage_managements
             this.label2 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.textbox_new_consumer_ID = new System.Windows.Forms.TextBox();
-            this.textbox_new_conpany_ID = new System.Windows.Forms.TextBox();
+            this.textbox_new_company_ID = new System.Windows.Forms.TextBox();
             this.textbox_new_item_ID = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -98,7 +99,6 @@ namespace storage_managements
             this.label_message = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            this.storage_item_select = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             layout_L1 = new System.Windows.Forms.TableLayoutPanel();
             layout_L1.SuspendLayout();
             this.flowLayoutPanel3.SuspendLayout();
@@ -407,6 +407,16 @@ namespace storage_managements
             this.datagrid_storage_items_info.Size = new System.Drawing.Size(1204, 179);
             this.datagrid_storage_items_info.TabIndex = 1;
             // 
+            // storage_item_select
+            // 
+            this.storage_item_select.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCellsExceptHeader;
+            this.storage_item_select.FillWeight = 90F;
+            this.storage_item_select.HeaderText = "Chọn";
+            this.storage_item_select.MinimumWidth = 90;
+            this.storage_item_select.Name = "storage_item_select";
+            this.storage_item_select.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.storage_item_select.Width = 90;
+            // 
             // datagrid_storage_transaction
             // 
             this.datagrid_storage_transaction.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -448,7 +458,7 @@ namespace storage_managements
             this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 38.19444F));
             this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 61.80556F));
             this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 390F));
-            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 117F));
+            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 118F));
             this.tableLayoutPanel5.Controls.Add(this.comboBox_consumer, 1, 1);
             this.tableLayoutPanel5.Controls.Add(this.label11, 0, 0);
             this.tableLayoutPanel5.Controls.Add(this.button5, 3, 1);
@@ -470,7 +480,7 @@ namespace storage_managements
             this.comboBox_consumer.FormattingEnabled = true;
             this.comboBox_consumer.Location = new System.Drawing.Point(180, 47);
             this.comboBox_consumer.Name = "comboBox_consumer";
-            this.comboBox_consumer.Size = new System.Drawing.Size(281, 39);
+            this.comboBox_consumer.Size = new System.Drawing.Size(280, 39);
             this.comboBox_consumer.TabIndex = 24;
             this.comboBox_consumer.SelectedIndexChanged += new System.EventHandler(this.comboBox_consumer_SelectedIndexChanged);
             // 
@@ -485,7 +495,7 @@ namespace storage_managements
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(857, 47);
+            this.button5.Location = new System.Drawing.Point(856, 47);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(98, 38);
             this.button5.TabIndex = 18;
@@ -495,7 +505,7 @@ namespace storage_managements
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(857, 3);
+            this.button4.Location = new System.Drawing.Point(856, 3);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(98, 38);
             this.button4.TabIndex = 17;
@@ -514,14 +524,14 @@ namespace storage_managements
             // 
             // textBox_transaction_company
             // 
-            this.textBox_transaction_company.Location = new System.Drawing.Point(467, 3);
+            this.textBox_transaction_company.Location = new System.Drawing.Point(466, 3);
             this.textBox_transaction_company.Name = "textBox_transaction_company";
             this.textBox_transaction_company.Size = new System.Drawing.Size(384, 38);
             this.textBox_transaction_company.TabIndex = 21;
             // 
             // textBox_transaction_consumer
             // 
-            this.textBox_transaction_consumer.Location = new System.Drawing.Point(467, 47);
+            this.textBox_transaction_consumer.Location = new System.Drawing.Point(466, 47);
             this.textBox_transaction_consumer.Name = "textBox_transaction_consumer";
             this.textBox_transaction_consumer.Size = new System.Drawing.Size(384, 38);
             this.textBox_transaction_consumer.TabIndex = 22;
@@ -531,7 +541,7 @@ namespace storage_managements
             this.comboBox_company.FormattingEnabled = true;
             this.comboBox_company.Location = new System.Drawing.Point(180, 3);
             this.comboBox_company.Name = "comboBox_company";
-            this.comboBox_company.Size = new System.Drawing.Size(281, 39);
+            this.comboBox_company.Size = new System.Drawing.Size(280, 39);
             this.comboBox_company.TabIndex = 23;
             this.comboBox_company.SelectedIndexChanged += new System.EventHandler(this.comboBox_company_SelectedIndexChanged);
             // 
@@ -671,10 +681,13 @@ namespace storage_managements
             // 
             // datagrid_information
             // 
+            this.datagrid_information.AllowUserToAddRows = false;
+            this.datagrid_information.AllowUserToDeleteRows = false;
             this.datagrid_information.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.datagrid_information.Dock = System.Windows.Forms.DockStyle.Fill;
             this.datagrid_information.Location = new System.Drawing.Point(3, 3);
             this.datagrid_information.Name = "datagrid_information";
+            this.datagrid_information.ReadOnly = true;
             this.datagrid_information.RowHeadersWidth = 51;
             this.datagrid_information.RowTemplate.Height = 24;
             this.datagrid_information.Size = new System.Drawing.Size(1145, 330);
@@ -698,7 +711,7 @@ namespace storage_managements
             this.tableLayoutPanel3.Controls.Add(this.label2, 2, 1);
             this.tableLayoutPanel3.Controls.Add(this.label4, 2, 0);
             this.tableLayoutPanel3.Controls.Add(this.textbox_new_consumer_ID, 1, 2);
-            this.tableLayoutPanel3.Controls.Add(this.textbox_new_conpany_ID, 1, 1);
+            this.tableLayoutPanel3.Controls.Add(this.textbox_new_company_ID, 1, 1);
             this.tableLayoutPanel3.Controls.Add(this.textbox_new_item_ID, 1, 0);
             this.tableLayoutPanel3.Controls.Add(this.label10, 0, 2);
             this.tableLayoutPanel3.Controls.Add(this.label1, 0, 0);
@@ -780,12 +793,12 @@ namespace storage_managements
             this.textbox_new_consumer_ID.Size = new System.Drawing.Size(156, 36);
             this.textbox_new_consumer_ID.TabIndex = 11;
             // 
-            // textbox_new_conpany_ID
+            // textbox_new_company_ID
             // 
-            this.textbox_new_conpany_ID.Location = new System.Drawing.Point(165, 51);
-            this.textbox_new_conpany_ID.Name = "textbox_new_conpany_ID";
-            this.textbox_new_conpany_ID.Size = new System.Drawing.Size(156, 36);
-            this.textbox_new_conpany_ID.TabIndex = 12;
+            this.textbox_new_company_ID.Location = new System.Drawing.Point(165, 51);
+            this.textbox_new_company_ID.Name = "textbox_new_company_ID";
+            this.textbox_new_company_ID.Size = new System.Drawing.Size(156, 36);
+            this.textbox_new_company_ID.TabIndex = 12;
             // 
             // textbox_new_item_ID
             // 
@@ -911,16 +924,6 @@ namespace storage_managements
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click_2);
             // 
-            // storage_item_select
-            // 
-            this.storage_item_select.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCellsExceptHeader;
-            this.storage_item_select.FillWeight = 90F;
-            this.storage_item_select.HeaderText = "Chọn";
-            this.storage_item_select.MinimumWidth = 90;
-            this.storage_item_select.Name = "storage_item_select";
-            this.storage_item_select.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.storage_item_select.Width = 90;
-            // 
             // main_form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -1003,7 +1006,7 @@ namespace storage_managements
         private System.Windows.Forms.Button button_add_company1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
         private System.Windows.Forms.TextBox textbox_new_consumer_ID;
-        private System.Windows.Forms.TextBox textbox_new_conpany_ID;
+        private System.Windows.Forms.TextBox textbox_new_company_ID;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.Windows.Forms;
 namespace storage_managements
 {
     class lib_list
@@ -40,14 +40,24 @@ namespace storage_managements
         public static void do_add_update_database_item(List<DS_Storage_Item> items, string ID, string name, string unit)
         {
             int idx = lib_list.get_idx_database_item_by_ID(ID: ID, items: items);
-            if (idx == -1) // new one
+            bool result = true;
+            if (idx > -1) // existed one
             {
-                lib_list.add_database_item(items: items, ID: ID, name: name, unit: unit);
-            }
-            else // update existed item
+                result = lib_message.show_messagebox(mstr: "Mã đã được dùng.\nVẫn muốn ghi đè?", mbutton: MessageBoxButtons.OKCancel,
+                    micon: MessageBoxIcon.Warning);
+            }    
+            if(result)
             {
-                lib_list.update_database_item_by_idx(items: items, ID: ID, name: name, unit: unit, idx: idx);
-            }
+                if (idx == -1) // new one
+                {
+                    lib_list.add_database_item(items: items, ID: ID, name: name, unit: unit);
+                }
+                else // update existed item
+                {
+                    lib_list.update_database_item_by_idx(items: items, ID: ID, name: name, unit: unit, idx: idx);
+                }
+            }    
+
         }
         public static void print_database_items(List<DS_Storage_Item> items)
         {

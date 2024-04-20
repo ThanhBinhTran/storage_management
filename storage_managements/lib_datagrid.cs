@@ -9,23 +9,13 @@ namespace storage_managements
 {
     class lib_datagrid
     {
-		public static void datagridview_source_company(DataGridView dgv, List<DS_Company> items)
-		{
-			BindingSource source = new BindingSource();
-			source.DataSource = items;
-			//dgv.DataSource = items;
-			dgv.DataSource = source;
-			source.ResetBindings(false);
-			dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-		}
-
-		public static void datagridview_prestorage_clear(DataGridView dgv, List<DS_Storage_prepare_Item> items)
+		public static void datagridview_prestorage_clear(DataGridView dgv, List<DS_Storage_Item> items)
         {
 			items.Clear();
 			datagridview_source_storage(dgv, items);
         }
 		
-		public static void datagridview_source_storage(DataGridView dgv, List<DS_Storage_prepare_Item> items)
+		public static void datagridview_source_storage(DataGridView dgv, List<DS_Storage_Item> items)
         {
 			BindingSource source = new BindingSource();
 			source.DataSource = items;
@@ -53,15 +43,44 @@ namespace storage_managements
 			}
 		}
 		
-		public static void ShowTable_Item_Info(DataGridView dgv, List<DS_Storage_Item> items)
+		public static void datagrid_display_items(DataGridView dgv, List<DS_Storage_Item> items)
 		{
 			datagridview_source_item(dgv:dgv, items:items);
 
 			List<string> oldlheader = new List<string> { "ID", "name", "unit" };
 			List<string> newlheader = new List<string> { "Mã Sản Phẩm", "Tên Sản Phẩm", "Đơn vị" };
 			datagridview_rename_header(dgv, oldHeader: oldlheader, newHeader: newlheader);
+		}
 
-			
+		/*
+		 * companies
+		 */
+
+		private static void datagridview_source_company(DataGridView dgv, List<DS_Company> items)
+		{
+			BindingSource source = new BindingSource();
+			source.DataSource = items;
+			dgv.DataSource = source;
+			source.ResetBindings(false);
+			dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+		}
+		public static void datagrid_display_companies(DataGridView dgv, List<DS_Company> items, int company = 0)
+		{
+			datagridview_source_company(dgv: dgv, items: items);
+			List<string> oldlheader = new List<string> { "ID", "name" };
+			List<string> newlheader = new List<string>();
+			if (company ==0) // conpany
+            {
+				newlheader.Add("Mã c.ty");
+				newlheader.Add("Tên c.ty");
+			}
+			else
+            {
+				newlheader.Add("Mã khách");
+				newlheader.Add("Tên khách");
+			}				
+
+			datagridview_rename_header(dgv, oldHeader: oldlheader, newHeader: newlheader);
 		}
 	}
 }
