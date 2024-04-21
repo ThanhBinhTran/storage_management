@@ -63,6 +63,9 @@ namespace storage_managements
             lib_datagrid.datagrid_display_items(dgv: datagrid_information, items: database_items);
             lib_datagrid.datagrid_display_items(dgv: datagrid_storage_items_info, items: database_items);
 
+            SetSearchDateTimeRange();
+            // initial GUI
+            InitialGUI();
         }
 
         private void read_all_information()
@@ -91,7 +94,25 @@ namespace storage_managements
         }
         /** read goods information from json file **/
 
+        /* GUI */
+        private void InitialGUI()
+        {
+            InitialGUILabel();
+        }
 
+        private void InitialGUILabel()
+        {
+            int num = (int)numeric_threshold.Value;
+            string text_lt = string.Format("ít hơn {0} món", num);
+            string text_gt = string.Format("nhiều hơn {0} món", num);
+            SetRadioButtonText(rb: radioButton_less_than, text: text_lt);
+            SetRadioButtonText(rb: radioButton_greater_than, text: text_gt);
+        }
+
+        private void SetRadioButtonText(RadioButton rb, string text)
+        {
+            rb.Text = text.Trim();
+        }
         private bool AddDatabaseItem()
         {
             if (lib_form_text.is_textbox_empty(textbox_new_item_ID) ||
@@ -103,7 +124,7 @@ namespace storage_managements
                 return false;
             }
 
-            string ID = lib_form_text.get_textbox_text(textbox_new_item_ID);
+            string ID = lib_form_text.get_textbox_text(textbox_new_item_ID).ToUpper();
             string name = lib_form_text.get_textbox_text(textbox_new_item_name);
             string unit = lib_form_text.get_textbox_text(textbox_new_item_unit);
             lib_list.do_add_update_database_item(items: database_items, ID: ID, name: name, unit: unit);
@@ -245,17 +266,10 @@ namespace storage_managements
             }
         }
 
-        /* table initial */
-        private void TranslateVietnameseHeaderTable()
-        {
-            // storage datagrid
-            List<string> oldHeaderStorage = new List<string> { "ID", "name", "unit" };
-            List<string> newHeaderStorage = new List<string> { "Mã Sản Phẩm", "Tên Sản Phẩm", "Đơn vị" };
-            lib_datagrid.datagridview_rename_header(dgv:datagrid_storage, oldHeader: oldHeaderStorage, newHeader: newHeaderStorage);
-        }
         private void DatagridDisplayStorage()
         {
             lib_datagrid.datagridview_source_storage(dgv: datagrid_storage, items: storages_display);
+            lib_datagrid.DGVRenameStorageHeader(dgv:datagrid_storage);
         }
 
         private void DisplayStorageByID(string ID)
@@ -515,11 +529,7 @@ namespace storage_managements
             }
             lib_date_time.GetAllDatesBetween(time_from, time_to); 
 #endif
-            string filepath = string.Format("test{0}.pdf", lib_date_time.GetIDByDateTime());
-            if (transactions_history.Count > 0)
-            {
-                lib_pdf.CreatePdf(filepath, items: transactions_history);
-            }
+
 
 
         }
@@ -565,6 +575,7 @@ namespace storage_managements
 
         private void numericUpDown1_ValueChanged(object sender, EventArgs e)
         {
+            InitialGUILabel();
             if (radioButton_less_than.Checked)
             {
                 DisplayStorageByQuantity(threshold: (int)numeric_threshold.Value, relation: display_relation.lessthan);
@@ -728,6 +739,20 @@ namespace storage_managements
                 }
             }
             lib_datagrid.datagridview_source_storage(dgv: datagrid_storage_transaction, items: pre_transaction_items);
+        }
+
+        private void button_export_pdf_Click(object sender, EventArgs e)
+        {
+            
+            if (transactions_history.Count > 0)
+            {
+                for (int i = 0; i < 3; i++)
+                {
+                    string filepath = string.Format("test{0}_{1}.pdf", lib_date_time.GetIDByDateTime(),i);
+                    lib_pdf.CreatePdf(filepath, items: transactions_history, seperateby: i);
+                }
+                
+            }
         }
     }
 }

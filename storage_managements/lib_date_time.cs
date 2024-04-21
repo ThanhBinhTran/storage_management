@@ -13,6 +13,12 @@ namespace storage_managements
         {
             return string.Format("{0:yyyy/MM/dd HH:mm:ss}", dt);
         }
+
+        public static string GetDateOnly(DateTime dt)
+        {
+            return string.Format("{0:yyyy/MM/dd}", dt);
+        }
+
         public static string GetYear()
         {
             return string.Format("{0:yyyy}", DateTime.Now);

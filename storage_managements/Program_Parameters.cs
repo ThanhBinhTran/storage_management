@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 
 namespace storage_managements
@@ -22,7 +23,12 @@ namespace storage_managements
 
         public const string message_company_empty = "Tên công ty hoặc khách hàng đang trống";
 
-
+        public static List<string> oldHeaderStorage = new List<string> { "ID", "name", "quantity", "unit" };
+        public static List<string> newHeaderStorage = new List<string> { "Mã Sản Phẩm", "Tên Sản Phẩm", "Số lượng", "Đơn vị" };
+        
+        public static List<string> oldHeadercompany = new List<string> { "ID", "name" };
+        public static List<string> newHeadercompany = new List<string> { "Mã cty", "Tên cty"};
+        public static List<string> newHeaderconsumer = new List<string> { "Mã khách", "Tên khách"};
 
         /* create path for program if nonexist*/
         public static void create_paths()

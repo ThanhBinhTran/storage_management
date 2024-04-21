@@ -31,6 +31,10 @@ namespace storage_managements
             dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
 
+        public static void DGVRenameStorageHeader(DataGridView dgv)
+        {
+            datagridview_rename_header(dgv: dgv, oldHeader: Program_Parameters.oldHeaderStorage, newHeader: Program_Parameters.newHeaderStorage);
+        }
         public static void datagridview_rename_header(DataGridView dgv, List<string> oldHeader, List<string> newHeader)
         {
             for (int i = 0; i < oldHeader.Count; i++)
@@ -42,10 +46,7 @@ namespace storage_managements
         public static void datagrid_display_items(DataGridView dgv, List<DS_Storage_Item> items)
         {
             datagridview_source_item(dgv: dgv, items: items);
-
-            List<string> oldlheader = new List<string> { "ID", "name", "unit" };
-            List<string> newlheader = new List<string> { "Mã Sản Phẩm", "Tên Sản Phẩm", "Đơn vị" };
-            datagridview_rename_header(dgv, oldHeader: oldlheader, newHeader: newlheader);
+            DGVRenameStorageHeader(dgv: dgv);
         }
 
         /*
@@ -63,20 +64,16 @@ namespace storage_managements
         public static void datagrid_display_companies(DataGridView dgv, List<DS_Company> items, int company = 0)
         {
             datagridview_source_company(dgv: dgv, items: items);
-            List<string> oldlheader = new List<string> { "ID", "name" };
-            List<string> newlheader = new List<string>();
             if (company == 0) // conpany
             {
-                newlheader.Add("Mã c.ty");
-                newlheader.Add("Tên c.ty");
+                datagridview_rename_header(dgv, oldHeader: Program_Parameters.oldHeadercompany, 
+                    newHeader: Program_Parameters.newHeadercompany);
             }
             else
             {
-                newlheader.Add("Mã khách");
-                newlheader.Add("Tên khách");
+                datagridview_rename_header(dgv, oldHeader: Program_Parameters.oldHeadercompany, 
+                    newHeader: Program_Parameters.newHeadercompany);
             }
-
-            datagridview_rename_header(dgv, oldHeader: oldlheader, newHeader: newlheader);
         }
 
         private static void datagridview_source_transactions(DataGridView dgv, List<DS_Transaction_Grid> items)
