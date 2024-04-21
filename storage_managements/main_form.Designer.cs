@@ -35,7 +35,7 @@ namespace storage_managements
             this.textbox_search_ID = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.textBox_search_name = new System.Windows.Forms.TextBox();
-            this.button3 = new System.Windows.Forms.Button();
+            this.button_add = new System.Windows.Forms.Button();
             this.tab_view = new System.Windows.Forms.TabControl();
             this.tab_storage_info = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
@@ -53,12 +53,12 @@ namespace storage_managements
             this.storage_item_select = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.datagrid_storage_transaction = new System.Windows.Forms.DataGridView();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
-            this.button7 = new System.Windows.Forms.Button();
+            this.button_clear_transaction_table = new System.Windows.Forms.Button();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             this.comboBox_consumer = new System.Windows.Forms.ComboBox();
             this.label11 = new System.Windows.Forms.Label();
-            this.button5 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
+            this.button_export = new System.Windows.Forms.Button();
+            this.button_import = new System.Windows.Forms.Button();
             this.label12 = new System.Windows.Forms.Label();
             this.textBox_transaction_company = new System.Windows.Forms.TextBox();
             this.textBox_transaction_consumer = new System.Windows.Forms.TextBox();
@@ -67,6 +67,11 @@ namespace storage_managements
             this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
             this.dataGrid_transaction = new System.Windows.Forms.DataGridView();
             this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
+            this.flowLayoutPanel5 = new System.Windows.Forms.FlowLayoutPanel();
+            this.label8 = new System.Windows.Forms.Label();
+            this.comboBox_transaction_display = new System.Windows.Forms.ComboBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.comboBox_history_transaction_sort = new System.Windows.Forms.ComboBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.flowLayoutPanel7 = new System.Windows.Forms.FlowLayoutPanel();
             this.dateTimePicker_from = new System.Windows.Forms.DateTimePicker();
@@ -103,11 +108,6 @@ namespace storage_managements
             this.label_message = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            this.label8 = new System.Windows.Forms.Label();
-            this.comboBox_transaction_display = new System.Windows.Forms.ComboBox();
-            this.label14 = new System.Windows.Forms.Label();
-            this.comboBox_history_transaction_sort = new System.Windows.Forms.ComboBox();
-            this.flowLayoutPanel5 = new System.Windows.Forms.FlowLayoutPanel();
             layout_L1 = new System.Windows.Forms.TableLayoutPanel();
             layout_L1.SuspendLayout();
             this.flowLayoutPanel3.SuspendLayout();
@@ -127,6 +127,7 @@ namespace storage_managements
             this.tableLayoutPanel6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGrid_transaction)).BeginInit();
             this.flowLayoutPanel2.SuspendLayout();
+            this.flowLayoutPanel5.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.flowLayoutPanel7.SuspendLayout();
             this.tab_database_info.SuspendLayout();
@@ -137,7 +138,6 @@ namespace storage_managements
             this.flowLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
             this.flowLayoutPanel4.SuspendLayout();
-            this.flowLayoutPanel5.SuspendLayout();
             this.SuspendLayout();
             // 
             // layout_L1
@@ -167,7 +167,7 @@ namespace storage_managements
             this.flowLayoutPanel3.Controls.Add(this.textbox_search_ID);
             this.flowLayoutPanel3.Controls.Add(this.label7);
             this.flowLayoutPanel3.Controls.Add(this.textBox_search_name);
-            this.flowLayoutPanel3.Controls.Add(this.button3);
+            this.flowLayoutPanel3.Controls.Add(this.button_add);
             this.flowLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel3.Font = new System.Drawing.Font("Tahoma", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.flowLayoutPanel3.Location = new System.Drawing.Point(3, 2);
@@ -212,16 +212,16 @@ namespace storage_managements
             this.textBox_search_name.TabIndex = 9;
             this.textBox_search_name.TextChanged += new System.EventHandler(this.textBox_search_name_TextChanged);
             // 
-            // button3
+            // button_add
             // 
-            this.button3.Location = new System.Drawing.Point(610, 2);
-            this.button3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(99, 41);
-            this.button3.TabIndex = 6;
-            this.button3.Text = "Thêm";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.button_add.Location = new System.Drawing.Point(610, 2);
+            this.button_add.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button_add.Name = "button_add";
+            this.button_add.Size = new System.Drawing.Size(99, 41);
+            this.button_add.TabIndex = 6;
+            this.button_add.Text = "Thêm";
+            this.button_add.UseVisualStyleBackColor = true;
+            this.button_add.Click += new System.EventHandler(this.button_add_Click);
             // 
             // tab_view
             // 
@@ -468,7 +468,7 @@ namespace storage_managements
             this.tableLayoutPanel4.ColumnCount = 2;
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel4.Controls.Add(this.button7, 1, 0);
+            this.tableLayoutPanel4.Controls.Add(this.button_clear_transaction_table, 1, 0);
             this.tableLayoutPanel4.Controls.Add(this.tableLayoutPanel5, 0, 0);
             this.tableLayoutPanel4.Location = new System.Drawing.Point(3, 372);
             this.tableLayoutPanel4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -478,16 +478,16 @@ namespace storage_managements
             this.tableLayoutPanel4.Size = new System.Drawing.Size(1101, 95);
             this.tableLayoutPanel4.TabIndex = 4;
             // 
-            // button7
+            // button_clear_transaction_table
             // 
-            this.button7.Location = new System.Drawing.Point(981, 2);
-            this.button7.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(117, 89);
-            this.button7.TabIndex = 19;
-            this.button7.Text = "Xóa bảng";
-            this.button7.UseVisualStyleBackColor = true;
-            this.button7.Click += new System.EventHandler(this.button7_Click);
+            this.button_clear_transaction_table.Location = new System.Drawing.Point(981, 2);
+            this.button_clear_transaction_table.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button_clear_transaction_table.Name = "button_clear_transaction_table";
+            this.button_clear_transaction_table.Size = new System.Drawing.Size(117, 89);
+            this.button_clear_transaction_table.TabIndex = 19;
+            this.button_clear_transaction_table.Text = "Xóa bảng";
+            this.button_clear_transaction_table.UseVisualStyleBackColor = true;
+            this.button_clear_transaction_table.Click += new System.EventHandler(this.button7_Click);
             // 
             // tableLayoutPanel5
             // 
@@ -495,11 +495,11 @@ namespace storage_managements
             this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 38.19444F));
             this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 61.80556F));
             this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 389F));
-            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 122F));
+            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 123F));
             this.tableLayoutPanel5.Controls.Add(this.comboBox_consumer, 1, 1);
             this.tableLayoutPanel5.Controls.Add(this.label11, 0, 0);
-            this.tableLayoutPanel5.Controls.Add(this.button5, 3, 1);
-            this.tableLayoutPanel5.Controls.Add(this.button4, 3, 0);
+            this.tableLayoutPanel5.Controls.Add(this.button_export, 3, 1);
+            this.tableLayoutPanel5.Controls.Add(this.button_import, 3, 0);
             this.tableLayoutPanel5.Controls.Add(this.label12, 0, 1);
             this.tableLayoutPanel5.Controls.Add(this.textBox_transaction_company, 2, 0);
             this.tableLayoutPanel5.Controls.Add(this.textBox_transaction_consumer, 2, 1);
@@ -516,7 +516,7 @@ namespace storage_managements
             // comboBox_consumer
             // 
             this.comboBox_consumer.FormattingEnabled = true;
-            this.comboBox_consumer.Location = new System.Drawing.Point(179, 46);
+            this.comboBox_consumer.Location = new System.Drawing.Point(178, 46);
             this.comboBox_consumer.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.comboBox_consumer.Name = "comboBox_consumer";
             this.comboBox_consumer.Size = new System.Drawing.Size(278, 39);
@@ -532,27 +532,27 @@ namespace storage_managements
             this.label11.TabIndex = 19;
             this.label11.Text = "Tên cty:";
             // 
-            // button5
+            // button_export
             // 
-            this.button5.Location = new System.Drawing.Point(852, 46);
-            this.button5.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(99, 38);
-            this.button5.TabIndex = 18;
-            this.button5.Text = "Xuất";
-            this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.button5_Click);
+            this.button_export.Location = new System.Drawing.Point(851, 46);
+            this.button_export.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button_export.Name = "button_export";
+            this.button_export.Size = new System.Drawing.Size(99, 38);
+            this.button_export.TabIndex = 18;
+            this.button_export.Text = "Xuất";
+            this.button_export.UseVisualStyleBackColor = true;
+            this.button_export.Click += new System.EventHandler(this.button5_Click);
             // 
-            // button4
+            // button_import
             // 
-            this.button4.Location = new System.Drawing.Point(852, 2);
-            this.button4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(99, 38);
-            this.button4.TabIndex = 17;
-            this.button4.Text = "Nhập";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
+            this.button_import.Location = new System.Drawing.Point(851, 2);
+            this.button_import.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button_import.Name = "button_import";
+            this.button_import.Size = new System.Drawing.Size(99, 38);
+            this.button_import.TabIndex = 17;
+            this.button_import.Text = "Nhập";
+            this.button_import.UseVisualStyleBackColor = true;
+            this.button_import.Click += new System.EventHandler(this.button4_Click);
             // 
             // label12
             // 
@@ -565,7 +565,7 @@ namespace storage_managements
             // 
             // textBox_transaction_company
             // 
-            this.textBox_transaction_company.Location = new System.Drawing.Point(463, 2);
+            this.textBox_transaction_company.Location = new System.Drawing.Point(462, 2);
             this.textBox_transaction_company.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBox_transaction_company.Name = "textBox_transaction_company";
             this.textBox_transaction_company.Size = new System.Drawing.Size(383, 38);
@@ -573,7 +573,7 @@ namespace storage_managements
             // 
             // textBox_transaction_consumer
             // 
-            this.textBox_transaction_consumer.Location = new System.Drawing.Point(463, 46);
+            this.textBox_transaction_consumer.Location = new System.Drawing.Point(462, 46);
             this.textBox_transaction_consumer.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBox_transaction_consumer.Name = "textBox_transaction_consumer";
             this.textBox_transaction_consumer.Size = new System.Drawing.Size(383, 38);
@@ -582,7 +582,7 @@ namespace storage_managements
             // comboBox_company
             // 
             this.comboBox_company.FormattingEnabled = true;
-            this.comboBox_company.Location = new System.Drawing.Point(179, 2);
+            this.comboBox_company.Location = new System.Drawing.Point(178, 2);
             this.comboBox_company.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.comboBox_company.Name = "comboBox_company";
             this.comboBox_company.Size = new System.Drawing.Size(278, 39);
@@ -644,6 +644,60 @@ namespace storage_managements
             this.flowLayoutPanel2.Size = new System.Drawing.Size(1186, 181);
             this.flowLayoutPanel2.TabIndex = 1;
             // 
+            // flowLayoutPanel5
+            // 
+            this.flowLayoutPanel5.Controls.Add(this.label8);
+            this.flowLayoutPanel5.Controls.Add(this.comboBox_transaction_display);
+            this.flowLayoutPanel5.Controls.Add(this.label14);
+            this.flowLayoutPanel5.Controls.Add(this.comboBox_history_transaction_sort);
+            this.flowLayoutPanel5.Location = new System.Drawing.Point(3, 3);
+            this.flowLayoutPanel5.Name = "flowLayoutPanel5";
+            this.flowLayoutPanel5.Size = new System.Drawing.Size(1120, 100);
+            this.flowLayoutPanel5.TabIndex = 6;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(3, 0);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(120, 32);
+            this.label8.TabIndex = 4;
+            this.label8.Text = "Hiển thị:";
+            // 
+            // comboBox_transaction_display
+            // 
+            this.comboBox_transaction_display.FormattingEnabled = true;
+            this.comboBox_transaction_display.Items.AddRange(new object[] {
+            "Tất cả",
+            "Nhập hàng",
+            "Xuất hàng"});
+            this.comboBox_transaction_display.Location = new System.Drawing.Point(129, 3);
+            this.comboBox_transaction_display.Name = "comboBox_transaction_display";
+            this.comboBox_transaction_display.Size = new System.Drawing.Size(306, 39);
+            this.comboBox_transaction_display.TabIndex = 5;
+            this.comboBox_transaction_display.SelectedIndexChanged += new System.EventHandler(this.comboBox_transaction_display_SelectedIndexChanged);
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(441, 0);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(190, 32);
+            this.label14.TabIndex = 6;
+            this.label14.Text = "Sắp xếp theo:";
+            // 
+            // comboBox_history_transaction_sort
+            // 
+            this.comboBox_history_transaction_sort.FormattingEnabled = true;
+            this.comboBox_history_transaction_sort.Items.AddRange(new object[] {
+            "Mặt hàng",
+            "Tên cty/khách"});
+            this.comboBox_history_transaction_sort.Location = new System.Drawing.Point(637, 3);
+            this.comboBox_history_transaction_sort.Name = "comboBox_history_transaction_sort";
+            this.comboBox_history_transaction_sort.Size = new System.Drawing.Size(284, 39);
+            this.comboBox_history_transaction_sort.TabIndex = 7;
+            this.comboBox_history_transaction_sort.SelectedIndexChanged += new System.EventHandler(this.comboBox_history_transaction_sort_SelectedIndexChanged);
+            // 
             // groupBox5
             // 
             this.groupBox5.Controls.Add(this.flowLayoutPanel7);
@@ -688,6 +742,7 @@ namespace storage_managements
             this.dateTimePicker_to.Name = "dateTimePicker_to";
             this.dateTimePicker_to.Size = new System.Drawing.Size(200, 38);
             this.dateTimePicker_to.TabIndex = 3;
+            this.dateTimePicker_to.ValueChanged += new System.EventHandler(this.dateTimePicker_to_ValueChanged);
             // 
             // tab_database_info
             // 
@@ -973,7 +1028,7 @@ namespace storage_managements
             this.button_add_goods.TabIndex = 9;
             this.button_add_goods.Text = "Thêm sp";
             this.button_add_goods.UseVisualStyleBackColor = true;
-            this.button_add_goods.Click += new System.EventHandler(this.button2_Click);
+            this.button_add_goods.Click += new System.EventHandler(this.button_add_goods_Click);
             // 
             // button_add_company
             // 
@@ -1033,60 +1088,6 @@ namespace storage_managements
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click_2);
             // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(3, 0);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(120, 32);
-            this.label8.TabIndex = 4;
-            this.label8.Text = "Hiển thị:";
-            // 
-            // comboBox_transaction_display
-            // 
-            this.comboBox_transaction_display.FormattingEnabled = true;
-            this.comboBox_transaction_display.Items.AddRange(new object[] {
-            "Tất cả",
-            "Nhập hàng",
-            "Xuất hàng"});
-            this.comboBox_transaction_display.Location = new System.Drawing.Point(129, 3);
-            this.comboBox_transaction_display.Name = "comboBox_transaction_display";
-            this.comboBox_transaction_display.Size = new System.Drawing.Size(306, 39);
-            this.comboBox_transaction_display.TabIndex = 5;
-            this.comboBox_transaction_display.SelectedIndexChanged += new System.EventHandler(this.comboBox_transaction_display_SelectedIndexChanged);
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(441, 0);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(190, 32);
-            this.label14.TabIndex = 6;
-            this.label14.Text = "Sắp xếp theo:";
-            // 
-            // comboBox_history_transaction_sort
-            // 
-            this.comboBox_history_transaction_sort.FormattingEnabled = true;
-            this.comboBox_history_transaction_sort.Items.AddRange(new object[] {
-            "Mặt hàng",
-            "Tên cty/khách"});
-            this.comboBox_history_transaction_sort.Location = new System.Drawing.Point(637, 3);
-            this.comboBox_history_transaction_sort.Name = "comboBox_history_transaction_sort";
-            this.comboBox_history_transaction_sort.Size = new System.Drawing.Size(284, 39);
-            this.comboBox_history_transaction_sort.TabIndex = 7;
-            this.comboBox_history_transaction_sort.SelectedIndexChanged += new System.EventHandler(this.comboBox_history_transaction_sort_SelectedIndexChanged);
-            // 
-            // flowLayoutPanel5
-            // 
-            this.flowLayoutPanel5.Controls.Add(this.label8);
-            this.flowLayoutPanel5.Controls.Add(this.comboBox_transaction_display);
-            this.flowLayoutPanel5.Controls.Add(this.label14);
-            this.flowLayoutPanel5.Controls.Add(this.comboBox_history_transaction_sort);
-            this.flowLayoutPanel5.Location = new System.Drawing.Point(3, 3);
-            this.flowLayoutPanel5.Name = "flowLayoutPanel5";
-            this.flowLayoutPanel5.Size = new System.Drawing.Size(1120, 100);
-            this.flowLayoutPanel5.TabIndex = 6;
-            // 
             // main_form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -1117,6 +1118,8 @@ namespace storage_managements
             this.tableLayoutPanel6.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGrid_transaction)).EndInit();
             this.flowLayoutPanel2.ResumeLayout(false);
+            this.flowLayoutPanel5.ResumeLayout(false);
+            this.flowLayoutPanel5.PerformLayout();
             this.groupBox5.ResumeLayout(false);
             this.flowLayoutPanel7.ResumeLayout(false);
             this.flowLayoutPanel7.PerformLayout();
@@ -1131,8 +1134,6 @@ namespace storage_managements
             this.tableLayoutPanel3.PerformLayout();
             this.flowLayoutPanel4.ResumeLayout(false);
             this.flowLayoutPanel4.PerformLayout();
-            this.flowLayoutPanel5.ResumeLayout(false);
-            this.flowLayoutPanel5.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1157,15 +1158,15 @@ namespace storage_managements
         private System.Windows.Forms.TextBox textbox_search_ID;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox textBox_search_name;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button button_add;
         private System.Windows.Forms.DataGridView datagrid_storage_items_info;
         private System.Windows.Forms.DataGridView datagrid_storage_transaction;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button button_import;
+        private System.Windows.Forms.Button button_export;
         private System.Windows.Forms.TabPage tab_storage_info;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.DataGridView datagrid_storage;
-        private System.Windows.Forms.Button button7;
+        private System.Windows.Forms.Button button_clear_transaction_table;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel4;
         private System.Windows.Forms.Label label_message;
         private System.Windows.Forms.NumericUpDown numeric_threshold;

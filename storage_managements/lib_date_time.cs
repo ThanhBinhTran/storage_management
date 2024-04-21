@@ -42,7 +42,6 @@ namespace storage_managements
                 Console.WriteLine(date.ToString());
                 Console.WriteLine(lib_date_time.DateToTransactionPath(dt: date));
             }
-
             return dates;
         }
 

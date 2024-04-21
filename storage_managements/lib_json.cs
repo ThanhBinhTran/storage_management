@@ -11,7 +11,7 @@ namespace storage_managements
         /*
 		 * database for items information
 		 */
-        public static bool Read_Database_Item(List<DS_Storage_Item> items)
+        public static bool ReadDatabaseItem(List<DS_Storage_Item> items)
         {
             string filepath = Program_Parameters.filePath_goods;
             try
@@ -35,7 +35,7 @@ namespace storage_managements
                 return false;
             }
         }
-        public static void Write_Database_Item(List<DS_Storage_Item> items)
+        public static void WriteDatabaseItem(List<DS_Storage_Item> items)
         {
             string filepath = Program_Parameters.filePath_goods;
             string json_str = JsonConvert.SerializeObject(items, Formatting.Indented);
@@ -50,7 +50,7 @@ namespace storage_managements
         /*
 		 * storage information
 		 */
-        public static bool Read_Storage_Item(List<DS_Storage_Item> items)
+        public static bool ReadStorageItem(List<DS_Storage_Item> items)
         {
             try
             {
@@ -73,7 +73,7 @@ namespace storage_managements
                 return false;
             }
         }
-        public static void Write_Storage_Item(List<DS_Storage_Item> items)
+        public static void WriteStorageItem(List<DS_Storage_Item> items)
         {
             string filepath = Program_Parameters.filePath_storage;
             string json_str = JsonConvert.SerializeObject(items, Formatting.Indented);
@@ -88,15 +88,15 @@ namespace storage_managements
         /*
 		 * company infomations
 		 */
-        public static bool Read_Company(List<DS_Company> items)
+        public static bool ReadCompany(List<DS_Company> items)
         {
-            return Read_DS_Company(items: items, filepath: Program_Parameters.filePath_company);
+            return ReadDSCompany(items: items, filepath: Program_Parameters.filePath_company);
         }
-        public static bool Read_Consumer(List<DS_Company> items)
+        public static bool ReadConsumer(List<DS_Company> items)
         {
-            return Read_DS_Company(items: items, filepath: Program_Parameters.filePath_consumer);
+            return ReadDSCompany(items: items, filepath: Program_Parameters.filePath_consumer);
         }
-        private static bool Read_DS_Company(List<DS_Company> items, string filepath)
+        private static bool ReadDSCompany(List<DS_Company> items, string filepath)
         {
             try
             {
@@ -121,13 +121,13 @@ namespace storage_managements
         }
         public static void Write_Company(List<DS_Company> items)
         {
-            Write_DS_Company(items: items, filepath: Program_Parameters.filePath_company);
+            WriteDSCompany(items: items, filepath: Program_Parameters.filePath_company);
         }
-        public static void Write_Consumer(List<DS_Company> items)
+        public static void WriteConsumer(List<DS_Company> items)
         {
-            Write_DS_Company(items: items, filepath: Program_Parameters.filePath_consumer);
+            WriteDSCompany(items: items, filepath: Program_Parameters.filePath_consumer);
         }
-        public static void Write_DS_Company(List<DS_Company> items, string filepath)
+        public static void WriteDSCompany(List<DS_Company> items, string filepath)
         {
             string json_str = JsonConvert.SerializeObject(items, Formatting.Indented);
 
@@ -141,7 +141,18 @@ namespace storage_managements
         /*
 		 * Transactions
 		 */
-        public static bool Read_Transactions(List<DS_Transaction> items, string filepath)
+        public static bool ReadTransactionsFromTO(List<DS_Transaction> items, DateTime dateFrom, DateTime dateTo)
+        {
+            List<DateTime> transaction_dates = lib_date_time.GetAllDatesBetween(startDate: dateFrom, endDate: dateTo);
+            foreach (DateTime dt in transaction_dates)
+            {
+                List<DS_Transaction> trans_items = new List<DS_Transaction>();
+                string filepath = lib_date_time.DateToTransactionPath(dt);
+                ReadTransactions(items:items, filepath: filepath);
+            }
+            return true;
+        }
+        public static bool ReadTransactions(List<DS_Transaction> items, string filepath)
         {
 
             try
@@ -165,7 +176,7 @@ namespace storage_managements
                 return false;
             }
         }
-        public static void Write_Transaction(List<DS_Transaction> items, string filepath)
+        public static void WriteTransaction(List<DS_Transaction> items, string filepath)
         {
             string json_str = JsonConvert.SerializeObject(items, Formatting.Indented);
 
