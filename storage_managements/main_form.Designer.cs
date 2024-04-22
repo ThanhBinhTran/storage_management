@@ -809,7 +809,6 @@ namespace storage_managements
             this.datagrid_information.RowTemplate.Height = 24;
             this.datagrid_information.Size = new System.Drawing.Size(1421, 319);
             this.datagrid_information.TabIndex = 4;
-            this.datagrid_information.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
             // tableLayoutPanel7
             // 
@@ -969,7 +968,6 @@ namespace storage_managements
             this.label2.Size = new System.Drawing.Size(96, 29);
             this.label2.TabIndex = 3;
             this.label2.Text = "Tên cty";
-            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // label3
             // 

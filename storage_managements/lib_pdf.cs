@@ -6,10 +6,11 @@ using System.IO;
 
 namespace storage_managements
 {
-    class lib_pdf
+    class lib_Pdf
     {
         private static BaseFont baseFont = BaseFont.CreateFont("c:/windows/fonts/Arial.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
         private static Font font = new Font(baseFont, 12);
+        
         public static void CreatePdf(string filePath, List<DS_TransactionGrid> items, int seperateby = 0)
         {
             // Create a document object

@@ -2,7 +2,7 @@
 
 namespace storage_managements
 {
-    class lib_message
+    class lib_Message
     {
         public static bool show_messagebox(string mstr = "message", string mtitle = "Quản lý kho",
             MessageBoxButtons mbutton = MessageBoxButtons.OKCancel, MessageBoxIcon micon = MessageBoxIcon.None)
