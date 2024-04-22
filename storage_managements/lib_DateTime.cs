@@ -27,16 +27,15 @@ namespace storage_managements
         {
             return string.Format("{0:MM}", DateTime.Now);
         }
-        public static string GetDay()
-        {
-            return string.Format("{0:dd}", DateTime.Now);
-        }
 
         public static string GetIDByDateTime()
         {
-            return string.Format("{0:yyMMddHHmmssf}", DateTime.Now);
+            return string.Format("{0:yy_MM_dd_HH_mm_ssf}", DateTime.Now);
         }
-
+        public static string GetIDByTime()
+        {
+            return string.Format("{0:HHmmss}", DateTime.Now);
+        }
 
         public static List<DateTime> GetAllDatesBetween(DateTime startDate, DateTime endDate)
         {

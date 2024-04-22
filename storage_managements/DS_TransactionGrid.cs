@@ -2,7 +2,7 @@
 
 namespace storage_managements
 {
-    public class DS_Transaction_Grid
+    public class DS_TransactionGrid
     {
         public string ID { get; set; }
         public string company_name { get; set; }
@@ -14,13 +14,6 @@ namespace storage_managements
         public int item_quantity { get; set; }
         public string item_unit { get; set; }
 
-
-
         public DateTime transaction_time { get; set; }
-        public void print_item()
-        {
-            Console.WriteLine("ID: " + ID);
-            Console.WriteLine("Name: " + company_name);
-        }
     }
 }

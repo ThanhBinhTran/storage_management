@@ -13,7 +13,7 @@ namespace storage_managements
         public string ID { get; set; }
         public string company_name { get; set; }
 
-        public List<DS_Storage_Item> transaction_items { get; set; }
+        public List<DS_StorageItem> transaction_items { get; set; }
 
         public direction transaction_direction { get; set; }
         public DateTime transaction_time { get; set; }

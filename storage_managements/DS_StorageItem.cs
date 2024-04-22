@@ -2,7 +2,7 @@
 
 namespace storage_managements
 {
-    public class DS_Storage_Item
+    public class DS_StorageItem
     {
         public string ID { get; set; }
         public string name { get; set; }

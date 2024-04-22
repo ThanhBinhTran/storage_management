@@ -10,7 +10,7 @@ namespace storage_managements
     {
         private static BaseFont baseFont = BaseFont.CreateFont("c:/windows/fonts/Arial.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
         private static Font font = new Font(baseFont, 12);
-        public static void CreatePdf(string filePath, List<DS_Transaction_Grid> items, int seperateby = 0)
+        public static void CreatePdf(string filePath, List<DS_TransactionGrid> items, int seperateby = 0)
         {
             // Create a document object
             var document = new Document(PageSize.A4, 30, 30, 25, 25);
@@ -50,7 +50,7 @@ namespace storage_managements
             return table;
         }
 
-        private static PdfPTable CreatePdfTableRow(DS_Transaction_Grid item)
+        private static PdfPTable CreatePdfTableRow(DS_TransactionGrid item)
         {
             PdfPTable table = new PdfPTable(6);
 
@@ -77,7 +77,7 @@ namespace storage_managements
             return table;
         }
 
-        private static string IsSeperated(string company, string item_name, DateTime transDate, DS_Transaction_Grid item, int seperateby = 0)
+        private static string IsSeperated(string company, string item_name, DateTime transDate, DS_TransactionGrid item, int seperateby = 0)
         {
             string result = "";
             if (seperateby == 0 && transDate.Date != item.transaction_time.Date) // date
@@ -96,18 +96,18 @@ namespace storage_managements
             return result;
         }
         private static void DocumentAddTables(Document doc,
-            List<DS_Transaction_Grid> transItems, int seperateby = 0)
+            List<DS_TransactionGrid> transItems, int seperateby = 0)
         {
             // seperate by 0 (date), 1 (company), 2 (món hàng)
             string company_name = "";
             DateTime transactionDate = new DateTime();
             string item_name = "";
 
-            foreach (DS_Transaction_Grid item in transItems)
+            foreach (DS_TransactionGrid item in transItems)
             {
                 string seperate_text = IsSeperated(company: company_name, item_name: item_name,
                     transDate: transactionDate, item: item, seperateby: seperateby);
-                if (!lib_form_text.is_string_empty(seperate_text))
+                if (!lib_FormText.IsStringEmpty(seperate_text))
                 {
                     company_name = item.company_name;
                     item_name = item.item_name;

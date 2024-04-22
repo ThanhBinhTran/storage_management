@@ -22,17 +22,17 @@ namespace storage_managements
 
         public const string filename_transaction = @"transaction.json";
 
-        public const string message_company_empty = "Tên công ty hoặc khách hàng đang trống";
+        public const string message_empty = "Thiếu thông tin\nĐiền vào phần tô đậm";
 
-        public static List<string> oldHeaderStorage = new List<string> { "ID", "name", "quantity", "unit" };
-        public static List<string> newHeaderStorage = new List<string> { "Mã Sản Phẩm", "Tên Sản Phẩm", "Số lượng", "Đơn vị" };
+        public static List<string> oldHeaderitems = new List<string> { "ID", "name", "quantity", "unit" };
+        public static List<string> newHeaderitems = new List<string> { "Mã sản phẩm", "Tên sản phẩm", "Số lượng", "Đơn vị" };
 
         public static List<string> oldHeadercompany = new List<string> { "ID", "name" };
         public static List<string> newHeadercompany = new List<string> { "Mã cty", "Tên cty" };
         public static List<string> newHeaderconsumer = new List<string> { "Mã khách", "Tên khách" };
 
         public static List<string> oldHeadertransaction = new List<string> { "ID", "transaction_direction", "company_name", "item_ID", "item_name", "item_quantity", "item_unit", "transaction_time" };
-        public static List<string> newHeadertransaction = new List<string> { "Mã", "Nhập/Xuất", "Đối tác", "Mã sp", "Tên sp", "Số lượng", "Quy cách", "Thời gian" };
+        public static List<string> newHeadertransaction = new List<string> { "Mã", "Nhập/Xuất", "Đối tác", "Mã sản phẩm", "Tên sản phẩm", "Số lượng", "Quy cách", "Thời gian" };
 
         public static List<string> pdfHeader = new List<string> { "Thời gian", "Đối tác", "Giao dịch", "Sản phẩm", "Số lượng", "Quy cách" };
         public static float[] pdfTableWidths = new float[] { 24.0f, 26f, 7.0f, 28f, 7.2f, 11.5f };

@@ -71,10 +71,12 @@ namespace storage_managements
             this.comboBox_transaction_display = new System.Windows.Forms.ComboBox();
             this.label14 = new System.Windows.Forms.Label();
             this.comboBox_history_transaction_sort = new System.Windows.Forms.ComboBox();
+            this.button_export_pdf = new System.Windows.Forms.Button();
+            this.flowLayoutPanel5 = new System.Windows.Forms.FlowLayoutPanel();
+            this.label15 = new System.Windows.Forms.Label();
             this.dateTimePicker_from = new System.Windows.Forms.DateTimePicker();
             this.label13 = new System.Windows.Forms.Label();
             this.dateTimePicker_to = new System.Windows.Forms.DateTimePicker();
-            this.button_export_pdf = new System.Windows.Forms.Button();
             this.tab_database_info = new System.Windows.Forms.TabPage();
             this.item_layout_L2_top = new System.Windows.Forms.TableLayoutPanel();
             this.datagrid_information = new System.Windows.Forms.DataGridView();
@@ -104,10 +106,7 @@ namespace storage_managements
             this.textbox_new_consumer_ID = new System.Windows.Forms.TextBox();
             this.flowLayoutPanel4 = new System.Windows.Forms.FlowLayoutPanel();
             this.label_message = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            this.flowLayoutPanel5 = new System.Windows.Forms.FlowLayoutPanel();
-            this.label15 = new System.Windows.Forms.Label();
             layout_L1 = new System.Windows.Forms.TableLayoutPanel();
             layout_L1.SuspendLayout();
             this.flowLayoutPanel3.SuspendLayout();
@@ -127,6 +126,7 @@ namespace storage_managements
             this.tableLayoutPanel6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGrid_transaction)).BeginInit();
             this.flowLayoutPanel2.SuspendLayout();
+            this.flowLayoutPanel5.SuspendLayout();
             this.tab_database_info.SuspendLayout();
             this.item_layout_L2_top.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.datagrid_information)).BeginInit();
@@ -135,7 +135,6 @@ namespace storage_managements
             this.flowLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
             this.flowLayoutPanel4.SuspendLayout();
-            this.flowLayoutPanel5.SuspendLayout();
             this.SuspendLayout();
             // 
             // layout_L1
@@ -705,6 +704,37 @@ namespace storage_managements
             this.comboBox_history_transaction_sort.TabIndex = 7;
             this.comboBox_history_transaction_sort.SelectedIndexChanged += new System.EventHandler(this.comboBox_history_transaction_sort_SelectedIndexChanged);
             // 
+            // button_export_pdf
+            // 
+            this.button_export_pdf.Location = new System.Drawing.Point(927, 3);
+            this.button_export_pdf.Name = "button_export_pdf";
+            this.button_export_pdf.Size = new System.Drawing.Size(263, 48);
+            this.button_export_pdf.TabIndex = 7;
+            this.button_export_pdf.Text = "Xuất file PDF";
+            this.button_export_pdf.UseVisualStyleBackColor = true;
+            this.button_export_pdf.Click += new System.EventHandler(this.button_export_pdf_Click);
+            // 
+            // flowLayoutPanel5
+            // 
+            this.flowLayoutPanel5.Controls.Add(this.label15);
+            this.flowLayoutPanel5.Controls.Add(this.dateTimePicker_from);
+            this.flowLayoutPanel5.Controls.Add(this.label13);
+            this.flowLayoutPanel5.Controls.Add(this.dateTimePicker_to);
+            this.flowLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flowLayoutPanel5.Location = new System.Drawing.Point(3, 433);
+            this.flowLayoutPanel5.Name = "flowLayoutPanel5";
+            this.flowLayoutPanel5.Size = new System.Drawing.Size(1421, 59);
+            this.flowLayoutPanel5.TabIndex = 2;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(3, 0);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(160, 32);
+            this.label15.TabIndex = 4;
+            this.label15.Text = "Chọn ngày:";
+            // 
             // dateTimePicker_from
             // 
             this.dateTimePicker_from.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -732,16 +762,6 @@ namespace storage_managements
             this.dateTimePicker_to.Size = new System.Drawing.Size(450, 38);
             this.dateTimePicker_to.TabIndex = 3;
             this.dateTimePicker_to.ValueChanged += new System.EventHandler(this.dateTimePicker_to_ValueChanged);
-            // 
-            // button_export_pdf
-            // 
-            this.button_export_pdf.Location = new System.Drawing.Point(927, 3);
-            this.button_export_pdf.Name = "button_export_pdf";
-            this.button_export_pdf.Size = new System.Drawing.Size(263, 48);
-            this.button_export_pdf.TabIndex = 7;
-            this.button_export_pdf.Text = "Xuất file PDF";
-            this.button_export_pdf.UseVisualStyleBackColor = true;
-            this.button_export_pdf.Click += new System.EventHandler(this.button_export_pdf_Click);
             // 
             // tab_database_info
             // 
@@ -787,7 +807,7 @@ namespace storage_managements
             this.datagrid_information.ReadOnly = true;
             this.datagrid_information.RowHeadersWidth = 51;
             this.datagrid_information.RowTemplate.Height = 24;
-            this.datagrid_information.Size = new System.Drawing.Size(1383, 304);
+            this.datagrid_information.Size = new System.Drawing.Size(1421, 319);
             this.datagrid_information.TabIndex = 4;
             this.datagrid_information.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
@@ -799,7 +819,7 @@ namespace storage_managements
             this.tableLayoutPanel7.Controls.Add(this.groupBox3, 1, 0);
             this.tableLayoutPanel7.Controls.Add(this.tableLayoutPanel3, 0, 0);
             this.tableLayoutPanel7.Dock = System.Windows.Forms.DockStyle.Left;
-            this.tableLayoutPanel7.Location = new System.Drawing.Point(4, 312);
+            this.tableLayoutPanel7.Location = new System.Drawing.Point(4, 327);
             this.tableLayoutPanel7.Margin = new System.Windows.Forms.Padding(4);
             this.tableLayoutPanel7.Name = "tableLayoutPanel7";
             this.tableLayoutPanel7.RowCount = 1;
@@ -873,13 +893,13 @@ namespace storage_managements
             // tableLayoutPanel3
             // 
             this.tableLayoutPanel3.ColumnCount = 7;
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12.39954F));
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.18829F));
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 6.773823F));
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25.92593F));
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 11.02498F));
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 13.00603F));
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 14.55642F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 150F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 160F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 140F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 171F));
             this.tableLayoutPanel3.Controls.Add(this.textbox_new_item_ID, 1, 0);
             this.tableLayoutPanel3.Controls.Add(this.textbox_new_company_ID, 1, 1);
             this.tableLayoutPanel3.Controls.Add(this.textbox_new_consumer_name, 3, 2);
@@ -911,54 +931,54 @@ namespace storage_managements
             // 
             this.textbox_new_item_ID.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textbox_new_item_ID.Location = new System.Drawing.Point(147, 2);
+            this.textbox_new_item_ID.Location = new System.Drawing.Point(153, 2);
             this.textbox_new_item_ID.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textbox_new_item_ID.Name = "textbox_new_item_ID";
-            this.textbox_new_item_ID.Size = new System.Drawing.Size(182, 36);
+            this.textbox_new_item_ID.Size = new System.Drawing.Size(102, 36);
             this.textbox_new_item_ID.TabIndex = 4;
             // 
             // textbox_new_company_ID
             // 
-            this.textbox_new_company_ID.Location = new System.Drawing.Point(147, 48);
+            this.textbox_new_company_ID.Location = new System.Drawing.Point(153, 48);
             this.textbox_new_company_ID.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textbox_new_company_ID.Name = "textbox_new_company_ID";
-            this.textbox_new_company_ID.Size = new System.Drawing.Size(181, 36);
+            this.textbox_new_company_ID.Size = new System.Drawing.Size(102, 36);
             this.textbox_new_company_ID.TabIndex = 12;
             // 
             // textbox_new_consumer_name
             // 
-            this.textbox_new_consumer_name.Location = new System.Drawing.Point(413, 94);
+            this.textbox_new_consumer_name.Location = new System.Drawing.Point(421, 94);
             this.textbox_new_consumer_name.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textbox_new_consumer_name.Name = "textbox_new_consumer_name";
-            this.textbox_new_consumer_name.Size = new System.Drawing.Size(294, 36);
+            this.textbox_new_consumer_name.Size = new System.Drawing.Size(318, 36);
             this.textbox_new_consumer_name.TabIndex = 6;
             // 
             // textbox_new_company_name
             // 
-            this.textbox_new_company_name.Location = new System.Drawing.Point(413, 48);
+            this.textbox_new_company_name.Location = new System.Drawing.Point(421, 48);
             this.textbox_new_company_name.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textbox_new_company_name.Name = "textbox_new_company_name";
-            this.textbox_new_company_name.Size = new System.Drawing.Size(295, 36);
+            this.textbox_new_company_name.Size = new System.Drawing.Size(318, 36);
             this.textbox_new_company_name.TabIndex = 4;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(335, 46);
+            this.label2.Location = new System.Drawing.Point(261, 46);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(56, 29);
+            this.label2.Size = new System.Drawing.Size(96, 29);
             this.label2.TabIndex = 3;
-            this.label2.Text = "Tên";
+            this.label2.Text = "Tên cty";
             this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(335, 92);
+            this.label3.Location = new System.Drawing.Point(261, 92);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(67, 41);
+            this.label3.Size = new System.Drawing.Size(131, 29);
             this.label3.TabIndex = 5;
-            this.label3.Text = "Tên khách:";
+            this.label3.Text = "Tên khách";
             // 
             // label9
             // 
@@ -992,24 +1012,24 @@ namespace storage_managements
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(335, 0);
+            this.label4.Location = new System.Drawing.Point(261, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(56, 29);
+            this.label4.Size = new System.Drawing.Size(119, 29);
             this.label4.TabIndex = 5;
-            this.label4.Text = "Tên";
+            this.label4.Text = "Tên hàng";
             // 
             // textbox_new_item_name
             // 
-            this.textbox_new_item_name.Location = new System.Drawing.Point(413, 2);
+            this.textbox_new_item_name.Location = new System.Drawing.Point(421, 2);
             this.textbox_new_item_name.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textbox_new_item_name.Name = "textbox_new_item_name";
-            this.textbox_new_item_name.Size = new System.Drawing.Size(295, 36);
+            this.textbox_new_item_name.Size = new System.Drawing.Size(318, 36);
             this.textbox_new_item_name.TabIndex = 6;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(714, 0);
+            this.label5.Location = new System.Drawing.Point(745, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(120, 29);
             this.label5.TabIndex = 7;
@@ -1017,10 +1037,10 @@ namespace storage_managements
             // 
             // textbox_new_item_unit
             // 
-            this.textbox_new_item_unit.Location = new System.Drawing.Point(842, 2);
+            this.textbox_new_item_unit.Location = new System.Drawing.Point(885, 2);
             this.textbox_new_item_unit.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textbox_new_item_unit.Name = "textbox_new_item_unit";
-            this.textbox_new_item_unit.Size = new System.Drawing.Size(145, 36);
+            this.textbox_new_item_unit.Size = new System.Drawing.Size(102, 36);
             this.textbox_new_item_unit.TabIndex = 8;
             // 
             // button_add_goods
@@ -1056,62 +1076,31 @@ namespace storage_managements
             // 
             // textbox_new_consumer_ID
             // 
-            this.textbox_new_consumer_ID.Location = new System.Drawing.Point(147, 94);
+            this.textbox_new_consumer_ID.Location = new System.Drawing.Point(153, 94);
             this.textbox_new_consumer_ID.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textbox_new_consumer_ID.Name = "textbox_new_consumer_ID";
-            this.textbox_new_consumer_ID.Size = new System.Drawing.Size(181, 36);
+            this.textbox_new_consumer_ID.Size = new System.Drawing.Size(102, 36);
             this.textbox_new_consumer_ID.TabIndex = 11;
             // 
             // flowLayoutPanel4
             // 
             this.flowLayoutPanel4.Controls.Add(this.label_message);
-            this.flowLayoutPanel4.Controls.Add(this.button1);
+            this.flowLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel4.Location = new System.Drawing.Point(3, 599);
             this.flowLayoutPanel4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.flowLayoutPanel4.Name = "flowLayoutPanel4";
-            this.flowLayoutPanel4.Size = new System.Drawing.Size(1176, 41);
+            this.flowLayoutPanel4.Size = new System.Drawing.Size(1441, 44);
             this.flowLayoutPanel4.TabIndex = 7;
             // 
             // label_message
             // 
             this.label_message.AutoSize = true;
+            this.label_message.Dock = System.Windows.Forms.DockStyle.Left;
             this.label_message.Location = new System.Drawing.Point(3, 0);
             this.label_message.Name = "label_message";
-            this.label_message.Size = new System.Drawing.Size(141, 33);
+            this.label_message.Size = new System.Drawing.Size(133, 33);
             this.label_message.TabIndex = 0;
-            this.label_message.Text = "Thông báo:";
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(150, 2);
-            this.button1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(320, 38);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "test_function";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click_2);
-            // 
-            // flowLayoutPanel5
-            // 
-            this.flowLayoutPanel5.Controls.Add(this.label15);
-            this.flowLayoutPanel5.Controls.Add(this.dateTimePicker_from);
-            this.flowLayoutPanel5.Controls.Add(this.label13);
-            this.flowLayoutPanel5.Controls.Add(this.dateTimePicker_to);
-            this.flowLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowLayoutPanel5.Location = new System.Drawing.Point(3, 433);
-            this.flowLayoutPanel5.Name = "flowLayoutPanel5";
-            this.flowLayoutPanel5.Size = new System.Drawing.Size(1421, 59);
-            this.flowLayoutPanel5.TabIndex = 2;
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(3, 0);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(160, 32);
-            this.label15.TabIndex = 4;
-            this.label15.Text = "Chọn ngày:";
+            this.label_message.Text = "Thông báo";
             // 
             // main_form
             // 
@@ -1144,6 +1133,8 @@ namespace storage_managements
             ((System.ComponentModel.ISupportInitialize)(this.dataGrid_transaction)).EndInit();
             this.flowLayoutPanel2.ResumeLayout(false);
             this.flowLayoutPanel2.PerformLayout();
+            this.flowLayoutPanel5.ResumeLayout(false);
+            this.flowLayoutPanel5.PerformLayout();
             this.tab_database_info.ResumeLayout(false);
             this.item_layout_L2_top.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.datagrid_information)).EndInit();
@@ -1155,8 +1146,6 @@ namespace storage_managements
             this.tableLayoutPanel3.PerformLayout();
             this.flowLayoutPanel4.ResumeLayout(false);
             this.flowLayoutPanel4.PerformLayout();
-            this.flowLayoutPanel5.ResumeLayout(false);
-            this.flowLayoutPanel5.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1210,7 +1199,6 @@ namespace storage_managements
         private System.Windows.Forms.TextBox textBox_transaction_consumer;
         private System.Windows.Forms.ComboBox comboBox_consumer;
         private System.Windows.Forms.ComboBox comboBox_company;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button_add_company;
         private System.Windows.Forms.Button button_add_consumer;
         private System.Windows.Forms.TabPage tab_transaction_history;

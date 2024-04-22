@@ -17,15 +17,15 @@ namespace storage_managements
 		 * Tab storage
 		 */
         // list of storage items
-        private List<DS_Storage_Item> storages = new List<DS_Storage_Item>();
-        private List<DS_Storage_Item> storages_display = new List<DS_Storage_Item>();
+        private List<DS_StorageItem> storages = new List<DS_StorageItem>();
+        private List<DS_StorageItem> storages_display = new List<DS_StorageItem>();
         // list of pre-transaction items
-        private List<DS_Storage_Item> pre_transaction_items = new List<DS_Storage_Item>();
+        private List<DS_StorageItem> pre_transaction_items = new List<DS_StorageItem>();
 
         /*
 		 * Tab transactions
 		 */
-        private List<DS_Transaction_Grid> transactions_history = new List<DS_Transaction_Grid>();
+        private List<DS_TransactionGrid> transactions_history = new List<DS_TransactionGrid>();
         private List<DS_Transaction> retrieve_transactions = new List<DS_Transaction>(); // retrieve  transaction for search.
         private int transactions_history_seperateby = 0;
         /*
@@ -36,7 +36,7 @@ namespace storage_managements
         // list of companys
         private List<DS_Company> companies = new List<DS_Company>();
         // list of items information
-        private List<DS_Storage_Item> database_items = new List<DS_Storage_Item>();
+        private List<DS_StorageItem> database_items = new List<DS_StorageItem>();
 
         // range of history transactions
         private DateTime datetimeFrom;
@@ -61,17 +61,66 @@ namespace storage_managements
             read_all_information();
 
             // show comsumer and company info
-            lib_comboBox.add_items(comboBox_company, companies);
-            lib_comboBox.add_items(comboBox_consumer, consumers);
+            lib_ComboBox.SourceItems(comboBox_company, companies);
+            lib_ComboBox.SourceItems(comboBox_consumer, consumers);
             // show table info
-            lib_datagrid.DGVDisplayItems(dgv: datagrid_information, items: database_items);
-            lib_datagrid.DGVDisplayItems(dgv: datagrid_storage_items_info, items: database_items);
+            //lib_DataGrid.DGVDisplayItems(dgv: datagrid_information, items: database_items);
+            //lib_DataGrid.DGVDisplayItems(dgv: datagrid_storage_items_info, items: database_items);
 
             SetSearchDateTimeRange();
             // initial GUI
             InitialGUI();
         }
+        /* GUI */
+        private void InitialGUI()
+        {
+            InitialGUILabel();
+            InitialGUITextBox();
+            InitialGUIDataGridView();
+        }
 
+        private void InitialGUILabel()
+        {
+            int num = (int)numeric_threshold.Value;
+            string text_lt = string.Format("ít hơn {0} món", num);
+            string text_gt = string.Format("nhiều hơn {0} món", num);
+            SetRadioButtonText(rb: radioButton_less_than, text: text_lt);
+            SetRadioButtonText(rb: radioButton_greater_than, text: text_gt);
+        }
+        private void InitialGUITextBox()
+        {
+            lib_FormText.ClearColorTextBox(tb: textbox_new_company_ID);
+            lib_FormText.ClearColorTextBox(tb: textbox_new_company_name);
+            lib_FormText.ClearColorTextBox(tb: textbox_new_consumer_ID);
+            lib_FormText.ClearColorTextBox(tb: textbox_new_consumer_name);
+            lib_FormText.ClearColorTextBox(tb: textbox_new_item_ID);
+            lib_FormText.ClearColorTextBox(tb: textbox_new_item_name);
+            lib_FormText.ClearColorTextBox(tb: textbox_new_item_unit);
+            lib_FormText.ClearColorTextBox(tb: textBox_transaction_company);
+            lib_FormText.ClearColorTextBox(tb: textBox_transaction_consumer);
+        }
+
+        private void InitialComboBox()
+        {
+            lib_ComboBox.SourceItems(cb: comboBox_company, items: companies);
+            lib_ComboBox.SourceItems(cb: comboBox_consumer, items: consumers);
+        }
+
+        private void InitialGUIDataGridView()
+        {
+            //datagrid_storage.DataSource = storages_display;
+        }
+        private bool ShowMessageEmptyField()
+        {
+            lib_message.show_messagebox(mstr: Program_Parameters.message_empty, mbutton: MessageBoxButtons.OK,
+                    micon: MessageBoxIcon.Error);
+            return false;
+        }
+
+        private bool IsTextboxEmpty(TextBox tb)
+        {
+            return lib_FormText.IsTextboxEmpty(tb);
+        }
         private void read_all_information()
         {
             // read item information
@@ -98,20 +147,6 @@ namespace storage_managements
         }
         /** read goods information from json file **/
 
-        /* GUI */
-        private void InitialGUI()
-        {
-            InitialGUILabel();
-        }
-
-        private void InitialGUILabel()
-        {
-            int num = (int)numeric_threshold.Value;
-            string text_lt = string.Format("ít hơn {0} món", num);
-            string text_gt = string.Format("nhiều hơn {0} món", num);
-            SetRadioButtonText(rb: radioButton_less_than, text: text_lt);
-            SetRadioButtonText(rb: radioButton_greater_than, text: text_gt);
-        }
 
         private void SetRadioButtonText(RadioButton rb, string text)
         {
@@ -119,55 +154,60 @@ namespace storage_managements
         }
         private bool AddDatabaseItem()
         {
-            if (lib_form_text.is_textbox_empty(textbox_new_item_ID) ||
-                lib_form_text.is_textbox_empty(textbox_new_item_name) ||
-                lib_form_text.is_textbox_empty(textbox_new_item_unit))
+            InitialGUITextBox();
+            bool result1 = IsTextboxEmpty(textbox_new_item_ID);
+            bool result2 = IsTextboxEmpty(textbox_new_item_name);
+            bool result3 = IsTextboxEmpty(textbox_new_item_unit);
+            if (result1 || result2 || result3)
             {
-                lib_message.show_messagebox(mstr: "Tên hoặc mã hoặc đơn vị đang trống",
-                    micon: MessageBoxIcon.Error, mbutton: MessageBoxButtons.OK);
-                return false;
+                return ShowMessageEmptyField();
             }
 
-            string ID = lib_form_text.get_textbox_text(textbox_new_item_ID).ToUpper();
-            string name = lib_form_text.get_textbox_text(textbox_new_item_name);
-            string unit = lib_form_text.get_textbox_text(textbox_new_item_unit);
-            lib_list.do_add_update_database_item(items: database_items, ID: ID, name: name, unit: unit);
-            lib_json.WriteDatabaseItem(items: database_items);
+            string ID = lib_FormText.GetTextboxText(textbox_new_item_ID).ToUpper();
+            string name = lib_FormText.GetTextboxText(textbox_new_item_name);
+            string unit = lib_FormText.GetTextboxText(textbox_new_item_unit);
+            bool result = lib_list.do_add_update_database_item(items: database_items, ID: ID, name: name, unit: unit);
+            if (result)
+            {
+                lib_json.WriteDatabaseItem(items: database_items);
+                return true;
+            }
+
             return true;
         }
 
         private bool AddCompany()
         {
+            InitialGUITextBox();
+            bool resul1 = IsTextboxEmpty(textbox_new_company_ID);
+            bool resul2 = IsTextboxEmpty(textbox_new_company_name);
             bool result;
-            if (lib_form_text.is_textbox_empty(textbox_new_company_ID) ||
-                lib_form_text.is_textbox_empty(textbox_new_company_name))
+            if (resul1 || resul2)
             {
-                lib_message.show_messagebox(mstr: "Mã, tên công ty chưa có", mbutton: MessageBoxButtons.OK, micon: MessageBoxIcon.Error);
-                return false;
+                return ShowMessageEmptyField();
             }
 
-            string ID = lib_form_text.get_textbox_text(textbox_new_company_ID);
-            string name = lib_form_text.get_textbox_text(textbox_new_company_name);
+            string ID = lib_FormText.GetTextboxText(textbox_new_company_ID);
+            string name = lib_FormText.GetTextboxText(textbox_new_company_name);
             result = lib_list.do_add_update_conpany(items: companies, ID: ID, name: name);
             if (result)
             {
-                lib_json.Write_Company(items: companies);
+                lib_json.WriteCompany(items: companies);
             }
             return true;
         }
         private bool AddConsumer()
         {
-            bool result;
-            if (lib_form_text.is_textbox_empty(textbox_new_consumer_ID) ||
-                lib_form_text.is_textbox_empty(textbox_new_consumer_name))
+            bool result1 = IsTextboxEmpty(textbox_new_consumer_ID);
+            bool result2 = IsTextboxEmpty(textbox_new_consumer_name);
+            if (result1 || result2)
             {
-                lib_message.show_messagebox(mstr: "Mã, tên khách chưa có", mbutton: MessageBoxButtons.OK, micon: MessageBoxIcon.Error);
-                return false;
+                return ShowMessageEmptyField();
             }
 
-            string ID = lib_form_text.get_textbox_text(textbox_new_consumer_ID);
-            string name = lib_form_text.get_textbox_text(textbox_new_consumer_name);
-            result = lib_list.do_add_update_conpany(items: consumers, ID: ID, name: name);
+            string ID = lib_FormText.GetTextboxText(textbox_new_consumer_ID);
+            string name = lib_FormText.GetTextboxText(textbox_new_consumer_name);
+            bool result = lib_list.do_add_update_conpany(items: consumers, ID: ID, name: name);
             if (result)
             {
                 lib_json.WriteConsumer(items: consumers);
@@ -176,25 +216,26 @@ namespace storage_managements
             return true;
         }
 
-        private bool DoTransaction(direction dir, string company_name) // in = import, out = export
+        private bool DoTransaction(direction dir, TextBox tb) // in = import, out = export
         {
             string pre_fix = "";
-            if (lib_form_text.is_string_empty(company_name))
+            InitialGUI();
+            if (lib_FormText.IsTextboxEmpty(tb))
             {
-                lib_message.show_messagebox(mstr: Program_Parameters.message_company_empty, mbutton: MessageBoxButtons.OK,
+                lib_message.show_messagebox(mstr: Program_Parameters.message_empty, mbutton: MessageBoxButtons.OK,
                     micon: MessageBoxIcon.Error);
                 return false;
             }
             List<DS_Transaction> inday_transactions = new List<DS_Transaction>();
             DS_Transaction cur_transaction = new DS_Transaction();
-            List<DS_Storage_Item> transaction_items = new List<DS_Storage_Item>();
-            foreach (DS_Storage_Item item in pre_transaction_items)
+            List<DS_StorageItem> transaction_items = new List<DS_StorageItem>();
+            foreach (DS_StorageItem item in pre_transaction_items)
             {
                 string ID = item.ID;
                 string name = item.name;
                 string unit = item.unit;
                 int quantity = item.quantity;
-                DS_Storage_Item s_preitem = new DS_Storage_Item
+                DS_StorageItem s_preitem = new DS_StorageItem
                 {
                     ID = ID,
                     name = name,
@@ -217,8 +258,8 @@ namespace storage_managements
                 pre_fix = "X";
             }
             cur_transaction.transaction_items = transaction_items;
-            cur_transaction.ID = pre_fix + lib_DateTime.GetIDByDateTime();
-            cur_transaction.company_name = company_name;
+            cur_transaction.ID = pre_fix + lib_DateTime.GetIDByTime();
+            cur_transaction.company_name = lib_FormText.GetTextboxText(tb);
             cur_transaction.transaction_time = lib_DateTime.GetCurrentTime();
 
             cur_transaction.print_item();
@@ -252,9 +293,9 @@ namespace storage_managements
             transactions_history.Clear();
             foreach (DS_Transaction transitem in retrieve_transactions)
             {
-                foreach (DS_Storage_Item trans_item in transitem.transaction_items)
+                foreach (DS_StorageItem trans_item in transitem.transaction_items)
                 {
-                    DS_Transaction_Grid trans_history = new DS_Transaction_Grid
+                    DS_TransactionGrid trans_history = new DS_TransactionGrid
                     {
                         ID = transitem.ID,
                         company_name = transitem.company_name,
@@ -280,8 +321,7 @@ namespace storage_managements
 
         private void DatagridDisplayStorage()
         {
-            lib_datagrid.DGVSourceStorage(dgv: datagrid_storage, items: storages_display);
-            lib_datagrid.DGVRenameStorageHeader(dgv: datagrid_storage);
+            lib_DataGrid.DGVDisplayItem(dgv: datagrid_storage, items: storages_display, item_type: 0);
         }
 
         private void DisplayStorageByID(string ID)
@@ -301,15 +341,19 @@ namespace storage_managements
             DatagridDisplayStorage();
         }
 
+        private void DatagridDisplayGoingTransaction()
+        {
+            lib_DataGrid.DGVDisplayItem(dgv: datagrid_storage_transaction, items: pre_transaction_items);
+        }
 
         private void StorageItemsFilterID(string ID)
         {
             storages_display.Clear();
-            foreach (DS_Storage_Item item in storages)
+            foreach (DS_StorageItem item in storages)
             {
                 if (item.ID.ToLower().Contains(ID.ToLower()))
                 {
-                    DS_Storage_Item preitem = new DS_Storage_Item
+                    DS_StorageItem preitem = new DS_StorageItem
                     {
                         ID = item.ID,
                         name = item.name,
@@ -324,11 +368,11 @@ namespace storage_managements
         private void StorageItemsFilterName(string name)
         {
             storages_display.Clear();
-            foreach (DS_Storage_Item item in storages)
+            foreach (DS_StorageItem item in storages)
             {
                 if (item.name.ToLower().Contains(name.ToLower()))
                 {
-                    DS_Storage_Item preitem = new DS_Storage_Item
+                    DS_StorageItem preitem = new DS_StorageItem
                     {
                         ID = item.ID,
                         name = item.name,
@@ -347,9 +391,9 @@ namespace storage_managements
             {
                 if (transitem.transaction_direction == dir || all_transaction)
                 {
-                    foreach (DS_Storage_Item trans_item in transitem.transaction_items)
+                    foreach (DS_StorageItem trans_item in transitem.transaction_items)
                     {
-                        DS_Transaction_Grid trans_history = new DS_Transaction_Grid
+                        DS_TransactionGrid trans_history = new DS_TransactionGrid
                         {
                             ID = transitem.ID,
                             company_name = transitem.company_name,
@@ -373,16 +417,13 @@ namespace storage_managements
                 }
             }
         }
-        private void transaction_filter_by_date()
-        {
 
-        }
         private void StorageFilterQuantity(int threshold = int.MaxValue,
             display_relation relation = display_relation.lessthan)
         {
             storages_display.Clear();
             bool insert = false;
-            foreach (DS_Storage_Item item in storages)
+            foreach (DS_StorageItem item in storages)
             {
                 insert = false;
                 if (relation == display_relation.lessthan)
@@ -395,7 +436,7 @@ namespace storage_managements
                 }
                 if (insert)
                 {
-                    DS_Storage_Item preitem = new DS_Storage_Item
+                    DS_StorageItem preitem = new DS_StorageItem
                     {
                         ID = item.ID,
                         name = item.name,
@@ -409,20 +450,25 @@ namespace storage_managements
 
         private void DatagridDisplayItems()
         {
-            lib_datagrid.DGVDisplayItems(dgv: datagrid_information, items: database_items);
+            lib_DataGrid.DGVDisplayItem(dgv: datagrid_information, items: database_items);
         }
         private void DatagridDisplayCompanies()
         {
-            lib_datagrid.DGVDisplayCompanies(dgv: datagrid_information, items: companies);
+            lib_DataGrid.DGVDisplayCompany(dgv: datagrid_information, items: companies);
         }
         private void DatagridDisplayConsumers()
         {
-            lib_datagrid.DGVDisplayCompanies(dgv: datagrid_information, items: consumers, company: 1);
+            lib_DataGrid.DGVDisplayCompany(dgv: datagrid_information, items: consumers, company: 1);
         }
         private void DatagridDisplayTransactions()
         {
-            lib_datagrid.DGVDisplayTransactions(dgv: dataGrid_transaction, items: transactions_history);
+            lib_DataGrid.DGVDisplayTransactions(dgv: dataGrid_transaction, items: transactions_history);
 
+        }
+
+        private void Notification(string msg)
+        {
+            lib_FormText.DisplayNotification(label: label_message, msg: msg);
         }
         /**************************************************************/
         private void button1_Click(object sender, EventArgs e)
@@ -445,7 +491,7 @@ namespace storage_managements
 
         private void button1_Click_1(object sender, EventArgs e)
         {
-            lib_datagrid.DGVDisplayItems(dgv: datagrid_information, items: database_items);
+            lib_DataGrid.DGVDisplayItem(dgv: datagrid_information, items: database_items);
             //ShowTable_Item_Info(table_item, itemlist:item_list);
 
         }
@@ -462,7 +508,7 @@ namespace storage_managements
 
         private void tab_view_SelectedIndexChanged(object sender, EventArgs e)
         {
-            lib_datagrid.DGVDisplayItems(dgv: datagrid_storage_items_info, items: database_items);
+            lib_DataGrid.DGVDisplayItem(dgv: datagrid_storage_items_info, items: database_items);
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -473,16 +519,12 @@ namespace storage_managements
 
         private void button5_Click(object sender, EventArgs e)
         {
-            DoTransaction(dir: direction.export, company_name: textBox_transaction_consumer.Text);
-            label_message.Text = lib_DateTime.GetIDByDateTime();
-            lib_form_text.color_textbox(textBox_transaction_consumer);
+            DoTransaction(dir: direction.export, tb: textBox_transaction_consumer);
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
-            DoTransaction(dir: direction.import, company_name: textBox_transaction_company.Text);
-            label_message.Text = lib_DateTime.GetIDByDateTime();
-            lib_form_text.color_textbox(textBox_transaction_company);
+            DoTransaction(dir: direction.import, tb: textBox_transaction_company);
         }
 
         private void button6_Click(object sender, EventArgs e)
@@ -493,7 +535,7 @@ namespace storage_managements
         private void button7_Click(object sender, EventArgs e)
         {
             pre_transaction_items.Clear();
-            lib_datagrid.DGVSourceStorage(dgv: datagrid_storage_transaction, items: pre_transaction_items);
+            DatagridDisplayGoingTransaction();
         }
 
         private void button8_Click(object sender, EventArgs e)
@@ -518,12 +560,12 @@ namespace storage_managements
 
         private void button_add_company_Click(object sender, EventArgs e)
         {
-            lib_datagrid.DGVDisplayCompanies(dgv: datagrid_information, items: companies);
+            lib_DataGrid.DGVDisplayCompany(dgv: datagrid_information, items: companies);
         }
 
         private void button_add_consumer_Click(object sender, EventArgs e)
         {
-            lib_datagrid.DGVDisplayCompanies(dgv: datagrid_information, items: consumers, company: 1);
+            lib_DataGrid.DGVDisplayCompany(dgv: datagrid_information, items: consumers, company: 1);
         }
 
         private void comboBox_company_SelectedIndexChanged(object sender, EventArgs e)
@@ -557,16 +599,30 @@ namespace storage_managements
 
         private void button_add_company_Click_1(object sender, EventArgs e)
         {
-            AddCompany();
-            lib_form_text.color_textbox(textbox_new_company_ID);
-            lib_form_text.color_textbox(textbox_new_company_name);
+            bool result = AddCompany();
+            InitialComboBox();
+            if (result)
+            {
+                Notification(msg: "Thêm thành công");
+            }
+            else
+            {
+                Notification(msg: "Chưa hoàn thành việc thêm");
+            }
         }
 
         private void button_add_consumer_Click_1(object sender, EventArgs e)
         {
             bool result = AddConsumer();
-            lib_form_text.color_textbox(textbox_new_consumer_ID);
-            lib_form_text.color_textbox(textbox_new_consumer_name);
+            InitialComboBox();
+            if (result)
+            {
+                Notification(msg: "Thêm thành công");
+            }
+            else
+            {
+                Notification(msg: "Chưa hoàn thành việc thêm");
+            }
         }
 
         private void radioButton4_CheckedChanged(object sender, EventArgs e)
@@ -616,7 +672,7 @@ namespace storage_managements
             }
             else if (tab_active == 1)
             {
-                lib_form_text.display_debug(label: label_message, msg: "tab view 1");
+                lib_FormText.DisplayNotification(label: label_message, msg: "tab view 1");
             }
         }
 
@@ -754,10 +810,16 @@ namespace storage_managements
 
         private void button_add_goods_Click(object sender, EventArgs e)
         {
-            AddDatabaseItem();
-            lib_form_text.color_textbox(textbox_new_item_ID);
-            lib_form_text.color_textbox(textbox_new_item_name);
-            lib_form_text.color_textbox(textbox_new_item_unit);
+            bool result = AddDatabaseItem();
+            InitialComboBox();
+            if (result)
+            {
+                Notification(msg: "Thêm thành công");
+            }
+            else
+            {
+                Notification(msg: "Chưa hoàn thành việc thêm");
+            }
             DatagridDisplayItems();
         }
 
@@ -771,7 +833,7 @@ namespace storage_managements
 
                 if (isChecked)
                 {
-                    DS_Storage_Item item = new DS_Storage_Item();
+                    DS_StorageItem item = new DS_StorageItem();
                     item.ID = row.Cells["ID"].Value.ToString();
                     item.name = row.Cells["name"].Value.ToString();
                     item.unit = row.Cells["unit"].Value.ToString();
@@ -779,7 +841,8 @@ namespace storage_managements
                     pre_transaction_items.Add(item);
                 }
             }
-            lib_datagrid.DGVSourceStorage(dgv: datagrid_storage_transaction, items: pre_transaction_items);
+            DatagridDisplayGoingTransaction();
+
         }
 
         private void button_export_pdf_Click(object sender, EventArgs e)

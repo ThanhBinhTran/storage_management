@@ -11,19 +11,19 @@ namespace storage_managements
         /*
 		 * database for items information
 		 */
-        public static bool ReadDatabaseItem(List<DS_Storage_Item> items)
+        public static bool ReadDatabaseItem(List<DS_StorageItem> items)
         {
             string filepath = Program_Parameters.filePath_goods;
             try
             {
-                List<DS_Storage_Item> read_items = new List<DS_Storage_Item>();
+                List<DS_StorageItem> read_items = new List<DS_StorageItem>();
                 // Read JSON data from file
                 string json = File.ReadAllText(filepath);
                 Console.WriteLine("read item information " + filepath);
                 // Deserialize JSON to a list of Player objects
-                read_items = JsonConvert.DeserializeObject<List<DS_Storage_Item>>(json);
+                read_items = JsonConvert.DeserializeObject<List<DS_StorageItem>>(json);
                 Console.WriteLine("read item information: " + items.Count + "items");
-                foreach (DS_Storage_Item item in read_items)
+                foreach (DS_StorageItem item in read_items)
                 {
                     items.Add(item);
                 }
@@ -35,7 +35,7 @@ namespace storage_managements
                 return false;
             }
         }
-        public static void WriteDatabaseItem(List<DS_Storage_Item> items)
+        public static void WriteDatabaseItem(List<DS_StorageItem> items)
         {
             string filepath = Program_Parameters.filePath_goods;
             string json_str = JsonConvert.SerializeObject(items, Formatting.Indented);
@@ -50,18 +50,18 @@ namespace storage_managements
         /*
 		 * storage information
 		 */
-        public static bool ReadStorageItem(List<DS_Storage_Item> items)
+        public static bool ReadStorageItem(List<DS_StorageItem> items)
         {
             try
             {
-                List<DS_Storage_Item> read_items = new List<DS_Storage_Item>();
+                List<DS_StorageItem> read_items = new List<DS_StorageItem>();
                 // Read JSON data from file
                 string json = File.ReadAllText(Program_Parameters.filePath_storage);
                 Console.WriteLine("read item information " + Program_Parameters.filePath_storage);
                 // Deserialize JSON to a list of Player objects
-                read_items = JsonConvert.DeserializeObject<List<DS_Storage_Item>>(json);
+                read_items = JsonConvert.DeserializeObject<List<DS_StorageItem>>(json);
                 Console.WriteLine("read item information: " + items.Count + "items");
-                foreach (DS_Storage_Item item in read_items)
+                foreach (DS_StorageItem item in read_items)
                 {
                     items.Add(item);
                 }
@@ -73,7 +73,7 @@ namespace storage_managements
                 return false;
             }
         }
-        public static void WriteStorageItem(List<DS_Storage_Item> items)
+        public static void WriteStorageItem(List<DS_StorageItem> items)
         {
             string filepath = Program_Parameters.filePath_storage;
             string json_str = JsonConvert.SerializeObject(items, Formatting.Indented);
@@ -119,7 +119,7 @@ namespace storage_managements
                 return false;
             }
         }
-        public static void Write_Company(List<DS_Company> items)
+        public static void WriteCompany(List<DS_Company> items)
         {
             WriteDSCompany(items: items, filepath: Program_Parameters.filePath_company);
         }
@@ -141,17 +141,7 @@ namespace storage_managements
         /*
 		 * Transactions
 		 */
-        public static bool ReadTransactionsFromTO(List<DS_Transaction> items, DateTime dateFrom, DateTime dateTo)
-        {
-            List<DateTime> transaction_dates = lib_DateTime.GetAllDatesBetween(startDate: dateFrom, endDate: dateTo);
-            foreach (DateTime dt in transaction_dates)
-            {
-                List<DS_Transaction> trans_items = new List<DS_Transaction>();
-                string filepath = lib_DateTime.DateToTransactionPath(dt);
-                ReadTransactions(items: items, filepath: filepath);
-            }
-            return true;
-        }
+
         public static bool ReadTransactions(List<DS_Transaction> items, string filepath)
         {
 

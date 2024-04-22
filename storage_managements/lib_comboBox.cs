@@ -3,10 +3,11 @@ using System.Windows.Forms;
 
 namespace storage_managements
 {
-    class lib_comboBox
+    class lib_ComboBox
     {
-        public static void add_items(ComboBox cb, List<DS_Company> items)
+        public static void SourceItems(ComboBox cb, List<DS_Company> items)
         {
+            cb.Items.Clear();
             foreach (DS_Company item in items)
             {
                 cb.Items.Add(item.name);
