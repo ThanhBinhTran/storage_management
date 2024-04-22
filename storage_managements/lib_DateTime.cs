@@ -3,13 +3,13 @@ using System.Collections.Generic;
 
 namespace storage_managements
 {
-    class lib_date_time
+    class lib_DateTime
     {
         public static DateTime GetCurrentTime()
         {
             return DateTime.Now;
         }
-        public static string GetTimeOnly(DateTime dt)
+        public static string GetDateTime(DateTime dt)
         {
             return string.Format("{0:yyyy/MM/dd HH:mm:ss}", dt);
         }
@@ -46,11 +46,10 @@ namespace storage_managements
             {
                 dates.Add(date);
                 Console.WriteLine(date.ToString());
-                Console.WriteLine(lib_date_time.DateToTransactionPath(dt: date));
+                Console.WriteLine(lib_DateTime.DateToTransactionPath(dt: date));
             }
             return dates;
         }
-
         public static string DateToTransactionPath(DateTime dt)
         {
             string year = string.Format("{0:yyyy}", dt);
@@ -63,6 +62,12 @@ namespace storage_managements
         {
             return DateToTransactionPath(dt: DateTime.Now);
 
+        }
+
+        public static string GetpdfPathFromCurrentDate(string seperateby = "")
+        {
+            string pdf_filename = string.Format("{0}_{1}", GetIDByDateTime(), seperateby);
+            return string.Format(@"{0}{1}.pdf", Program_Parameters.pdfPath, pdf_filename);
         }
     }
 }

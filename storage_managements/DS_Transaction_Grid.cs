@@ -5,8 +5,8 @@ namespace storage_managements
     public class DS_Transaction_Grid
     {
         public string ID { get; set; }
-        public direction transaction_direction { get; set; }
         public string company_name { get; set; }
+        public string transaction_direction { get; set; }
 
         public string item_ID { get; set; }
         public string item_name { get; set; }

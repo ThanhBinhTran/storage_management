@@ -12,7 +12,7 @@ namespace storage_managements
         /*
          * tab GUI
          */
-        
+
         /* 
 		 * Tab storage
 		 */
@@ -27,7 +27,7 @@ namespace storage_managements
 		 */
         private List<DS_Transaction_Grid> transactions_history = new List<DS_Transaction_Grid>();
         private List<DS_Transaction> retrieve_transactions = new List<DS_Transaction>(); // retrieve  transaction for search.
-
+        private int transactions_history_seperateby = 0;
         /*
 		 * tab information (items, company, consumer)
 		 */
@@ -217,13 +217,13 @@ namespace storage_managements
                 pre_fix = "X";
             }
             cur_transaction.transaction_items = transaction_items;
-            cur_transaction.ID = pre_fix + lib_date_time.GetIDByDateTime();
+            cur_transaction.ID = pre_fix + lib_DateTime.GetIDByDateTime();
             cur_transaction.company_name = company_name;
-            cur_transaction.transaction_time = lib_date_time.GetCurrentTime();
+            cur_transaction.transaction_time = lib_DateTime.GetCurrentTime();
 
             cur_transaction.print_item();
             // get exist transaction in the same day.
-            string file_path = lib_date_time.GetTransactionPathFromCurrentDate();
+            string file_path = lib_DateTime.GetTransactionPathFromCurrentDate();
             lib_json.ReadTransactions(items: inday_transactions, filepath: file_path);
             inday_transactions.Add(cur_transaction);
 
@@ -239,9 +239,9 @@ namespace storage_managements
             for (DateTime date = datetimeFrom; date <= datetimeTo; date = date.AddDays(1))
             {
                 List<DS_Transaction> history_transaction = new List<DS_Transaction>();
-                string file_path = lib_date_time.DateToTransactionPath(date);
+                string file_path = lib_DateTime.DateToTransactionPath(date);
                 lib_json.ReadTransactions(items: history_transaction, filepath: file_path);
-                foreach( DS_Transaction item in history_transaction)
+                foreach (DS_Transaction item in history_transaction)
                 {
                     retrieve_transactions.Add(item);
                 }
@@ -263,8 +263,16 @@ namespace storage_managements
                         item_quantity = trans_item.quantity,
                         item_unit = trans_item.unit,
                         transaction_time = transitem.transaction_time,
-                        transaction_direction = transitem.transaction_direction
+                        //transaction_direction = transitem.transaction_direction
                     };
+                    if (transitem.transaction_direction == direction.export)
+                    {
+                        trans_history.transaction_direction = "Xuất";
+                    }
+                    else if (transitem.transaction_direction == direction.import)
+                    {
+                        trans_history.transaction_direction = "Nhập";
+                    }
                     transactions_history.Add(trans_history);
                 }
             }
@@ -273,7 +281,7 @@ namespace storage_managements
         private void DatagridDisplayStorage()
         {
             lib_datagrid.DGVSourceStorage(dgv: datagrid_storage, items: storages_display);
-            lib_datagrid.DGVRenameStorageHeader(dgv:datagrid_storage);
+            lib_datagrid.DGVRenameStorageHeader(dgv: datagrid_storage);
         }
 
         private void DisplayStorageByID(string ID)
@@ -350,8 +358,16 @@ namespace storage_managements
                             item_quantity = trans_item.quantity,
                             item_unit = trans_item.unit,
                             transaction_time = transitem.transaction_time,
-                            transaction_direction = transitem.transaction_direction
+                            //transaction_direction = transitem.transaction_direction
                         };
+                        if (transitem.transaction_direction == direction.export)
+                        {
+                            trans_history.transaction_direction = "Xuất";
+                        }
+                        else if (transitem.transaction_direction == direction.import)
+                        {
+                            trans_history.transaction_direction = "Nhập";
+                        }
                         transactions_history.Add(trans_history);
                     }
                 }
@@ -390,7 +406,7 @@ namespace storage_managements
                 }
             }
         }
-        
+
         private void DatagridDisplayItems()
         {
             lib_datagrid.DGVDisplayItems(dgv: datagrid_information, items: database_items);
@@ -406,7 +422,7 @@ namespace storage_managements
         private void DatagridDisplayTransactions()
         {
             lib_datagrid.DGVDisplayTransactions(dgv: dataGrid_transaction, items: transactions_history);
-            
+
         }
         /**************************************************************/
         private void button1_Click(object sender, EventArgs e)
@@ -458,14 +474,14 @@ namespace storage_managements
         private void button5_Click(object sender, EventArgs e)
         {
             DoTransaction(dir: direction.export, company_name: textBox_transaction_consumer.Text);
-            label_message.Text = lib_date_time.GetIDByDateTime();
+            label_message.Text = lib_DateTime.GetIDByDateTime();
             lib_form_text.color_textbox(textBox_transaction_consumer);
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
             DoTransaction(dir: direction.import, company_name: textBox_transaction_company.Text);
-            label_message.Text = lib_date_time.GetIDByDateTime();
+            label_message.Text = lib_DateTime.GetIDByDateTime();
             lib_form_text.color_textbox(textBox_transaction_company);
         }
 
@@ -597,11 +613,11 @@ namespace storage_managements
             if (tab_active == 0)
             {
                 DisplayStorageByID(textbox_search_ID.Text.Trim());
-            }    
+            }
             else if (tab_active == 1)
             {
-                lib_form_text.display_debug(label:label_message, msg:"tab view 1");
-            }    
+                lib_form_text.display_debug(label: label_message, msg: "tab view 1");
+            }
         }
 
         private void textBox2_TextChanged(object sender, EventArgs e)
@@ -686,16 +702,28 @@ namespace storage_managements
 
         private void comboBox_history_transaction_sort_SelectedIndexChanged(object sender, EventArgs e)
         {
+            /*
+             * transactions_history_seperateby = 0 ; seperate by date 
+             * transactions_history_seperateby = 1 ; seperate by companys 
+             * transactions_history_seperateby = 2 ; seperate by items
+             */
+            transactions_history_seperateby = comboBox_history_transaction_sort.SelectedIndex;
+
             RetrieveTransaction();
             ShowTransaction();
             if (comboBox_history_transaction_sort.SelectedIndex == 0)
             {
-                var temp_transactions_history = transactions_history.OrderBy(th => th.item_ID).ToList();
+                var temp_transactions_history = transactions_history.OrderBy(th => th.transaction_time).ToList();
                 transactions_history = temp_transactions_history;
             }
             else if (comboBox_history_transaction_sort.SelectedIndex == 1)
             {
                 var temp_transactions_history = transactions_history.OrderBy(th => th.company_name).ToList();
+                transactions_history = temp_transactions_history;
+            }
+            else if (comboBox_history_transaction_sort.SelectedIndex == 2)
+            {
+                var temp_transactions_history = transactions_history.OrderBy(th => th.item_ID).ToList();
                 transactions_history = temp_transactions_history;
             }
             DatagridDisplayTransactions();
@@ -756,15 +784,23 @@ namespace storage_managements
 
         private void button_export_pdf_Click(object sender, EventArgs e)
         {
-            
+            string seperateName = "_";
+            if (transactions_history_seperateby == 0)
+            {
+                seperateName = "N";
+            }
+            else if (transactions_history_seperateby == 1)
+            {
+                seperateName = "C";
+            }
+            else if (transactions_history_seperateby == 2)
+            {
+                seperateName = "S";
+            }
+            string filepath = lib_DateTime.GetpdfPathFromCurrentDate(seperateby: seperateName);
             if (transactions_history.Count > 0)
             {
-                for (int i = 0; i < 3; i++)
-                {
-                    string filepath = string.Format("test{0}_{1}.pdf", lib_date_time.GetIDByDateTime(),i);
-                    lib_pdf.CreatePdf(filepath, items: transactions_history, seperateby: i);
-                }
-                
+                lib_pdf.CreatePdf(filepath, items: transactions_history, seperateby: transactions_history_seperateby);
             }
         }
     }

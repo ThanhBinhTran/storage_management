@@ -696,8 +696,9 @@ namespace storage_managements
             this.comboBox_history_transaction_sort.Dock = System.Windows.Forms.DockStyle.Fill;
             this.comboBox_history_transaction_sort.FormattingEnabled = true;
             this.comboBox_history_transaction_sort.Items.AddRange(new object[] {
-            "Mặt hàng",
-            "Tên cty/khách"});
+            "Ngày",
+            "Tên cty/khách",
+            "Mặt hàng"});
             this.comboBox_history_transaction_sort.Location = new System.Drawing.Point(637, 3);
             this.comboBox_history_transaction_sort.Name = "comboBox_history_transaction_sort";
             this.comboBox_history_transaction_sort.Size = new System.Drawing.Size(284, 39);

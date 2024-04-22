@@ -66,12 +66,12 @@ namespace storage_managements
             DGVSourceCompany(dgv: dgv, items: items);
             if (company == 0) // conpany
             {
-                DGVRenameHeader(dgv, oldHeader: Program_Parameters.oldHeadercompany, 
+                DGVRenameHeader(dgv, oldHeader: Program_Parameters.oldHeadercompany,
                     newHeader: Program_Parameters.newHeadercompany);
             }
             else
             {
-                DGVRenameHeader(dgv, oldHeader: Program_Parameters.oldHeadercompany, 
+                DGVRenameHeader(dgv, oldHeader: Program_Parameters.oldHeadercompany,
                     newHeader: Program_Parameters.newHeadercompany);
             }
         }
