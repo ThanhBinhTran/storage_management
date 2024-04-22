@@ -67,7 +67,6 @@ namespace storage_managements
             this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
             this.dataGrid_transaction = new System.Windows.Forms.DataGridView();
             this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
-            this.flowLayoutPanel5 = new System.Windows.Forms.FlowLayoutPanel();
             this.label8 = new System.Windows.Forms.Label();
             this.comboBox_transaction_display = new System.Windows.Forms.ComboBox();
             this.label14 = new System.Windows.Forms.Label();
@@ -75,6 +74,7 @@ namespace storage_managements
             this.dateTimePicker_from = new System.Windows.Forms.DateTimePicker();
             this.label13 = new System.Windows.Forms.Label();
             this.dateTimePicker_to = new System.Windows.Forms.DateTimePicker();
+            this.button_export_pdf = new System.Windows.Forms.Button();
             this.tab_database_info = new System.Windows.Forms.TabPage();
             this.item_layout_L2_top = new System.Windows.Forms.TableLayoutPanel();
             this.datagrid_information = new System.Windows.Forms.DataGridView();
@@ -106,7 +106,8 @@ namespace storage_managements
             this.label_message = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            this.button_export_pdf = new System.Windows.Forms.Button();
+            this.flowLayoutPanel5 = new System.Windows.Forms.FlowLayoutPanel();
+            this.label15 = new System.Windows.Forms.Label();
             layout_L1 = new System.Windows.Forms.TableLayoutPanel();
             layout_L1.SuspendLayout();
             this.flowLayoutPanel3.SuspendLayout();
@@ -126,7 +127,6 @@ namespace storage_managements
             this.tableLayoutPanel6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGrid_transaction)).BeginInit();
             this.flowLayoutPanel2.SuspendLayout();
-            this.flowLayoutPanel5.SuspendLayout();
             this.tab_database_info.SuspendLayout();
             this.item_layout_L2_top.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.datagrid_information)).BeginInit();
@@ -135,6 +135,7 @@ namespace storage_managements
             this.flowLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
             this.flowLayoutPanel4.SuspendLayout();
+            this.flowLayoutPanel5.SuspendLayout();
             this.SuspendLayout();
             // 
             // layout_L1
@@ -268,6 +269,7 @@ namespace storage_managements
             // 
             this.datagrid_storage.AllowUserToAddRows = false;
             this.datagrid_storage.AllowUserToDeleteRows = false;
+            this.datagrid_storage.BackgroundColor = System.Drawing.SystemColors.ControlLight;
             this.datagrid_storage.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.datagrid_storage.Dock = System.Windows.Forms.DockStyle.Fill;
             this.datagrid_storage.Location = new System.Drawing.Point(3, 2);
@@ -407,20 +409,22 @@ namespace storage_managements
             this.tableLayoutPanel1.Controls.Add(this.datagrid_storage_items_info, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.datagrid_storage_transaction, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel4, 0, 2);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(20, 15);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 2);
             this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 3;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1211, 471);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1427, 495);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // datagrid_storage_items_info
             // 
             this.datagrid_storage_items_info.AllowUserToAddRows = false;
             this.datagrid_storage_items_info.AllowUserToDeleteRows = false;
+            this.datagrid_storage_items_info.BackgroundColor = System.Drawing.SystemColors.ControlLight;
             this.datagrid_storage_items_info.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.datagrid_storage_items_info.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.storage_item_select});
@@ -430,7 +434,7 @@ namespace storage_managements
             this.datagrid_storage_items_info.Name = "datagrid_storage_items_info";
             this.datagrid_storage_items_info.RowHeadersWidth = 51;
             this.datagrid_storage_items_info.RowTemplate.Height = 24;
-            this.datagrid_storage_items_info.Size = new System.Drawing.Size(1205, 181);
+            this.datagrid_storage_items_info.Size = new System.Drawing.Size(1421, 193);
             this.datagrid_storage_items_info.TabIndex = 1;
             // 
             // storage_item_select
@@ -445,14 +449,15 @@ namespace storage_managements
             // 
             // datagrid_storage_transaction
             // 
+            this.datagrid_storage_transaction.BackgroundColor = System.Drawing.SystemColors.ControlLight;
             this.datagrid_storage_transaction.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.datagrid_storage_transaction.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.datagrid_storage_transaction.Location = new System.Drawing.Point(3, 187);
+            this.datagrid_storage_transaction.Location = new System.Drawing.Point(3, 199);
             this.datagrid_storage_transaction.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.datagrid_storage_transaction.Name = "datagrid_storage_transaction";
             this.datagrid_storage_transaction.RowHeadersWidth = 51;
             this.datagrid_storage_transaction.RowTemplate.Height = 24;
-            this.datagrid_storage_transaction.Size = new System.Drawing.Size(1205, 181);
+            this.datagrid_storage_transaction.Size = new System.Drawing.Size(1421, 193);
             this.datagrid_storage_transaction.TabIndex = 2;
             // 
             // tableLayoutPanel4
@@ -462,20 +467,22 @@ namespace storage_managements
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel4.Controls.Add(this.button_clear_transaction_table, 1, 0);
             this.tableLayoutPanel4.Controls.Add(this.tableLayoutPanel5, 0, 0);
-            this.tableLayoutPanel4.Location = new System.Drawing.Point(3, 372);
+            this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel4.Location = new System.Drawing.Point(3, 396);
             this.tableLayoutPanel4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
             this.tableLayoutPanel4.RowCount = 1;
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(1101, 95);
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(1421, 97);
             this.tableLayoutPanel4.TabIndex = 4;
             // 
             // button_clear_transaction_table
             // 
-            this.button_clear_transaction_table.Location = new System.Drawing.Point(981, 2);
+            this.button_clear_transaction_table.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.button_clear_transaction_table.Location = new System.Drawing.Point(1301, 2);
             this.button_clear_transaction_table.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button_clear_transaction_table.Name = "button_clear_transaction_table";
-            this.button_clear_transaction_table.Size = new System.Drawing.Size(117, 89);
+            this.button_clear_transaction_table.Size = new System.Drawing.Size(117, 93);
             this.button_clear_transaction_table.TabIndex = 19;
             this.button_clear_transaction_table.Text = "Xóa bảng";
             this.button_clear_transaction_table.UseVisualStyleBackColor = true;
@@ -484,10 +491,10 @@ namespace storage_managements
             // tableLayoutPanel5
             // 
             this.tableLayoutPanel5.ColumnCount = 4;
-            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 38.19444F));
-            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 61.80556F));
-            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 389F));
-            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 123F));
+            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 170F));
+            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 300F));
+            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 150F));
             this.tableLayoutPanel5.Controls.Add(this.comboBox_consumer, 1, 1);
             this.tableLayoutPanel5.Controls.Add(this.label11, 0, 0);
             this.tableLayoutPanel5.Controls.Add(this.button_export, 3, 1);
@@ -496,40 +503,44 @@ namespace storage_managements
             this.tableLayoutPanel5.Controls.Add(this.textBox_transaction_company, 2, 0);
             this.tableLayoutPanel5.Controls.Add(this.textBox_transaction_consumer, 2, 1);
             this.tableLayoutPanel5.Controls.Add(this.comboBox_company, 1, 0);
+            this.tableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel5.Location = new System.Drawing.Point(3, 2);
             this.tableLayoutPanel5.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tableLayoutPanel5.Name = "tableLayoutPanel5";
             this.tableLayoutPanel5.RowCount = 2;
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel5.Size = new System.Drawing.Size(972, 89);
+            this.tableLayoutPanel5.Size = new System.Drawing.Size(1292, 93);
             this.tableLayoutPanel5.TabIndex = 20;
             // 
             // comboBox_consumer
             // 
+            this.comboBox_consumer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.comboBox_consumer.FormattingEnabled = true;
-            this.comboBox_consumer.Location = new System.Drawing.Point(178, 46);
+            this.comboBox_consumer.Location = new System.Drawing.Point(173, 48);
             this.comboBox_consumer.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.comboBox_consumer.Name = "comboBox_consumer";
-            this.comboBox_consumer.Size = new System.Drawing.Size(278, 39);
+            this.comboBox_consumer.Size = new System.Drawing.Size(294, 39);
             this.comboBox_consumer.TabIndex = 24;
             this.comboBox_consumer.SelectedIndexChanged += new System.EventHandler(this.comboBox_consumer_SelectedIndexChanged);
             // 
             // label11
             // 
             this.label11.AutoSize = true;
+            this.label11.Dock = System.Windows.Forms.DockStyle.Left;
             this.label11.Location = new System.Drawing.Point(3, 0);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(115, 32);
+            this.label11.Size = new System.Drawing.Size(115, 46);
             this.label11.TabIndex = 19;
             this.label11.Text = "Tên cty:";
             // 
             // button_export
             // 
-            this.button_export.Location = new System.Drawing.Point(851, 46);
+            this.button_export.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.button_export.Location = new System.Drawing.Point(1145, 48);
             this.button_export.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button_export.Name = "button_export";
-            this.button_export.Size = new System.Drawing.Size(99, 38);
+            this.button_export.Size = new System.Drawing.Size(144, 43);
             this.button_export.TabIndex = 18;
             this.button_export.Text = "Xuất";
             this.button_export.UseVisualStyleBackColor = true;
@@ -537,10 +548,11 @@ namespace storage_managements
             // 
             // button_import
             // 
-            this.button_import.Location = new System.Drawing.Point(851, 2);
+            this.button_import.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.button_import.Location = new System.Drawing.Point(1145, 2);
             this.button_import.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button_import.Name = "button_import";
-            this.button_import.Size = new System.Drawing.Size(99, 38);
+            this.button_import.Size = new System.Drawing.Size(144, 42);
             this.button_import.TabIndex = 17;
             this.button_import.Text = "Nhập";
             this.button_import.UseVisualStyleBackColor = true;
@@ -549,35 +561,39 @@ namespace storage_managements
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(3, 44);
+            this.label12.Dock = System.Windows.Forms.DockStyle.Left;
+            this.label12.Location = new System.Drawing.Point(3, 46);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(155, 32);
+            this.label12.Size = new System.Drawing.Size(155, 47);
             this.label12.TabIndex = 20;
             this.label12.Text = "Tên khách:";
             // 
             // textBox_transaction_company
             // 
-            this.textBox_transaction_company.Location = new System.Drawing.Point(462, 2);
+            this.textBox_transaction_company.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBox_transaction_company.Location = new System.Drawing.Point(473, 2);
             this.textBox_transaction_company.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBox_transaction_company.Name = "textBox_transaction_company";
-            this.textBox_transaction_company.Size = new System.Drawing.Size(383, 38);
+            this.textBox_transaction_company.Size = new System.Drawing.Size(666, 38);
             this.textBox_transaction_company.TabIndex = 21;
             // 
             // textBox_transaction_consumer
             // 
-            this.textBox_transaction_consumer.Location = new System.Drawing.Point(462, 46);
+            this.textBox_transaction_consumer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBox_transaction_consumer.Location = new System.Drawing.Point(473, 48);
             this.textBox_transaction_consumer.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBox_transaction_consumer.Name = "textBox_transaction_consumer";
-            this.textBox_transaction_consumer.Size = new System.Drawing.Size(383, 38);
+            this.textBox_transaction_consumer.Size = new System.Drawing.Size(666, 38);
             this.textBox_transaction_consumer.TabIndex = 22;
             // 
             // comboBox_company
             // 
+            this.comboBox_company.Dock = System.Windows.Forms.DockStyle.Fill;
             this.comboBox_company.FormattingEnabled = true;
-            this.comboBox_company.Location = new System.Drawing.Point(178, 2);
+            this.comboBox_company.Location = new System.Drawing.Point(173, 2);
             this.comboBox_company.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.comboBox_company.Name = "comboBox_company";
-            this.comboBox_company.Size = new System.Drawing.Size(278, 39);
+            this.comboBox_company.Size = new System.Drawing.Size(294, 39);
             this.comboBox_company.TabIndex = 23;
             this.comboBox_company.SelectedIndexChanged += new System.EventHandler(this.comboBox_company_SelectedIndexChanged);
             // 
@@ -599,21 +615,23 @@ namespace storage_managements
             this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel6.Controls.Add(this.dataGrid_transaction, 0, 0);
             this.tableLayoutPanel6.Controls.Add(this.flowLayoutPanel2, 0, 1);
-            this.tableLayoutPanel6.Location = new System.Drawing.Point(5, 6);
+            this.tableLayoutPanel6.Controls.Add(this.flowLayoutPanel5, 0, 2);
+            this.tableLayoutPanel6.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel6.Location = new System.Drawing.Point(3, 2);
             this.tableLayoutPanel6.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tableLayoutPanel6.Name = "tableLayoutPanel6";
-            this.tableLayoutPanel6.RowCount = 2;
-            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 58.66074F));
-            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 41.33926F));
-            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel6.Size = new System.Drawing.Size(1192, 446);
+            this.tableLayoutPanel6.RowCount = 3;
+            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 65F));
+            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 65F));
+            this.tableLayoutPanel6.Size = new System.Drawing.Size(1427, 495);
             this.tableLayoutPanel6.TabIndex = 0;
             // 
             // dataGrid_transaction
             // 
             this.dataGrid_transaction.AllowUserToAddRows = false;
             this.dataGrid_transaction.AllowUserToDeleteRows = false;
-            this.dataGrid_transaction.BackgroundColor = System.Drawing.SystemColors.ButtonFace;
+            this.dataGrid_transaction.BackgroundColor = System.Drawing.SystemColors.ControlLight;
             this.dataGrid_transaction.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGrid_transaction.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGrid_transaction.Location = new System.Drawing.Point(3, 2);
@@ -622,45 +640,36 @@ namespace storage_managements
             this.dataGrid_transaction.ReadOnly = true;
             this.dataGrid_transaction.RowHeadersWidth = 51;
             this.dataGrid_transaction.RowTemplate.Height = 24;
-            this.dataGrid_transaction.Size = new System.Drawing.Size(1186, 257);
+            this.dataGrid_transaction.Size = new System.Drawing.Size(1421, 361);
             this.dataGrid_transaction.TabIndex = 0;
             // 
             // flowLayoutPanel2
             // 
-            this.flowLayoutPanel2.Controls.Add(this.flowLayoutPanel5);
+            this.flowLayoutPanel2.Controls.Add(this.label8);
+            this.flowLayoutPanel2.Controls.Add(this.comboBox_transaction_display);
+            this.flowLayoutPanel2.Controls.Add(this.label14);
+            this.flowLayoutPanel2.Controls.Add(this.comboBox_history_transaction_sort);
             this.flowLayoutPanel2.Controls.Add(this.button_export_pdf);
             this.flowLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowLayoutPanel2.Location = new System.Drawing.Point(3, 263);
+            this.flowLayoutPanel2.Location = new System.Drawing.Point(3, 367);
             this.flowLayoutPanel2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.flowLayoutPanel2.Name = "flowLayoutPanel2";
-            this.flowLayoutPanel2.Size = new System.Drawing.Size(1186, 181);
+            this.flowLayoutPanel2.Size = new System.Drawing.Size(1421, 61);
             this.flowLayoutPanel2.TabIndex = 1;
-            // 
-            // flowLayoutPanel5
-            // 
-            this.flowLayoutPanel5.Controls.Add(this.label8);
-            this.flowLayoutPanel5.Controls.Add(this.comboBox_transaction_display);
-            this.flowLayoutPanel5.Controls.Add(this.label14);
-            this.flowLayoutPanel5.Controls.Add(this.comboBox_history_transaction_sort);
-            this.flowLayoutPanel5.Controls.Add(this.dateTimePicker_from);
-            this.flowLayoutPanel5.Controls.Add(this.label13);
-            this.flowLayoutPanel5.Controls.Add(this.dateTimePicker_to);
-            this.flowLayoutPanel5.Location = new System.Drawing.Point(3, 3);
-            this.flowLayoutPanel5.Name = "flowLayoutPanel5";
-            this.flowLayoutPanel5.Size = new System.Drawing.Size(1120, 100);
-            this.flowLayoutPanel5.TabIndex = 6;
             // 
             // label8
             // 
             this.label8.AutoSize = true;
+            this.label8.Dock = System.Windows.Forms.DockStyle.Left;
             this.label8.Location = new System.Drawing.Point(3, 0);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(120, 32);
+            this.label8.Size = new System.Drawing.Size(120, 54);
             this.label8.TabIndex = 4;
             this.label8.Text = "Hiển thị:";
             // 
             // comboBox_transaction_display
             // 
+            this.comboBox_transaction_display.Dock = System.Windows.Forms.DockStyle.Fill;
             this.comboBox_transaction_display.FormattingEnabled = true;
             this.comboBox_transaction_display.Items.AddRange(new object[] {
             "Tất cả",
@@ -675,14 +684,16 @@ namespace storage_managements
             // label14
             // 
             this.label14.AutoSize = true;
+            this.label14.Dock = System.Windows.Forms.DockStyle.Left;
             this.label14.Location = new System.Drawing.Point(441, 0);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(190, 32);
+            this.label14.Size = new System.Drawing.Size(190, 54);
             this.label14.TabIndex = 6;
             this.label14.Text = "Sắp xếp theo:";
             // 
             // comboBox_history_transaction_sort
             // 
+            this.comboBox_history_transaction_sort.Dock = System.Windows.Forms.DockStyle.Fill;
             this.comboBox_history_transaction_sort.FormattingEnabled = true;
             this.comboBox_history_transaction_sort.Items.AddRange(new object[] {
             "Mặt hàng",
@@ -695,16 +706,18 @@ namespace storage_managements
             // 
             // dateTimePicker_from
             // 
-            this.dateTimePicker_from.Location = new System.Drawing.Point(3, 48);
+            this.dateTimePicker_from.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dateTimePicker_from.Location = new System.Drawing.Point(169, 3);
             this.dateTimePicker_from.Name = "dateTimePicker_from";
-            this.dateTimePicker_from.Size = new System.Drawing.Size(449, 38);
+            this.dateTimePicker_from.Size = new System.Drawing.Size(497, 38);
             this.dateTimePicker_from.TabIndex = 0;
             this.dateTimePicker_from.ValueChanged += new System.EventHandler(this.dateTimePicker_from_ValueChanged);
             // 
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(458, 45);
+            this.label13.Dock = System.Windows.Forms.DockStyle.Left;
+            this.label13.Location = new System.Drawing.Point(672, 0);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(63, 32);
             this.label13.TabIndex = 2;
@@ -712,11 +725,22 @@ namespace storage_managements
             // 
             // dateTimePicker_to
             // 
-            this.dateTimePicker_to.Location = new System.Drawing.Point(527, 48);
+            this.dateTimePicker_to.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dateTimePicker_to.Location = new System.Drawing.Point(741, 3);
             this.dateTimePicker_to.Name = "dateTimePicker_to";
-            this.dateTimePicker_to.Size = new System.Drawing.Size(431, 38);
+            this.dateTimePicker_to.Size = new System.Drawing.Size(450, 38);
             this.dateTimePicker_to.TabIndex = 3;
             this.dateTimePicker_to.ValueChanged += new System.EventHandler(this.dateTimePicker_to_ValueChanged);
+            // 
+            // button_export_pdf
+            // 
+            this.button_export_pdf.Location = new System.Drawing.Point(927, 3);
+            this.button_export_pdf.Name = "button_export_pdf";
+            this.button_export_pdf.Size = new System.Drawing.Size(263, 48);
+            this.button_export_pdf.TabIndex = 7;
+            this.button_export_pdf.Text = "Xuất file PDF";
+            this.button_export_pdf.UseVisualStyleBackColor = true;
+            this.button_export_pdf.Click += new System.EventHandler(this.button_export_pdf_Click);
             // 
             // tab_database_info
             // 
@@ -737,21 +761,23 @@ namespace storage_managements
             this.item_layout_L2_top.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.item_layout_L2_top.Controls.Add(this.datagrid_information, 0, 0);
             this.item_layout_L2_top.Controls.Add(this.tableLayoutPanel7, 0, 1);
-            this.item_layout_L2_top.Location = new System.Drawing.Point(5, 6);
+            this.item_layout_L2_top.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.item_layout_L2_top.Location = new System.Drawing.Point(3, 2);
             this.item_layout_L2_top.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.item_layout_L2_top.Name = "item_layout_L2_top";
             this.item_layout_L2_top.RowCount = 2;
             this.item_layout_L2_top.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.item_layout_L2_top.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 172F));
-            this.item_layout_L2_top.Size = new System.Drawing.Size(1389, 480);
+            this.item_layout_L2_top.Size = new System.Drawing.Size(1427, 495);
             this.item_layout_L2_top.TabIndex = 6;
             // 
             // datagrid_information
             // 
             this.datagrid_information.AllowUserToAddRows = false;
             this.datagrid_information.AllowUserToDeleteRows = false;
-            this.datagrid_information.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCellsExceptHeader;
-            this.datagrid_information.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            this.datagrid_information.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
+            this.datagrid_information.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
+            this.datagrid_information.BackgroundColor = System.Drawing.SystemColors.ControlLight;
             this.datagrid_information.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.datagrid_information.Dock = System.Windows.Forms.DockStyle.Fill;
             this.datagrid_information.Location = new System.Drawing.Point(3, 2);
@@ -771,6 +797,7 @@ namespace storage_managements
             this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 15.44402F));
             this.tableLayoutPanel7.Controls.Add(this.groupBox3, 1, 0);
             this.tableLayoutPanel7.Controls.Add(this.tableLayoutPanel3, 0, 0);
+            this.tableLayoutPanel7.Dock = System.Windows.Forms.DockStyle.Left;
             this.tableLayoutPanel7.Location = new System.Drawing.Point(4, 312);
             this.tableLayoutPanel7.Margin = new System.Windows.Forms.Padding(4);
             this.tableLayoutPanel7.Name = "tableLayoutPanel7";
@@ -1064,15 +1091,26 @@ namespace storage_managements
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click_2);
             // 
-            // button_export_pdf
+            // flowLayoutPanel5
             // 
-            this.button_export_pdf.Location = new System.Drawing.Point(3, 109);
-            this.button_export_pdf.Name = "button_export_pdf";
-            this.button_export_pdf.Size = new System.Drawing.Size(206, 48);
-            this.button_export_pdf.TabIndex = 7;
-            this.button_export_pdf.Text = "Xuất file PDF";
-            this.button_export_pdf.UseVisualStyleBackColor = true;
-            this.button_export_pdf.Click += new System.EventHandler(this.button_export_pdf_Click);
+            this.flowLayoutPanel5.Controls.Add(this.label15);
+            this.flowLayoutPanel5.Controls.Add(this.dateTimePicker_from);
+            this.flowLayoutPanel5.Controls.Add(this.label13);
+            this.flowLayoutPanel5.Controls.Add(this.dateTimePicker_to);
+            this.flowLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flowLayoutPanel5.Location = new System.Drawing.Point(3, 433);
+            this.flowLayoutPanel5.Name = "flowLayoutPanel5";
+            this.flowLayoutPanel5.Size = new System.Drawing.Size(1421, 59);
+            this.flowLayoutPanel5.TabIndex = 2;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(3, 0);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(160, 32);
+            this.label15.TabIndex = 4;
+            this.label15.Text = "Chọn ngày:";
             // 
             // main_form
             // 
@@ -1104,8 +1142,7 @@ namespace storage_managements
             this.tableLayoutPanel6.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGrid_transaction)).EndInit();
             this.flowLayoutPanel2.ResumeLayout(false);
-            this.flowLayoutPanel5.ResumeLayout(false);
-            this.flowLayoutPanel5.PerformLayout();
+            this.flowLayoutPanel2.PerformLayout();
             this.tab_database_info.ResumeLayout(false);
             this.item_layout_L2_top.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.datagrid_information)).EndInit();
@@ -1117,6 +1154,8 @@ namespace storage_managements
             this.tableLayoutPanel3.PerformLayout();
             this.flowLayoutPanel4.ResumeLayout(false);
             this.flowLayoutPanel4.PerformLayout();
+            this.flowLayoutPanel5.ResumeLayout(false);
+            this.flowLayoutPanel5.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1198,8 +1237,9 @@ namespace storage_managements
         private System.Windows.Forms.ComboBox comboBox_transaction_display;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.ComboBox comboBox_history_transaction_sort;
-        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel5;
         private System.Windows.Forms.Button button_export_pdf;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel5;
+        private System.Windows.Forms.Label label15;
     }
 }
 
