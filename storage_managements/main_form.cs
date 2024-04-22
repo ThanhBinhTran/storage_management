@@ -9,6 +9,10 @@ namespace storage_managements
 {
     public partial class main_form : Form
     {
+        /*
+         * tab GUI
+         */
+        
         /* 
 		 * Tab storage
 		 */
@@ -60,8 +64,8 @@ namespace storage_managements
             lib_comboBox.add_items(comboBox_company, companies);
             lib_comboBox.add_items(comboBox_consumer, consumers);
             // show table info
-            lib_datagrid.datagrid_display_items(dgv: datagrid_information, items: database_items);
-            lib_datagrid.datagrid_display_items(dgv: datagrid_storage_items_info, items: database_items);
+            lib_datagrid.DGVDisplayItems(dgv: datagrid_information, items: database_items);
+            lib_datagrid.DGVDisplayItems(dgv: datagrid_storage_items_info, items: database_items);
 
             SetSearchDateTimeRange();
             // initial GUI
@@ -268,7 +272,7 @@ namespace storage_managements
 
         private void DatagridDisplayStorage()
         {
-            lib_datagrid.datagridview_source_storage(dgv: datagrid_storage, items: storages_display);
+            lib_datagrid.DGVSourceStorage(dgv: datagrid_storage, items: storages_display);
             lib_datagrid.DGVRenameStorageHeader(dgv:datagrid_storage);
         }
 
@@ -389,19 +393,20 @@ namespace storage_managements
         
         private void DatagridDisplayItems()
         {
-            lib_datagrid.datagrid_display_items(dgv: datagrid_information, items: database_items);
+            lib_datagrid.DGVDisplayItems(dgv: datagrid_information, items: database_items);
         }
         private void DatagridDisplayCompanies()
         {
-            lib_datagrid.datagrid_display_companies(dgv: datagrid_information, items: companies);
+            lib_datagrid.DGVDisplayCompanies(dgv: datagrid_information, items: companies);
         }
         private void DatagridDisplayConsumers()
         {
-            lib_datagrid.datagrid_display_companies(dgv: datagrid_information, items: consumers, company: 1);
+            lib_datagrid.DGVDisplayCompanies(dgv: datagrid_information, items: consumers, company: 1);
         }
         private void DatagridDisplayTransactions()
         {
-            lib_datagrid.datagrid_display_transactions(dgv: dataGrid_transaction, items: transactions_history);
+            lib_datagrid.DGVDisplayTransactions(dgv: dataGrid_transaction, items: transactions_history);
+            
         }
         /**************************************************************/
         private void button1_Click(object sender, EventArgs e)
@@ -424,7 +429,7 @@ namespace storage_managements
 
         private void button1_Click_1(object sender, EventArgs e)
         {
-            lib_datagrid.datagrid_display_items(dgv: datagrid_information, items: database_items);
+            lib_datagrid.DGVDisplayItems(dgv: datagrid_information, items: database_items);
             //ShowTable_Item_Info(table_item, itemlist:item_list);
 
         }
@@ -441,7 +446,7 @@ namespace storage_managements
 
         private void tab_view_SelectedIndexChanged(object sender, EventArgs e)
         {
-            lib_datagrid.datagrid_display_items(dgv: datagrid_storage_items_info, items: database_items);
+            lib_datagrid.DGVDisplayItems(dgv: datagrid_storage_items_info, items: database_items);
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -472,7 +477,7 @@ namespace storage_managements
         private void button7_Click(object sender, EventArgs e)
         {
             pre_transaction_items.Clear();
-            lib_datagrid.datagridview_source_storage(dgv: datagrid_storage_transaction, items: pre_transaction_items);
+            lib_datagrid.DGVSourceStorage(dgv: datagrid_storage_transaction, items: pre_transaction_items);
         }
 
         private void button8_Click(object sender, EventArgs e)
@@ -497,12 +502,12 @@ namespace storage_managements
 
         private void button_add_company_Click(object sender, EventArgs e)
         {
-            lib_datagrid.datagrid_display_companies(dgv: datagrid_information, items: companies);
+            lib_datagrid.DGVDisplayCompanies(dgv: datagrid_information, items: companies);
         }
 
         private void button_add_consumer_Click(object sender, EventArgs e)
         {
-            lib_datagrid.datagrid_display_companies(dgv: datagrid_information, items: consumers, company: 1);
+            lib_datagrid.DGVDisplayCompanies(dgv: datagrid_information, items: consumers, company: 1);
         }
 
         private void comboBox_company_SelectedIndexChanged(object sender, EventArgs e)
@@ -588,7 +593,15 @@ namespace storage_managements
 
         private void textbox_search_ID_TextChanged(object sender, EventArgs e)
         {
-            DisplayStorageByID(textbox_search_ID.Text.Trim());
+            int tab_active = tab_view.SelectedIndex;
+            if (tab_active == 0)
+            {
+                DisplayStorageByID(textbox_search_ID.Text.Trim());
+            }    
+            else if (tab_active == 1)
+            {
+                lib_form_text.display_debug(label:label_message, msg:"tab view 1");
+            }    
         }
 
         private void textBox2_TextChanged(object sender, EventArgs e)
@@ -738,7 +751,7 @@ namespace storage_managements
                     pre_transaction_items.Add(item);
                 }
             }
-            lib_datagrid.datagridview_source_storage(dgv: datagrid_storage_transaction, items: pre_transaction_items);
+            lib_datagrid.DGVSourceStorage(dgv: datagrid_storage_transaction, items: pre_transaction_items);
         }
 
         private void button_export_pdf_Click(object sender, EventArgs e)

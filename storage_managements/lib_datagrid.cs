@@ -5,13 +5,13 @@ namespace storage_managements
 {
     class lib_datagrid
     {
-        public static void datagridview_prestorage_clear(DataGridView dgv, List<DS_Storage_Item> items)
+        public static void DGVPreStorageClear(DataGridView dgv, List<DS_Storage_Item> items)
         {
             items.Clear();
-            datagridview_source_storage(dgv, items);
+            DGVSourceStorage(dgv, items);
         }
 
-        public static void datagridview_source_storage(DataGridView dgv, List<DS_Storage_Item> items)
+        public static void DGVSourceStorage(DataGridView dgv, List<DS_Storage_Item> items)
         {
             BindingSource source = new BindingSource();
             source.DataSource = items;
@@ -21,7 +21,7 @@ namespace storage_managements
             dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
 
-        public static void datagridview_source_item(DataGridView dgv, List<DS_Storage_Item> items)
+        public static void DGVSourceItem(DataGridView dgv, List<DS_Storage_Item> items)
         {
             BindingSource source = new BindingSource();
             source.DataSource = items;
@@ -33,9 +33,9 @@ namespace storage_managements
 
         public static void DGVRenameStorageHeader(DataGridView dgv)
         {
-            datagridview_rename_header(dgv: dgv, oldHeader: Program_Parameters.oldHeaderStorage, newHeader: Program_Parameters.newHeaderStorage);
+            DGVRenameHeader(dgv: dgv, oldHeader: Program_Parameters.oldHeaderStorage, newHeader: Program_Parameters.newHeaderStorage);
         }
-        public static void datagridview_rename_header(DataGridView dgv, List<string> oldHeader, List<string> newHeader)
+        public static void DGVRenameHeader(DataGridView dgv, List<string> oldHeader, List<string> newHeader)
         {
             for (int i = 0; i < oldHeader.Count; i++)
             {
@@ -43,9 +43,9 @@ namespace storage_managements
             }
         }
 
-        public static void datagrid_display_items(DataGridView dgv, List<DS_Storage_Item> items)
+        public static void DGVDisplayItems(DataGridView dgv, List<DS_Storage_Item> items)
         {
-            datagridview_source_item(dgv: dgv, items: items);
+            DGVSourceItem(dgv: dgv, items: items);
             DGVRenameStorageHeader(dgv: dgv);
         }
 
@@ -53,7 +53,7 @@ namespace storage_managements
 		 * companies
 		 */
 
-        private static void datagridview_source_company(DataGridView dgv, List<DS_Company> items)
+        private static void DGVSourceCompany(DataGridView dgv, List<DS_Company> items)
         {
             BindingSource source = new BindingSource();
             source.DataSource = items;
@@ -61,22 +61,22 @@ namespace storage_managements
             source.ResetBindings(false);
             dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
-        public static void datagrid_display_companies(DataGridView dgv, List<DS_Company> items, int company = 0)
+        public static void DGVDisplayCompanies(DataGridView dgv, List<DS_Company> items, int company = 0)
         {
-            datagridview_source_company(dgv: dgv, items: items);
+            DGVSourceCompany(dgv: dgv, items: items);
             if (company == 0) // conpany
             {
-                datagridview_rename_header(dgv, oldHeader: Program_Parameters.oldHeadercompany, 
+                DGVRenameHeader(dgv, oldHeader: Program_Parameters.oldHeadercompany, 
                     newHeader: Program_Parameters.newHeadercompany);
             }
             else
             {
-                datagridview_rename_header(dgv, oldHeader: Program_Parameters.oldHeadercompany, 
+                DGVRenameHeader(dgv, oldHeader: Program_Parameters.oldHeadercompany, 
                     newHeader: Program_Parameters.newHeadercompany);
             }
         }
 
-        private static void datagridview_source_transactions(DataGridView dgv, List<DS_Transaction_Grid> items)
+        private static void DGVSourceTransactions(DataGridView dgv, List<DS_Transaction_Grid> items)
         {
             BindingSource source = new BindingSource();
             source.DataSource = items;
@@ -84,12 +84,11 @@ namespace storage_managements
             source.ResetBindings(false);
             dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
-        public static void datagrid_display_transactions(DataGridView dgv, List<DS_Transaction_Grid> items, int company = 0)
+        public static void DGVDisplayTransactions(DataGridView dgv, List<DS_Transaction_Grid> items, int company = 0)
         {
-            datagridview_source_transactions(dgv: dgv, items: items);
-            //List<string> oldlheader = new List<string> { "ID", "name" };
-            //List<string> newlheader = new List<string> { "ID", "name" };
-            //datagridview_rename_header(dgv, oldHeader: oldlheader, newHeader: newlheader);
+            DGVSourceTransactions(dgv: dgv, items: items);
+            DGVRenameHeader(dgv: dgv, oldHeader: Program_Parameters.oldHeadertransaction,
+                newHeader: Program_Parameters.newHeadertransaction);
         }
     }
 }

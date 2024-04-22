@@ -30,6 +30,9 @@ namespace storage_managements
         public static List<string> newHeadercompany = new List<string> { "Mã cty", "Tên cty"};
         public static List<string> newHeaderconsumer = new List<string> { "Mã khách", "Tên khách"};
 
+        public static List<string> oldHeadertransaction = new List<string> { "ID", "transaction_direction", "company_name", "item_ID", "item_name", "item_quantity", "item_unit", "transaction_time"};
+        public static List<string> newHeadertransaction = new List<string> { "Mã", "Nhập/Xuất", "Đối tác", "Mã sp", "Tên sp", "Số lượng", "Quy cách", "Thời gian"};
+
         /* create path for program if nonexist*/
         public static void create_paths()
         {
