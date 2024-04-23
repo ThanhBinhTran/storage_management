@@ -6,7 +6,8 @@ namespace storage_managements
     public enum direction
     {
         export,
-        import
+        import,
+        none
     }
     public class DS_Transaction
     {

@@ -6,10 +6,10 @@ using System.IO;
 
 namespace storage_managements
 {
-    class lib_Pdf
+    class Lib_Pdf
     {
-        private static BaseFont baseFont = BaseFont.CreateFont("c:/windows/fonts/Arial.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
-        private static Font font = new Font(baseFont, 12);
+        private static readonly BaseFont baseFont = BaseFont.CreateFont("c:/windows/fonts/Arial.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+        private static readonly Font font = new Font(baseFont, 12);
 
         public static void CreatePdf(string filePath, List<DS_TransactionGrid> items, int seperateby = 0)
         {
@@ -24,7 +24,7 @@ namespace storage_managements
             // Add a new page to the document
             document.NewPage();
 
-            string docTitle = string.Format("In ngày: {0}", lib_DateTime.GetDateTime(DateTime.Now));
+            string docTitle = string.Format("In ngày: {0}", Lib_DateTime.GetDateTime(DateTime.Now));
             DocumentAddParagraph(doc: document, str: docTitle);
             // Add the table to the document
             DocumentAddTables(doc: document, transItems: items, seperateby: seperateby);
@@ -39,8 +39,10 @@ namespace storage_managements
             {
                 return null;
             }
-            PdfPTable table = new PdfPTable(headCount);
-            table.WidthPercentage = 100;
+            PdfPTable table = new PdfPTable(headCount)
+            {
+                WidthPercentage = 100
+            };
             // Set the relative widths of the table
             table.SetWidths(Program_Parameters.pdfTableWidths);
             // headers field
@@ -53,13 +55,14 @@ namespace storage_managements
 
         private static PdfPTable CreatePdfTableRow(DS_TransactionGrid item)
         {
-            PdfPTable table = new PdfPTable(6);
-
-            table.WidthPercentage = 100;
+            PdfPTable table = new PdfPTable(6)
+            {
+                WidthPercentage = 100
+            };
             // Set the relative widths of the table
             table.SetWidths(Program_Parameters.pdfTableWidths);
 
-            string time = lib_DateTime.GetDateTime(item.transaction_time);
+            string time = Lib_DateTime.GetDateTime(item.transaction_time);
             string direction = item.transaction_direction;
             string company_name = item.company_name;
             string item_name = item.item_name;
@@ -71,8 +74,10 @@ namespace storage_managements
             table.AddCell(new Paragraph(company_name, font));
             table.AddCell(new Paragraph(direction, font));
             table.AddCell(new Paragraph(item_name, font));
-            Paragraph quantity_para = new Paragraph(item_quantity, font);
-            quantity_para.Alignment = Element.ALIGN_RIGHT; // Set the alignment to right
+            Paragraph quantity_para = new Paragraph(item_quantity, font)
+            {
+                Alignment = Element.ALIGN_RIGHT // Set the alignment to right
+            };
             table.AddCell(quantity_para);
             table.AddCell(new Paragraph(item_unit, font));
             return table;
@@ -83,7 +88,7 @@ namespace storage_managements
             string result = "";
             if (seperateby == 0 && transDate.Date != item.transaction_time.Date) // date
             {
-                result = string.Format("Ngày: {0}", lib_DateTime.GetDateOnly(item.transaction_time.Date));
+                result = string.Format("Ngày: {0}", Lib_DateTime.GetDateOnly(item.transaction_time.Date));
             }
             else if (seperateby == 1 && company != item.company_name) // date
             {
@@ -108,7 +113,7 @@ namespace storage_managements
             {
                 string seperate_text = IsSeperated(company: company_name, item_name: item_name,
                     transDate: transactionDate, item: item, seperateby: seperateby);
-                if (!lib_FormText.IsStringEmpty(seperate_text))
+                if (!Lib_FormText.IsStringEmpty(seperate_text))
                 {
                     company_name = item.company_name;
                     item_name = item.item_name;
@@ -123,8 +128,10 @@ namespace storage_managements
         }
         private static void DocumentAddParagraph(Document doc, string str, int alignment = Element.ALIGN_LEFT)
         {
-            Paragraph ptext = new Paragraph(str, font);
-            ptext.Alignment = alignment;
+            Paragraph ptext = new Paragraph(str, font)
+            {
+                Alignment = alignment
+            };
             doc.Add(ptext);
         }
     }

@@ -13,26 +13,26 @@ namespace storage_managements
 		 * Tab storage
 		 */
         // list of storage items
-        private List<DS_StorageItem> storages = new List<DS_StorageItem>();
-        private List<DS_StorageItem> storages_display = new List<DS_StorageItem>();
+        private readonly List<DS_StorageItem> storages = new List<DS_StorageItem>();
+        private readonly List<DS_StorageItem> storages_display = new List<DS_StorageItem>();
         // list of pre-transaction items
-        private List<DS_StorageItem> pre_transaction_items = new List<DS_StorageItem>();
+        private readonly List<DS_StorageItem> pre_transaction_items = new List<DS_StorageItem>();
         /*
 		 * Tab transactions
 		 */
-        private List<DS_TransactionGrid> transactions_history = new List<DS_TransactionGrid>();
+        private readonly List<DS_TransactionGrid> transactions_history = new List<DS_TransactionGrid>();
         private List<DS_TransactionGrid> transactions_history_show = new List<DS_TransactionGrid>();
-        private List<DS_Transaction> retrieve_transactions = new List<DS_Transaction>(); // retrieve  transaction for search.
+        private readonly List<DS_Transaction> retrieve_transactions = new List<DS_Transaction>(); // retrieve  transaction for search.
         private int transactions_history_seperateby = 0;
         /*
 		 * tab information (items, company, consumer)
 		 */
-        // list of consumers
-        private List<DS_Company> consumers = new List<DS_Company>();
-        // list of companys
-        private List<DS_Company> companies = new List<DS_Company>();
+        // list of consumers and companys
+        private readonly List<DS_Company> consumers = new List<DS_Company>();
+        private readonly List<DS_Company> companies = new List<DS_Company>();
+
         // list of items information
-        private List<DS_StorageItem> database_items = new List<DS_StorageItem>();
+        private readonly List<DS_StorageItem> database_items = new List<DS_StorageItem>();
 
         // range of history transactions
         private DateTime datetimeFrom;
@@ -41,7 +41,11 @@ namespace storage_managements
         {
             InitializeComponent();
 
+            // initial datastructure, information
             Initial_Program();
+
+            // initial GUI
+            InitialGUI();
         }
 
         /* 
@@ -51,21 +55,13 @@ namespace storage_managements
         private void Initial_Program()
         {
             // create path
-            Program_Parameters.create_paths();
+            Program_Parameters.Create_paths();
 
             // read all infomation (storage, item, companies, consumers)
-            read_all_information();
-
-            // show comsumer and company info
-            lib_ComboBox.SourceItems(comboBox_company, companies);
-            lib_ComboBox.SourceItems(comboBox_consumer, consumers);
-            // show table info
-            //lib_DataGrid.DGVDisplayItems(dgv: datagrid_information, items: database_items);
-            //lib_DataGrid.DGVDisplayItems(dgv: datagrid_storage_items_info, items: database_items);
+            ReadAllInformation();
 
             SetSearchDateTimeRange();
-            // initial GUI
-            InitialGUI();
+
         }
         /* GUI */
         private void InitialGUI()
@@ -75,6 +71,11 @@ namespace storage_managements
             InitialGUIDataGridView();
         }
 
+        private void InitialGUIComboBox()
+        {
+            Lib_ComboBox.SourceItems(cb: comboBox_company, companies);
+            Lib_ComboBox.SourceItems(cb: comboBox_consumer, consumers);
+        }
         private void InitialGUILabel()
         {
             int num = (int)numeric_threshold.Value;
@@ -85,59 +86,60 @@ namespace storage_managements
         }
         private void InitialGUITextBox()
         {
-            lib_FormText.ClearColorTextBox(tb: textbox_new_company_ID);
-            lib_FormText.ClearColorTextBox(tb: textbox_new_company_name);
-            lib_FormText.ClearColorTextBox(tb: textbox_new_consumer_ID);
-            lib_FormText.ClearColorTextBox(tb: textbox_new_consumer_name);
-            lib_FormText.ClearColorTextBox(tb: textbox_new_item_ID);
-            lib_FormText.ClearColorTextBox(tb: textbox_new_item_name);
-            lib_FormText.ClearColorTextBox(tb: textbox_new_item_unit);
-            lib_FormText.ClearColorTextBox(tb: textBox_transaction_company);
-            lib_FormText.ClearColorTextBox(tb: textBox_transaction_consumer);
-        }
-
-        private void InitialComboBox()
-        {
-            lib_ComboBox.SourceItems(cb: comboBox_company, items: companies);
-            lib_ComboBox.SourceItems(cb: comboBox_consumer, items: consumers);
+            Lib_FormText.ClearColorTextBox(tb: textbox_new_company_ID);
+            Lib_FormText.ClearColorTextBox(tb: textbox_new_company_name);
+            Lib_FormText.ClearColorTextBox(tb: textbox_new_consumer_ID);
+            Lib_FormText.ClearColorTextBox(tb: textbox_new_consumer_name);
+            Lib_FormText.ClearColorTextBox(tb: textbox_new_item_ID);
+            Lib_FormText.ClearColorTextBox(tb: textbox_new_item_name);
+            Lib_FormText.ClearColorTextBox(tb: textbox_new_item_unit);
+            Lib_FormText.ClearColorTextBox(tb: textBox_transaction_company);
+            Lib_FormText.ClearColorTextBox(tb: textBox_transaction_consumer);
         }
 
         private void InitialGUIDataGridView()
         {
-            //datagrid_storage.DataSource = storages_display;
+            // storage tab
+            DisplayStorageByQuantity();
+
+            // storage import/export tab
+            DisplayDatabaseItems();
+
+            // database information tab
+            DatagridDisplayItems();
         }
 
         private void MessageOK(string msg = "")
         {
-            lib_Message.show_messagebox(mstr: msg, mbutton: MessageBoxButtons.OK, micon: MessageBoxIcon.Information);
+            Lib_Message.ShowMessagebox(mstr: msg, mbutton: MessageBoxButtons.OK, micon: MessageBoxIcon.Information);
         }
         private bool MessageEmptyField()
         {
-            lib_Message.show_messagebox(mstr: Program_Parameters.message_empty_fields, mbutton: MessageBoxButtons.OK,
+            Lib_Message.ShowMessagebox(mstr: Program_Parameters.message_empty_fields, mbutton: MessageBoxButtons.OK,
                     micon: MessageBoxIcon.Error);
             return false;
         }
         private bool MessageEmptyItems()
         {
-            lib_Message.show_messagebox(mstr: Program_Parameters.message_empty_items, mbutton: MessageBoxButtons.OK,
+            Lib_Message.ShowMessagebox(mstr: Program_Parameters.message_empty_items, mbutton: MessageBoxButtons.OK,
                     micon: MessageBoxIcon.Error);
             return false;
         }
         private bool IsTextboxEmpty(TextBox tb)
         {
-            return lib_FormText.IsTextboxEmpty(tb);
+            return Lib_FormText.IsTextboxEmpty(tb);
         }
-        private void read_all_information()
+        private void ReadAllInformation()
         {
             // read item information
-            lib_Json.ReadDatabaseItem(database_items);
+            Lib_Json.ReadDatabaseItem(database_items);
 
             // read storage items
-            lib_Json.ReadStorageItem(storages);
+            Lib_Json.ReadStorageItem(storages);
 
             // read company 
-            lib_Json.ReadCompany(companies);
-            lib_Json.ReadConsumer(consumers);
+            Lib_Json.ReadCompany(companies);
+            Lib_Json.ReadConsumer(consumers);
         }
 
         /* get start and end dates for retrieval transactions */
@@ -168,13 +170,13 @@ namespace storage_managements
                 return MessageEmptyField();
             }
 
-            string ID = lib_FormText.GetTextboxText(textbox_new_item_ID).ToUpper();
-            string name = lib_FormText.GetTextboxText(textbox_new_item_name);
-            string unit = lib_FormText.GetTextboxText(textbox_new_item_unit);
-            bool result = lib_List.do_add_update_database_item(items: database_items, ID: ID, name: name, unit: unit);
+            string ID = Lib_FormText.GetTextboxText(textbox_new_item_ID).ToUpper();
+            string name = Lib_FormText.GetTextboxText(textbox_new_item_name);
+            string unit = Lib_FormText.GetTextboxText(textbox_new_item_unit);
+            bool result = Lib_List.DoAddUpdateDatabaseItem(items: database_items, ID: ID, name: name, unit: unit);
             if (result)
             {
-                lib_Json.WriteDatabaseItem(items: database_items);
+                Lib_Json.WriteDatabaseItem(items: database_items);
                 return true;
             }
 
@@ -192,12 +194,12 @@ namespace storage_managements
                 return MessageEmptyField();
             }
 
-            string ID = lib_FormText.GetTextboxText(textbox_new_company_ID);
-            string name = lib_FormText.GetTextboxText(textbox_new_company_name);
-            result = lib_List.do_add_update_conpany(items: companies, ID: ID, name: name);
+            string ID = Lib_FormText.GetTextboxText(textbox_new_company_ID);
+            string name = Lib_FormText.GetTextboxText(textbox_new_company_name);
+            result = Lib_List.DoAddUpdateCompany(items: companies, ID: ID, name: name);
             if (result)
             {
-                lib_Json.WriteCompany(items: companies);
+                Lib_Json.WriteCompany(items: companies);
             }
             return true;
         }
@@ -211,12 +213,12 @@ namespace storage_managements
                 return MessageEmptyField();
             }
 
-            string ID = lib_FormText.GetTextboxText(textbox_new_consumer_ID);
-            string name = lib_FormText.GetTextboxText(textbox_new_consumer_name);
-            bool result = lib_List.do_add_update_conpany(items: consumers, ID: ID, name: name);
+            string ID = Lib_FormText.GetTextboxText(textbox_new_consumer_ID);
+            string name = Lib_FormText.GetTextboxText(textbox_new_consumer_name);
+            bool result = Lib_List.DoAddUpdateCompany(items: consumers, ID: ID, name: name);
             if (result)
             {
-                lib_Json.WriteConsumer(items: consumers);
+                Lib_Json.WriteConsumer(items: consumers);
             }
 
             return true;
@@ -226,7 +228,7 @@ namespace storage_managements
         {
             string pre_fix = "";
             InitialGUI();
-            if (lib_FormText.IsTextboxEmpty(tb))
+            if (Lib_FormText.IsTextboxEmpty(tb))
             {
                 return MessageEmptyField();
             }
@@ -252,7 +254,7 @@ namespace storage_managements
                 };
                 transaction_items.Add(s_preitem);
 
-                lib_List.do_add_update_storage_item(items: storages, ID: ID, name: name,
+                Lib_List.DoAddUpdateStorageItem(items: storages, ID: ID, name: name,
                         unit: unit, quantity: quantity, dir: dir);
             }
             cur_transaction.transaction_direction = dir;
@@ -266,18 +268,18 @@ namespace storage_managements
                 pre_fix = "X";
             }
             cur_transaction.transaction_items = transaction_items;
-            cur_transaction.ID = pre_fix + lib_DateTime.GetIDByTime();
-            cur_transaction.company_name = lib_FormText.GetTextboxText(tb);
-            cur_transaction.transaction_time = lib_DateTime.GetCurrentTime();
+            cur_transaction.ID = pre_fix + Lib_DateTime.GetIDByTime();
+            cur_transaction.company_name = Lib_FormText.GetTextboxText(tb);
+            cur_transaction.transaction_time = Lib_DateTime.GetCurrentTime();
 
             cur_transaction.print_item();
             // get exist transaction in the same day.
-            string file_path = lib_DateTime.GetTransactionPathFromCurrentDate();
-            lib_Json.ReadTransactions(items: inday_transactions, filepath: file_path);
+            string file_path = Lib_DateTime.GetTransactionPathFromCurrentDate();
+            Lib_Json.ReadTransactions(items: inday_transactions, filepath: file_path);
             inday_transactions.Add(cur_transaction);
 
-            lib_Json.WriteTransaction(items: inday_transactions, filepath: file_path);
-            lib_Json.WriteStorageItem(items: storages);
+            Lib_Json.WriteTransaction(items: inday_transactions, filepath: file_path);
+            Lib_Json.WriteStorageItem(items: storages);
 
             return true;
         }
@@ -288,8 +290,8 @@ namespace storage_managements
             for (DateTime date = datetimeFrom; date <= datetimeTo; date = date.AddDays(1))
             {
                 List<DS_Transaction> history_transaction = new List<DS_Transaction>();
-                string file_path = lib_DateTime.DateToTransactionPath(date);
-                lib_Json.ReadTransactions(items: history_transaction, filepath: file_path);
+                string file_path = Lib_DateTime.DateToTransactionPath(date);
+                Lib_Json.ReadTransactions(items: history_transaction, filepath: file_path);
                 foreach (DS_Transaction item in history_transaction)
                 {
                     retrieve_transactions.Add(item);
@@ -330,7 +332,7 @@ namespace storage_managements
 
         private void DatagridDisplayStorage()
         {
-            lib_DataGrid.DGVDisplayItem(dgv: datagrid_storage, items: storages_display, item_type: 0);
+            Lib_DataGrid.DGVDisplayItem(dgv: datagrid_storage, items: storages_display);
         }
 
         private void DisplayStorageByID(string ID)
@@ -344,15 +346,19 @@ namespace storage_managements
             DatagridDisplayStorage();
         }
         private void DisplayStorageByQuantity(int threshold = int.MaxValue,
-            display_relation relation = display_relation.lessthan)
+            Display_relation relation = Display_relation.lessthan)
         {
             StorageFilterQuantity(threshold: threshold, relation: relation);
             DatagridDisplayStorage();
         }
 
+        private void DisplayDatabaseItems()
+        {
+            Lib_DataGrid.DGVDisplayItem(dgv: datagrid_storage_items_info, items: database_items);
+        }
         private void DatagridDisplayGoingTransaction()
         {
-            lib_DataGrid.DGVDisplayItem(dgv: datagrid_storage_transaction, items: pre_transaction_items);
+            Lib_DataGrid.DGVDisplayItem(dgv: datagrid_storage_transaction, items: pre_transaction_items);
         }
 
         private void StorageItemsFilterID(string ID)
@@ -415,17 +421,16 @@ namespace storage_managements
                 }
             }
         }
-        private void TransactionsFilter(direction dir = direction.import, string filter_key = "", bool filter_none = false)
+        private void TransactionsFilter(direction dir = direction.none, string filter_key = "", 
+            bool searchenable=false, bool filter_none = false)
         {
-            bool filter_key_en = filter_key.Length > 0;
-            
             string dir_str = TransactionDirection2String(dir);
             transactions_history_show.Clear();
             foreach (DS_TransactionGrid item in transactions_history)
             {
                 bool filter_result = item.item_ID.Contains(filter_key) ||
                     item.item_name.Contains(filter_key);
-                if (item.transaction_direction == dir_str || filter_none || (filter_key_en && filter_result) )
+                if (item.transaction_direction == dir_str || filter_none || (searchenable && filter_result))
                 {
                     transactions_history_show.Add(item);
                 }
@@ -433,18 +438,17 @@ namespace storage_managements
         }
 
         private void StorageFilterQuantity(int threshold = int.MaxValue,
-            display_relation relation = display_relation.lessthan)
+            Display_relation relation = Display_relation.lessthan)
         {
             storages_display.Clear();
-            bool insert = false;
             foreach (DS_StorageItem item in storages)
             {
-                insert = false;
-                if (relation == display_relation.lessthan)
+                bool insert = false;
+                if (relation == Display_relation.lessthan)
                 {
                     insert = item.quantity <= threshold;
                 }
-                else if (relation == display_relation.greaterthan)
+                else if (relation == Display_relation.greaterthan)
                 {
                     insert = item.quantity > threshold;
                 }
@@ -464,19 +468,19 @@ namespace storage_managements
 
         private void DatagridDisplayItems()
         {
-            lib_DataGrid.DGVDisplayItem(dgv: datagrid_information, items: database_items);
+            Lib_DataGrid.DGVDisplayItem(dgv: datagrid_information, items: database_items);
         }
         private void DatagridDisplayCompanies()
         {
-            lib_DataGrid.DGVDisplayCompany(dgv: datagrid_information, items: companies);
+            Lib_DataGrid.DGVDisplayCompany(dgv: datagrid_information, items: companies);
         }
         private void DatagridDisplayConsumers()
         {
-            lib_DataGrid.DGVDisplayCompany(dgv: datagrid_information, items: consumers, company: 1);
+            Lib_DataGrid.DGVDisplayCompany(dgv: datagrid_information, items: consumers, company: 1);
         }
         private void DatagridDisplayTransactions()
         {
-            lib_DataGrid.DGVDisplayTransactions(dgv: dataGrid_transaction, items: transactions_history_show);
+            Lib_DataGrid.DGVDisplayTransactions(dgv: dataGrid_transaction, items: transactions_history_show);
 
         }
         private void DatagridClearTransactions()
@@ -487,11 +491,16 @@ namespace storage_managements
 
         private string TransactionDirection2String(direction dir)
         {
-            return dir == direction.export ? "Xuất" : "Nhập";
+            if (dir == direction.export)
+                return "Xuất";
+            else if (dir == direction.import)
+                return "Nhập";
+            else
+                return "None";
         }
         private void Notification(string msg)
         {
-            lib_FormText.DisplayNotification(label: label_message, msg: msg);
+            Lib_FormText.DisplayNotification(label: label_message, msg: msg);
         }
         /**************************************************************/
 
@@ -500,7 +509,7 @@ namespace storage_managements
             int cur_tab_index = tab_view.SelectedIndex;
             if (cur_tab_index == 0)
             {
-                lib_DataGrid.DGVDisplayItem(dgv: datagrid_storage_items_info, items: database_items);
+                Lib_DataGrid.DGVDisplayItem(dgv: datagrid_storage_items_info, items: database_items);
             }
 
         }
@@ -554,7 +563,7 @@ namespace storage_managements
         private void button_add_company_Click_1(object sender, EventArgs e)
         {
             bool result = AddCompany();
-            InitialComboBox();
+            InitialGUIComboBox();
             if (result)
             {
                 Notification(msg: "Thêm thành công");
@@ -568,7 +577,7 @@ namespace storage_managements
         private void button_add_consumer_Click_1(object sender, EventArgs e)
         {
             bool result = AddConsumer();
-            InitialComboBox();
+            InitialGUIComboBox();
             if (result)
             {
                 Notification(msg: "Thêm thành công");
@@ -591,17 +600,17 @@ namespace storage_managements
 
         private void radioButton7_CheckedChanged(object sender, EventArgs e)
         {
-            DisplayStorageByQuantity(threshold: (int)numeric_threshold.Value, relation: display_relation.lessthan);
+            DisplayStorageByQuantity(threshold: (int)numeric_threshold.Value, relation: Display_relation.lessthan);
         }
 
         private void radioButton5_CheckedChanged(object sender, EventArgs e)
         {
-            DisplayStorageByQuantity(threshold: 0, relation: display_relation.greaterthan);
+            DisplayStorageByQuantity(threshold: 0, relation: Display_relation.greaterthan);
         }
 
         private void radioButton8_CheckedChanged(object sender, EventArgs e)
         {
-            DisplayStorageByQuantity(threshold: (int)numeric_threshold.Value - 1, relation: display_relation.greaterthan);
+            DisplayStorageByQuantity(threshold: (int)numeric_threshold.Value - 1, relation: Display_relation.greaterthan);
         }
 
         private void numericUpDown1_ValueChanged(object sender, EventArgs e)
@@ -609,11 +618,11 @@ namespace storage_managements
             InitialGUILabel();
             if (radioButton_less_than.Checked)
             {
-                DisplayStorageByQuantity(threshold: (int)numeric_threshold.Value, relation: display_relation.lessthan);
+                DisplayStorageByQuantity(threshold: (int)numeric_threshold.Value, relation: Display_relation.lessthan);
             }
             else if (radioButton_greater_than.Checked)
             {
-                DisplayStorageByQuantity(threshold: (int)numeric_threshold.Value - 1, relation: display_relation.greaterthan);
+                DisplayStorageByQuantity(threshold: (int)numeric_threshold.Value - 1, relation: Display_relation.greaterthan);
             }
         }
 
@@ -701,7 +710,6 @@ namespace storage_managements
         private void button_add_goods_Click(object sender, EventArgs e)
         {
             bool result = AddDatabaseItem();
-            InitialComboBox();
             if (result)
             {
                 Notification(msg: "Thêm thành công");
@@ -723,11 +731,13 @@ namespace storage_managements
 
                 if (isChecked)
                 {
-                    DS_StorageItem item = new DS_StorageItem();
-                    item.ID = row.Cells["ID"].Value.ToString();
-                    item.name = row.Cells["name"].Value.ToString();
-                    item.unit = row.Cells["unit"].Value.ToString();
-                    item.quantity = 1;
+                    DS_StorageItem item = new DS_StorageItem
+                    {
+                        ID = row.Cells["ID"].Value.ToString(),
+                        name = row.Cells["name"].Value.ToString(),
+                        unit = row.Cells["unit"].Value.ToString(),
+                        quantity = 1
+                    };
                     pre_transaction_items.Add(item);
                 }
             }
@@ -750,10 +760,10 @@ namespace storage_managements
             {
                 seperateName = "S";
             }
-            string filepath = lib_DateTime.GetpdfPathFromCurrentDate(seperateby: seperateName);
+            string filepath = Lib_DateTime.GetpdfPathFromCurrentDate(seperateby: seperateName);
             if (transactions_history.Count > 0)
             {
-                lib_Pdf.CreatePdf(filepath, items: transactions_history, seperateby: transactions_history_seperateby);
+                Lib_Pdf.CreatePdf(filepath, items: transactions_history, seperateby: transactions_history_seperateby);
                 string resultmgs = string.Format("Xuất file thành công\n{0}", Path.GetFullPath(filepath));
                 MessageOK(msg: resultmgs);
             }
@@ -761,7 +771,7 @@ namespace storage_managements
 
         private void textBox_search_name_TextChanged_1(object sender, EventArgs e)
         {
-            string searchkey = textbox_search_ID.Text.Trim();
+            string searchkey = textBox_search_name.Text.Trim();
             int tab_active = tab_view.SelectedIndex;
             if (tab_active == 0)
             {
@@ -769,11 +779,11 @@ namespace storage_managements
             }
             else if (tab_active == 1)
             {
-                lib_FormText.DisplayNotification(label: label_message, msg: "tab view 1");
+                Lib_FormText.DisplayNotification(label: label_message, msg: "tab view 1");
             }
             else if (tab_active == 2)
             {
-                TransactionsFilter(filter_key: searchkey);
+                TransactionsFilter(filter_key: searchkey, searchenable: true);
                 DatagridDisplayTransactions();
             }
             else if (tab_active == 3)
@@ -792,17 +802,17 @@ namespace storage_managements
             }
             else if (tab_active == 1)
             {
-                lib_FormText.DisplayNotification(label: label_message, msg: "tab view 1");
+                Lib_FormText.DisplayNotification(label: label_message, msg: "tab view 1");
             }
             else if (tab_active == 2)
             {
-                TransactionsFilter(filter_key: searchkey);
+                TransactionsFilter(filter_key: searchkey, searchenable:true);
                 DatagridDisplayTransactions();
             }
-            else if(tab_active == 3)
+            else if (tab_active == 3)
             {
                 DatagridDisplayItems();
-            }    
+            }
         }
     }
 }

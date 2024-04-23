@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace storage_managements
 {
-    class lib_DateTime
+    class Lib_DateTime
     {
         public static DateTime GetCurrentTime()
         {
@@ -45,7 +45,7 @@ namespace storage_managements
             {
                 dates.Add(date);
                 Console.WriteLine(date.ToString());
-                Console.WriteLine(lib_DateTime.DateToTransactionPath(dt: date));
+                Console.WriteLine(Lib_DateTime.DateToTransactionPath(dt: date));
             }
             return dates;
         }

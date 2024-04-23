@@ -3,7 +3,7 @@ using System.Windows.Forms;
 
 namespace storage_managements
 {
-    class lib_DataGrid
+    class Lib_DataGrid
     {
         public static void DGVRenameHeader(DataGridView dgv, List<string> oldHeader, List<string> newHeader)
         {
@@ -12,10 +12,12 @@ namespace storage_managements
                 dgv.Columns[oldHeader[i]].HeaderText = newHeader[i];
             }
         }
-        public static void DGVDisplayItem(DataGridView dgv, List<DS_StorageItem> items, int item_type = 0)
+        public static void DGVDisplayItem(DataGridView dgv, List<DS_StorageItem> items)
         {
-            BindingSource source = new BindingSource();
-            source.DataSource = items;
+            BindingSource source = new BindingSource
+            {
+                DataSource = items
+            };
             dgv.DataSource = source;
             source.ResetBindings(false);
             dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
@@ -33,8 +35,10 @@ namespace storage_managements
         {
             if (items.Count > 0)
             {
-                BindingSource source = new BindingSource();
-                source.DataSource = items;
+                BindingSource source = new BindingSource
+                {
+                    DataSource = items
+                };
                 dgv.DataSource = source;
                 source.ResetBindings(false);
                 dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
@@ -53,8 +57,10 @@ namespace storage_managements
 
         public static void DGVDisplayTransactions(DataGridView dgv, List<DS_TransactionGrid> items)
         {
-            BindingSource source = new BindingSource();
-            source.DataSource = items;
+            BindingSource source = new BindingSource
+            {
+                DataSource = items
+            };
             dgv.DataSource = source;
             source.ResetBindings(false);
             dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;

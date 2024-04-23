@@ -5,7 +5,7 @@ using System.IO;
 namespace storage_managements
 {
     /* for display items currently in store*/
-    public enum display_relation
+    public enum Display_relation
     {
         lessthan,
         greaterthan
@@ -38,10 +38,10 @@ namespace storage_managements
         public static List<string> pdfHeader = new List<string> { "Thời gian", "Đối tác", "Giao dịch", "Sản phẩm", "Số lượng", "Quy cách" };
         public static float[] pdfTableWidths = new float[] { 24.0f, 26f, 7.0f, 28f, 7.2f, 11.5f };
         /* create path for program if nonexist*/
-        public static void create_paths()
+        public static void Create_paths()
         {
-            string year = lib_DateTime.GetYear();
-            string month = lib_DateTime.GetMonth();
+            string year = Lib_DateTime.GetYear();
+            string month = Lib_DateTime.GetMonth();
 
             Create_Path(Program_Parameters.dataPath);
             Create_Path(Program_Parameters.backupPath);
@@ -50,14 +50,6 @@ namespace storage_managements
             Create_Path(Program_Parameters.dataPath + year + "\\" + month);
         }
 
-
-        private static void Create_file(string filepath)
-        {
-            if (!File.Exists(filepath))
-            {
-                File.Create(filepath).Close();
-            }
-        }
         private static void Create_Path(string folderPath)
         {
             try

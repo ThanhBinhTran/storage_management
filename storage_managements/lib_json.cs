@@ -6,7 +6,7 @@ using System.IO;
 
 namespace storage_managements
 {
-    class lib_Json
+    class Lib_Json
     {
         /*
 		 * database for items information

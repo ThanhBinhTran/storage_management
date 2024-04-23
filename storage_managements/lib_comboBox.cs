@@ -3,7 +3,7 @@ using System.Windows.Forms;
 
 namespace storage_managements
 {
-    class lib_ComboBox
+    class Lib_ComboBox
     {
         public static void SourceItems(ComboBox cb, List<DS_Company> items)
         {

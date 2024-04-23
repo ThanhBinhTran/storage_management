@@ -4,7 +4,7 @@ using System.Windows.Forms;
 
 namespace storage_managements
 {
-    class lib_FormText
+    class Lib_FormText
     {
         public static bool IsStringEmpty(string instr)
         {
