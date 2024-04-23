@@ -1,7 +1,7 @@
 ﻿
 namespace storage_managements
 {
-	partial class main_form
+    partial class main_form
 	{
 		/// <summary>
 		/// Required designer variable.
@@ -87,23 +87,23 @@ namespace storage_managements
             this.radioButton_company = new System.Windows.Forms.RadioButton();
             this.radioButton_consumer = new System.Windows.Forms.RadioButton();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
-            this.textbox_new_item_ID = new System.Windows.Forms.TextBox();
-            this.textbox_new_company_ID = new System.Windows.Forms.TextBox();
-            this.textbox_new_consumer_name = new System.Windows.Forms.TextBox();
-            this.textbox_new_company_name = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.button_add_consumer = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
-            this.textbox_new_item_name = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.textbox_new_item_unit = new System.Windows.Forms.TextBox();
             this.button_add_goods = new System.Windows.Forms.Button();
             this.button_add_company = new System.Windows.Forms.Button();
             this.label10 = new System.Windows.Forms.Label();
+            this.textbox_new_item_ID = new System.Windows.Forms.TextBox();
+            this.textbox_new_item_name = new System.Windows.Forms.TextBox();
+            this.textbox_new_item_unit = new System.Windows.Forms.TextBox();
+            this.textbox_new_company_ID = new System.Windows.Forms.TextBox();
+            this.textbox_new_company_name = new System.Windows.Forms.TextBox();
             this.textbox_new_consumer_ID = new System.Windows.Forms.TextBox();
+            this.textbox_new_consumer_name = new System.Windows.Forms.TextBox();
             this.flowLayoutPanel4 = new System.Windows.Forms.FlowLayoutPanel();
             this.label_message = new System.Windows.Forms.Label();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
@@ -184,17 +184,16 @@ namespace storage_managements
             // 
             // textbox_search_ID
             // 
-            this.textbox_search_ID.Location = new System.Drawing.Point(110, 2);
-            this.textbox_search_ID.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.textbox_search_ID.Location = new System.Drawing.Point(110, 3);
             this.textbox_search_ID.Name = "textbox_search_ID";
-            this.textbox_search_ID.Size = new System.Drawing.Size(241, 35);
-            this.textbox_search_ID.TabIndex = 5;
-            this.textbox_search_ID.TextChanged += new System.EventHandler(this.textbox_search_ID_TextChanged);
+            this.textbox_search_ID.Size = new System.Drawing.Size(100, 35);
+            this.textbox_search_ID.TabIndex = 9;
+            this.textbox_search_ID.TextChanged += new System.EventHandler(this.textBox_search_ID_TextChanged_1);
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(357, 0);
+            this.label7.Location = new System.Drawing.Point(216, 0);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(53, 29);
             this.label7.TabIndex = 8;
@@ -202,16 +201,15 @@ namespace storage_managements
             // 
             // textBox_search_name
             // 
-            this.textBox_search_name.Location = new System.Drawing.Point(416, 2);
-            this.textBox_search_name.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.textBox_search_name.Location = new System.Drawing.Point(275, 3);
             this.textBox_search_name.Name = "textBox_search_name";
-            this.textBox_search_name.Size = new System.Drawing.Size(188, 35);
-            this.textBox_search_name.TabIndex = 9;
-            this.textBox_search_name.TextChanged += new System.EventHandler(this.textBox_search_name_TextChanged);
+            this.textBox_search_name.Size = new System.Drawing.Size(100, 35);
+            this.textBox_search_name.TabIndex = 10;
+            this.textBox_search_name.TextChanged += new System.EventHandler(this.textBox_search_name_TextChanged_1);
             // 
             // button_add
             // 
-            this.button_add.Location = new System.Drawing.Point(610, 2);
+            this.button_add.Location = new System.Drawing.Point(381, 2);
             this.button_add.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button_add.Name = "button_add";
             this.button_add.Size = new System.Drawing.Size(99, 41);
@@ -899,23 +897,23 @@ namespace storage_managements
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 140F));
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 171F));
-            this.tableLayoutPanel3.Controls.Add(this.textbox_new_item_ID, 1, 0);
-            this.tableLayoutPanel3.Controls.Add(this.textbox_new_company_ID, 1, 1);
-            this.tableLayoutPanel3.Controls.Add(this.textbox_new_consumer_name, 3, 2);
-            this.tableLayoutPanel3.Controls.Add(this.textbox_new_company_name, 3, 1);
             this.tableLayoutPanel3.Controls.Add(this.label2, 2, 1);
             this.tableLayoutPanel3.Controls.Add(this.label3, 2, 2);
             this.tableLayoutPanel3.Controls.Add(this.label9, 0, 1);
             this.tableLayoutPanel3.Controls.Add(this.label1, 0, 0);
             this.tableLayoutPanel3.Controls.Add(this.button_add_consumer, 6, 2);
             this.tableLayoutPanel3.Controls.Add(this.label4, 2, 0);
-            this.tableLayoutPanel3.Controls.Add(this.textbox_new_item_name, 3, 0);
             this.tableLayoutPanel3.Controls.Add(this.label5, 4, 0);
-            this.tableLayoutPanel3.Controls.Add(this.textbox_new_item_unit, 5, 0);
             this.tableLayoutPanel3.Controls.Add(this.button_add_goods, 6, 0);
             this.tableLayoutPanel3.Controls.Add(this.button_add_company, 6, 1);
             this.tableLayoutPanel3.Controls.Add(this.label10, 0, 2);
+            this.tableLayoutPanel3.Controls.Add(this.textbox_new_item_ID, 1, 0);
+            this.tableLayoutPanel3.Controls.Add(this.textbox_new_item_name, 3, 0);
+            this.tableLayoutPanel3.Controls.Add(this.textbox_new_item_unit, 5, 0);
+            this.tableLayoutPanel3.Controls.Add(this.textbox_new_company_ID, 1, 1);
+            this.tableLayoutPanel3.Controls.Add(this.textbox_new_company_name, 3, 1);
             this.tableLayoutPanel3.Controls.Add(this.textbox_new_consumer_ID, 1, 2);
+            this.tableLayoutPanel3.Controls.Add(this.textbox_new_consumer_name, 3, 2);
             this.tableLayoutPanel3.Location = new System.Drawing.Point(3, 2);
             this.tableLayoutPanel3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
@@ -925,40 +923,6 @@ namespace storage_managements
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 41F));
             this.tableLayoutPanel3.Size = new System.Drawing.Size(1161, 133);
             this.tableLayoutPanel3.TabIndex = 10;
-            // 
-            // textbox_new_item_ID
-            // 
-            this.textbox_new_item_ID.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textbox_new_item_ID.Location = new System.Drawing.Point(153, 2);
-            this.textbox_new_item_ID.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.textbox_new_item_ID.Name = "textbox_new_item_ID";
-            this.textbox_new_item_ID.Size = new System.Drawing.Size(102, 36);
-            this.textbox_new_item_ID.TabIndex = 4;
-            // 
-            // textbox_new_company_ID
-            // 
-            this.textbox_new_company_ID.Location = new System.Drawing.Point(153, 48);
-            this.textbox_new_company_ID.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.textbox_new_company_ID.Name = "textbox_new_company_ID";
-            this.textbox_new_company_ID.Size = new System.Drawing.Size(102, 36);
-            this.textbox_new_company_ID.TabIndex = 12;
-            // 
-            // textbox_new_consumer_name
-            // 
-            this.textbox_new_consumer_name.Location = new System.Drawing.Point(421, 94);
-            this.textbox_new_consumer_name.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.textbox_new_consumer_name.Name = "textbox_new_consumer_name";
-            this.textbox_new_consumer_name.Size = new System.Drawing.Size(318, 36);
-            this.textbox_new_consumer_name.TabIndex = 6;
-            // 
-            // textbox_new_company_name
-            // 
-            this.textbox_new_company_name.Location = new System.Drawing.Point(421, 48);
-            this.textbox_new_company_name.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.textbox_new_company_name.Name = "textbox_new_company_name";
-            this.textbox_new_company_name.Size = new System.Drawing.Size(318, 36);
-            this.textbox_new_company_name.TabIndex = 4;
             // 
             // label2
             // 
@@ -1016,14 +980,6 @@ namespace storage_managements
             this.label4.TabIndex = 5;
             this.label4.Text = "Tên hàng";
             // 
-            // textbox_new_item_name
-            // 
-            this.textbox_new_item_name.Location = new System.Drawing.Point(421, 2);
-            this.textbox_new_item_name.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.textbox_new_item_name.Name = "textbox_new_item_name";
-            this.textbox_new_item_name.Size = new System.Drawing.Size(318, 36);
-            this.textbox_new_item_name.TabIndex = 6;
-            // 
             // label5
             // 
             this.label5.AutoSize = true;
@@ -1032,14 +988,6 @@ namespace storage_managements
             this.label5.Size = new System.Drawing.Size(120, 29);
             this.label5.TabIndex = 7;
             this.label5.Text = "Quy cách";
-            // 
-            // textbox_new_item_unit
-            // 
-            this.textbox_new_item_unit.Location = new System.Drawing.Point(885, 2);
-            this.textbox_new_item_unit.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.textbox_new_item_unit.Name = "textbox_new_item_unit";
-            this.textbox_new_item_unit.Size = new System.Drawing.Size(102, 36);
-            this.textbox_new_item_unit.TabIndex = 8;
             // 
             // button_add_goods
             // 
@@ -1072,13 +1020,54 @@ namespace storage_managements
             this.label10.TabIndex = 10;
             this.label10.Text = "Mã khách";
             // 
+            // textbox_new_item_ID
+            // 
+            this.textbox_new_item_ID.Location = new System.Drawing.Point(153, 3);
+            this.textbox_new_item_ID.Name = "textbox_new_item_ID";
+            this.textbox_new_item_ID.Size = new System.Drawing.Size(100, 36);
+            this.textbox_new_item_ID.TabIndex = 15;
+            // 
+            // textbox_new_item_name
+            // 
+            this.textbox_new_item_name.Location = new System.Drawing.Point(421, 3);
+            this.textbox_new_item_name.Name = "textbox_new_item_name";
+            this.textbox_new_item_name.Size = new System.Drawing.Size(318, 36);
+            this.textbox_new_item_name.TabIndex = 16;
+            // 
+            // textbox_new_item_unit
+            // 
+            this.textbox_new_item_unit.Location = new System.Drawing.Point(885, 3);
+            this.textbox_new_item_unit.Name = "textbox_new_item_unit";
+            this.textbox_new_item_unit.Size = new System.Drawing.Size(102, 36);
+            this.textbox_new_item_unit.TabIndex = 17;
+            // 
+            // textbox_new_company_ID
+            // 
+            this.textbox_new_company_ID.Location = new System.Drawing.Point(153, 49);
+            this.textbox_new_company_ID.Name = "textbox_new_company_ID";
+            this.textbox_new_company_ID.Size = new System.Drawing.Size(100, 36);
+            this.textbox_new_company_ID.TabIndex = 18;
+            // 
+            // textbox_new_company_name
+            // 
+            this.textbox_new_company_name.Location = new System.Drawing.Point(421, 49);
+            this.textbox_new_company_name.Name = "textbox_new_company_name";
+            this.textbox_new_company_name.Size = new System.Drawing.Size(318, 36);
+            this.textbox_new_company_name.TabIndex = 19;
+            // 
             // textbox_new_consumer_ID
             // 
-            this.textbox_new_consumer_ID.Location = new System.Drawing.Point(153, 94);
-            this.textbox_new_consumer_ID.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.textbox_new_consumer_ID.Location = new System.Drawing.Point(153, 95);
             this.textbox_new_consumer_ID.Name = "textbox_new_consumer_ID";
-            this.textbox_new_consumer_ID.Size = new System.Drawing.Size(102, 36);
-            this.textbox_new_consumer_ID.TabIndex = 11;
+            this.textbox_new_consumer_ID.Size = new System.Drawing.Size(100, 36);
+            this.textbox_new_consumer_ID.TabIndex = 20;
+            // 
+            // textbox_new_consumer_name
+            // 
+            this.textbox_new_consumer_name.Location = new System.Drawing.Point(421, 95);
+            this.textbox_new_consumer_name.Name = "textbox_new_consumer_name";
+            this.textbox_new_consumer_name.Size = new System.Drawing.Size(318, 36);
+            this.textbox_new_consumer_name.TabIndex = 21;
             // 
             // flowLayoutPanel4
             // 
@@ -1156,18 +1145,13 @@ namespace storage_managements
         private System.Windows.Forms.TabPage tab_inport_export;
         private System.Windows.Forms.TableLayoutPanel item_layout_L2_top;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textbox_new_item_ID;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox textbox_new_item_name;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox textbox_new_item_unit;
         private System.Windows.Forms.Button button_add_goods;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel3;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.TextBox textbox_search_ID;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox textBox_search_name;
         private System.Windows.Forms.Button button_add;
         private System.Windows.Forms.DataGridView datagrid_storage_items_info;
         private System.Windows.Forms.DataGridView datagrid_storage_transaction;
@@ -1181,12 +1165,8 @@ namespace storage_managements
         private System.Windows.Forms.Label label_message;
         private System.Windows.Forms.NumericUpDown numeric_threshold;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox textbox_new_consumer_name;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox textbox_new_company_name;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
-        private System.Windows.Forms.TextBox textbox_new_consumer_ID;
-        private System.Windows.Forms.TextBox textbox_new_company_ID;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
@@ -1227,6 +1207,15 @@ namespace storage_managements
         private System.Windows.Forms.Button button_export_pdf;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel5;
         private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.TextBox textbox_search_ID;
+        private System.Windows.Forms.TextBox textBox_search_name;
+        private System.Windows.Forms.TextBox textbox_new_item_ID;
+        private System.Windows.Forms.TextBox textbox_new_item_name;
+        private System.Windows.Forms.TextBox textbox_new_item_unit;
+        private System.Windows.Forms.TextBox textbox_new_company_ID;
+        private System.Windows.Forms.TextBox textbox_new_company_name;
+        private System.Windows.Forms.TextBox textbox_new_consumer_ID;
+        private System.Windows.Forms.TextBox textbox_new_consumer_name;
     }
 }
 

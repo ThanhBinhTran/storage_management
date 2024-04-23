@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace storage_managements
+﻿namespace storage_managements
 {
     class DS_Pdf
     {

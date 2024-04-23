@@ -22,7 +22,8 @@ namespace storage_managements
 
         public const string filename_transaction = @"transaction.json";
 
-        public const string message_empty = "Thiếu thông tin\nĐiền vào phần tô đậm";
+        public const string message_empty_fields = "Thiếu thông tin\nĐiền vào phần tô đậm";
+        public const string message_empty_items = "Thiếu sản phẩm\nChọn sản phẩm giao dịch";
 
         public static List<string> oldHeaderitems = new List<string> { "ID", "name", "quantity", "unit" };
         public static List<string> newHeaderitems = new List<string> { "Mã sản phẩm", "Tên sản phẩm", "Số lượng", "Đơn vị" };

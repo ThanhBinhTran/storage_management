@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-
 
 namespace storage_managements
 {
@@ -17,11 +17,11 @@ namespace storage_managements
         private List<DS_StorageItem> storages_display = new List<DS_StorageItem>();
         // list of pre-transaction items
         private List<DS_StorageItem> pre_transaction_items = new List<DS_StorageItem>();
-
         /*
 		 * Tab transactions
 		 */
         private List<DS_TransactionGrid> transactions_history = new List<DS_TransactionGrid>();
+        private List<DS_TransactionGrid> transactions_history_show = new List<DS_TransactionGrid>();
         private List<DS_Transaction> retrieve_transactions = new List<DS_Transaction>(); // retrieve  transaction for search.
         private int transactions_history_seperateby = 0;
         /*
@@ -106,13 +106,23 @@ namespace storage_managements
         {
             //datagrid_storage.DataSource = storages_display;
         }
-        private bool ShowMessageEmptyField()
+
+        private void MessageOK(string msg = "")
         {
-            lib_Message.show_messagebox(mstr: Program_Parameters.message_empty, mbutton: MessageBoxButtons.OK,
+            lib_Message.show_messagebox(mstr: msg, mbutton: MessageBoxButtons.OK, micon: MessageBoxIcon.Information);
+        }
+        private bool MessageEmptyField()
+        {
+            lib_Message.show_messagebox(mstr: Program_Parameters.message_empty_fields, mbutton: MessageBoxButtons.OK,
                     micon: MessageBoxIcon.Error);
             return false;
         }
-
+        private bool MessageEmptyItems()
+        {
+            lib_Message.show_messagebox(mstr: Program_Parameters.message_empty_items, mbutton: MessageBoxButtons.OK,
+                    micon: MessageBoxIcon.Error);
+            return false;
+        }
         private bool IsTextboxEmpty(TextBox tb)
         {
             return lib_FormText.IsTextboxEmpty(tb);
@@ -155,7 +165,7 @@ namespace storage_managements
             bool result3 = IsTextboxEmpty(textbox_new_item_unit);
             if (result1 || result2 || result3)
             {
-                return ShowMessageEmptyField();
+                return MessageEmptyField();
             }
 
             string ID = lib_FormText.GetTextboxText(textbox_new_item_ID).ToUpper();
@@ -179,7 +189,7 @@ namespace storage_managements
             bool result;
             if (resul1 || resul2)
             {
-                return ShowMessageEmptyField();
+                return MessageEmptyField();
             }
 
             string ID = lib_FormText.GetTextboxText(textbox_new_company_ID);
@@ -198,7 +208,7 @@ namespace storage_managements
             bool result2 = IsTextboxEmpty(textbox_new_consumer_name);
             if (result1 || result2)
             {
-                return ShowMessageEmptyField();
+                return MessageEmptyField();
             }
 
             string ID = lib_FormText.GetTextboxText(textbox_new_consumer_ID);
@@ -218,9 +228,11 @@ namespace storage_managements
             InitialGUI();
             if (lib_FormText.IsTextboxEmpty(tb))
             {
-                lib_Message.show_messagebox(mstr: Program_Parameters.message_empty, mbutton: MessageBoxButtons.OK,
-                    micon: MessageBoxIcon.Error);
-                return false;
+                return MessageEmptyField();
+            }
+            if (pre_transaction_items.Count <= 0)
+            {
+                return MessageEmptyItems();
             }
             List<DS_Transaction> inday_transactions = new List<DS_Transaction>();
             DS_Transaction cur_transaction = new DS_Transaction();
@@ -283,6 +295,7 @@ namespace storage_managements
                     retrieve_transactions.Add(item);
                 }
             }
+            Transactionstogrid();
         }
         private void ShowTransaction()
         {
@@ -380,36 +393,41 @@ namespace storage_managements
             }
         }
 
-        private void TransactionsFilter(direction dir = direction.import, bool all_transaction = false)
+        private void Transactionstogrid()
         {
             transactions_history.Clear();
             foreach (DS_Transaction transitem in retrieve_transactions)
             {
-                if (transitem.transaction_direction == dir || all_transaction)
+                foreach (DS_StorageItem trans_item in transitem.transaction_items)
                 {
-                    foreach (DS_StorageItem trans_item in transitem.transaction_items)
+                    DS_TransactionGrid trans_history = new DS_TransactionGrid
                     {
-                        DS_TransactionGrid trans_history = new DS_TransactionGrid
-                        {
-                            ID = transitem.ID,
-                            company_name = transitem.company_name,
-                            item_ID = trans_item.ID,
-                            item_name = trans_item.name,
-                            item_quantity = trans_item.quantity,
-                            item_unit = trans_item.unit,
-                            transaction_time = transitem.transaction_time,
-                            //transaction_direction = transitem.transaction_direction
-                        };
-                        if (transitem.transaction_direction == direction.export)
-                        {
-                            trans_history.transaction_direction = "Xuất";
-                        }
-                        else if (transitem.transaction_direction == direction.import)
-                        {
-                            trans_history.transaction_direction = "Nhập";
-                        }
-                        transactions_history.Add(trans_history);
-                    }
+                        ID = transitem.ID,
+                        company_name = transitem.company_name,
+                        item_ID = trans_item.ID,
+                        item_name = trans_item.name,
+                        item_quantity = trans_item.quantity,
+                        item_unit = trans_item.unit,
+                        transaction_time = transitem.transaction_time,
+                    };
+                    trans_history.transaction_direction = TransactionDirection2String(transitem.transaction_direction);
+                    transactions_history.Add(trans_history);
+                }
+            }
+        }
+        private void TransactionsFilter(direction dir = direction.import, string filter_key = "", bool filter_none = false)
+        {
+            bool filter_key_en = filter_key.Length > 0;
+            
+            string dir_str = TransactionDirection2String(dir);
+            transactions_history_show.Clear();
+            foreach (DS_TransactionGrid item in transactions_history)
+            {
+                bool filter_result = item.item_ID.Contains(filter_key) ||
+                    item.item_name.Contains(filter_key);
+                if (item.transaction_direction == dir_str || filter_none || (filter_key_en && filter_result) )
+                {
+                    transactions_history_show.Add(item);
                 }
             }
         }
@@ -458,30 +476,54 @@ namespace storage_managements
         }
         private void DatagridDisplayTransactions()
         {
-            lib_DataGrid.DGVDisplayTransactions(dgv: dataGrid_transaction, items: transactions_history);
+            lib_DataGrid.DGVDisplayTransactions(dgv: dataGrid_transaction, items: transactions_history_show);
 
         }
+        private void DatagridClearTransactions()
+        {
+            pre_transaction_items.Clear();
+            DatagridDisplayGoingTransaction();
+        }
 
+        private string TransactionDirection2String(direction dir)
+        {
+            return dir == direction.export ? "Xuất" : "Nhập";
+        }
         private void Notification(string msg)
         {
             lib_FormText.DisplayNotification(label: label_message, msg: msg);
         }
         /**************************************************************/
-      
+
         private void tab_view_SelectedIndexChanged(object sender, EventArgs e)
         {
-            lib_DataGrid.DGVDisplayItem(dgv: datagrid_storage_items_info, items: database_items);
+            int cur_tab_index = tab_view.SelectedIndex;
+            if (cur_tab_index == 0)
+            {
+                lib_DataGrid.DGVDisplayItem(dgv: datagrid_storage_items_info, items: database_items);
+            }
+
         }
 
 
         private void button5_Click(object sender, EventArgs e)
         {
-            DoTransaction(dir: direction.export, tb: textBox_transaction_consumer);
+            bool result = DoTransaction(dir: direction.export, tb: textBox_transaction_consumer);
+            if (result)
+            {
+                Notification(msg: "Giao dịch thành công!");
+                DatagridClearTransactions();
+            }
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
-            DoTransaction(dir: direction.import, tb: textBox_transaction_company);
+            bool result = DoTransaction(dir: direction.import, tb: textBox_transaction_company);
+            if (result)
+            {
+                Notification(msg: "Giao dịch thành công!");
+                DatagridClearTransactions();
+            }
         }
 
         private void button7_Click(object sender, EventArgs e)
@@ -495,7 +537,7 @@ namespace storage_managements
             DisplayStorageByQuantity(0);
         }
 
-  
+
 
 
         private void comboBox_company_SelectedIndexChanged(object sender, EventArgs e)
@@ -577,20 +619,12 @@ namespace storage_managements
 
         private void textbox_search_ID_TextChanged(object sender, EventArgs e)
         {
-            int tab_active = tab_view.SelectedIndex;
-            if (tab_active == 0)
-            {
-                DisplayStorageByID(textbox_search_ID.Text.Trim());
-            }
-            else if (tab_active == 1)
-            {
-                lib_FormText.DisplayNotification(label: label_message, msg: "tab view 1");
-            }
+
         }
 
         private void textBox_search_name_TextChanged(object sender, EventArgs e)
         {
-            DisplayStorageByName(textBox_search_name.Text.Trim());
+
         }
 
         private void radioButton2_CheckedChanged(object sender, EventArgs e)
@@ -625,18 +659,18 @@ namespace storage_managements
             ShowTransaction();
             if (comboBox_history_transaction_sort.SelectedIndex == 0)
             {
-                var temp_transactions_history = transactions_history.OrderBy(th => th.transaction_time).ToList();
-                transactions_history = temp_transactions_history;
+                var temp_transactions_history = transactions_history_show.OrderBy(th => th.transaction_time).ToList();
+                transactions_history_show = temp_transactions_history;
             }
             else if (comboBox_history_transaction_sort.SelectedIndex == 1)
             {
-                var temp_transactions_history = transactions_history.OrderBy(th => th.company_name).ToList();
-                transactions_history = temp_transactions_history;
+                var temp_transactions_history = transactions_history_show.OrderBy(th => th.company_name).ToList();
+                transactions_history_show = temp_transactions_history;
             }
             else if (comboBox_history_transaction_sort.SelectedIndex == 2)
             {
-                var temp_transactions_history = transactions_history.OrderBy(th => th.item_ID).ToList();
-                transactions_history = temp_transactions_history;
+                var temp_transactions_history = transactions_history_show.OrderBy(th => th.item_ID).ToList();
+                transactions_history_show = temp_transactions_history;
             }
             DatagridDisplayTransactions();
         }
@@ -646,7 +680,7 @@ namespace storage_managements
             RetrieveTransaction();
             if (comboBox_transaction_display.SelectedIndex == 0)
             {
-                TransactionsFilter(all_transaction: true);
+                TransactionsFilter(filter_none: true);
             }
             else if (comboBox_transaction_display.SelectedIndex == 1)
             {
@@ -720,7 +754,55 @@ namespace storage_managements
             if (transactions_history.Count > 0)
             {
                 lib_Pdf.CreatePdf(filepath, items: transactions_history, seperateby: transactions_history_seperateby);
+                string resultmgs = string.Format("Xuất file thành công\n{0}", Path.GetFullPath(filepath));
+                MessageOK(msg: resultmgs);
             }
+        }
+
+        private void textBox_search_name_TextChanged_1(object sender, EventArgs e)
+        {
+            string searchkey = textbox_search_ID.Text.Trim();
+            int tab_active = tab_view.SelectedIndex;
+            if (tab_active == 0)
+            {
+                DisplayStorageByName(searchkey);
+            }
+            else if (tab_active == 1)
+            {
+                lib_FormText.DisplayNotification(label: label_message, msg: "tab view 1");
+            }
+            else if (tab_active == 2)
+            {
+                TransactionsFilter(filter_key: searchkey);
+                DatagridDisplayTransactions();
+            }
+            else if (tab_active == 3)
+            {
+                DatagridDisplayItems();
+            }
+        }
+
+        private void textBox_search_ID_TextChanged_1(object sender, EventArgs e)
+        {
+            string searchkey = textbox_search_ID.Text.Trim();
+            int tab_active = tab_view.SelectedIndex;
+            if (tab_active == 0)
+            {
+                DisplayStorageByID(searchkey);
+            }
+            else if (tab_active == 1)
+            {
+                lib_FormText.DisplayNotification(label: label_message, msg: "tab view 1");
+            }
+            else if (tab_active == 2)
+            {
+                TransactionsFilter(filter_key: searchkey);
+                DatagridDisplayTransactions();
+            }
+            else if(tab_active == 3)
+            {
+                DatagridDisplayItems();
+            }    
         }
     }
 }

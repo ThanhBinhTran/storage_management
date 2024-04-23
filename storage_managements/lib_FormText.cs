@@ -23,7 +23,7 @@ namespace storage_managements
 
         public static void DisplayNotification(Label label, string msg)
         {
-            label.Text = string.Format("Thông Báo: {0}", msg);
+            label.Text = string.Format("Thông báo: {0}", msg);
         }
 
         public static void BackColorTextBox(TextBox tb)

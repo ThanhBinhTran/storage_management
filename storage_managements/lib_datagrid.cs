@@ -53,16 +53,13 @@ namespace storage_managements
 
         public static void DGVDisplayTransactions(DataGridView dgv, List<DS_TransactionGrid> items)
         {
-            if (items.Count > 0)
-            {
-                BindingSource source = new BindingSource();
-                source.DataSource = items;
-                dgv.DataSource = source;
-                source.ResetBindings(false);
-                dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-                DGVRenameHeader(dgv: dgv, oldHeader: Program_Parameters.oldHeadertransaction,
-                                            newHeader: Program_Parameters.newHeadertransaction);
-            }
+            BindingSource source = new BindingSource();
+            source.DataSource = items;
+            dgv.DataSource = source;
+            source.ResetBindings(false);
+            dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            DGVRenameHeader(dgv: dgv, oldHeader: Program_Parameters.oldHeadertransaction,
+                                        newHeader: Program_Parameters.newHeadertransaction);
         }
     }
 }
