@@ -34,7 +34,7 @@ namespace storage_managements
         }
         public static string GetIDByTime()
         {
-            return string.Format("{0:HHmmss}", DateTime.Now);
+            return string.Format("{0:HHmm}", DateTime.Now);
         }
 
         public static List<DateTime> GetAllDatesBetween(DateTime startDate, DateTime endDate)

@@ -6,7 +6,7 @@ namespace storage_managements
     {
         public string ID { get; set; }
         public string name { get; set; }
-        public int quantity { get; set; }
+        public float quantity { get; set; }
         public string unit { get; set; }
         public void print_item()
         {

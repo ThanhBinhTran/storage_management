@@ -55,13 +55,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DS_Company.cs" />
-    <Compile Include="DS_Pdf.cs" />
+    <Compile Include="DS_Configuration.cs" />
     <Compile Include="DS_TransactionGrid.cs" />
     <Compile Include="DS_Transaction.cs" />
     <Compile Include="DS_StorageItem.cs" />
     <Compile Include="Lib_ComboBox.cs" />
     <Compile Include="Lib_DataGrid.cs" />
     <Compile Include="Lib_DateTime.cs" />
+    <Compile Include="Lib_FileDialog.cs" />
     <Compile Include="Lib_Json.cs" />
     <Compile Include="Lib_List.cs" />
     <Compile Include="Lib_Message.cs" />

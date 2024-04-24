@@ -65,7 +65,7 @@ namespace storage_managements
         /*
          * storage items
          */
-        public static void AddStorageItem(List<DS_StorageItem> items, string ID, string name, string unit, int quantity)
+        public static void AddStorageItem(List<DS_StorageItem> items, string ID, string name, string unit, float quantity)
         {
             DS_StorageItem item = new DS_StorageItem
             {
@@ -88,12 +88,12 @@ namespace storage_managements
             }
             return -1;
         }
-        public static void UpdateStorageItemQuantityByIdx(List<DS_StorageItem> items, int idx, int quantity)
+        public static void UpdateStorageItemQuantityByIdx(List<DS_StorageItem> items, int idx, float quantity)
         {
             items[idx].quantity += quantity;
         }
         public static void DoAddUpdateStorageItem(List<DS_StorageItem> items, string ID, string name,
-            string unit, int quantity, direction dir) // in = 1 ; out = -1 
+            string unit, float quantity, direction dir) // in = 1 ; out = -1 
         {
             int in_out = 0;
             if (dir == direction.import)

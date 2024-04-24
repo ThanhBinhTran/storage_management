@@ -13,8 +13,20 @@ namespace storage_managements
 
         public static void CreatePdf(string filePath, List<DS_TransactionGrid> items, int seperateby = 0)
         {
+            DS_Configuration pdfconfig = Lib_Json.ReadProgramConfiguration();
+            if (pdfconfig is null)
+            {
+                pdfconfig = new DS_Configuration() {
+                    page_top = 25,
+                    page_bottom = 25,
+                    page_left = 20,
+                    page_right = 20,
+                    pdfTableWidths = Program_Parameters.pdfTableWidths,
+                };
+            }    
             // Create a document object
-            var document = new Document(PageSize.A4, 30, 30, 25, 25);
+            var document = new Document(PageSize.A4, pdfconfig.page_left, pdfconfig.page_right,
+                pdfconfig.page_top, pdfconfig.page_bottom);
 
             // Create a writer that listens to the document
             PdfWriter.GetInstance(document, new FileStream(filePath, FileMode.Create));
@@ -27,12 +39,12 @@ namespace storage_managements
             string docTitle = string.Format("In ngày: {0}", Lib_DateTime.GetDateTime(DateTime.Now));
             DocumentAddParagraph(doc: document, str: docTitle);
             // Add the table to the document
-            DocumentAddTables(doc: document, transItems: items, seperateby: seperateby);
+            DocumentAddTables(doc: document, transItems: items, seperateby: seperateby, pdfpage:pdfconfig);
 
             // Close the document
             document.Close();
         }
-        private static PdfPTable CreatePdfTableHeader()
+        private static PdfPTable CreatePdfTableHeader(float [] tablewidth)
         {
             int headCount = Program_Parameters.pdfHeader.Count;
             if (headCount <= 0)
@@ -44,7 +56,7 @@ namespace storage_managements
                 WidthPercentage = 100
             };
             // Set the relative widths of the table
-            table.SetWidths(Program_Parameters.pdfTableWidths);
+            table.SetWidths(tablewidth);
             // headers field
             foreach (string itemstr in Program_Parameters.pdfHeader)
             {
@@ -53,14 +65,14 @@ namespace storage_managements
             return table;
         }
 
-        private static PdfPTable CreatePdfTableRow(DS_TransactionGrid item)
+        private static PdfPTable CreatePdfTableRow(DS_TransactionGrid item, float[] tablewidth)
         {
             PdfPTable table = new PdfPTable(6)
             {
                 WidthPercentage = 100
             };
             // Set the relative widths of the table
-            table.SetWidths(Program_Parameters.pdfTableWidths);
+            table.SetWidths(tablewidth);
 
             string time = Lib_DateTime.GetDateTime(item.transaction_time);
             string direction = item.transaction_direction;
@@ -102,7 +114,7 @@ namespace storage_managements
             return result;
         }
         private static void DocumentAddTables(Document doc,
-            List<DS_TransactionGrid> transItems, int seperateby = 0)
+            List<DS_TransactionGrid> transItems, DS_Configuration pdfpage, int seperateby = 0)
         {
             // seperate by 0 (date), 1 (company), 2 (món hàng)
             string company_name = "";
@@ -119,10 +131,10 @@ namespace storage_managements
                     item_name = item.item_name;
                     transactionDate = item.transaction_time;
                     DocumentAddParagraph(doc: doc, str: seperate_text);
-                    PdfPTable headtable = CreatePdfTableHeader();
+                    PdfPTable headtable = CreatePdfTableHeader(tablewidth:pdfpage.pdfTableWidths);
                     doc.Add(headtable);
                 }
-                PdfPTable rowtable = CreatePdfTableRow(item: item);
+                PdfPTable rowtable = CreatePdfTableRow(item: item, tablewidth: pdfpage.pdfTableWidths);
                 doc.Add(rowtable);
             }
         }

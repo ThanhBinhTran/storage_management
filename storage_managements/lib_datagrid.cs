@@ -63,7 +63,7 @@ namespace storage_managements
             };
             dgv.DataSource = source;
             source.ResetBindings(false);
-            dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             DGVRenameHeader(dgv: dgv, oldHeader: Program_Parameters.oldHeadertransaction,
                                         newHeader: Program_Parameters.newHeadertransaction);
         }

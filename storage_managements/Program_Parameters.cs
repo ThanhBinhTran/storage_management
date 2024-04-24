@@ -14,11 +14,11 @@ namespace storage_managements
     {
         public const string dataPath = @"data\\";
         public const string pdfPath = dataPath + @"pdf\\";
-        public const string backupPath = dataPath + @"backup\\";
         public const string filePath_goods = dataPath + @"goods.json";
         public const string filePath_storage = dataPath + @"storage.json";
         public const string filePath_company = dataPath + @"company.json";
         public const string filePath_consumer = dataPath + @"consumer.json";
+        public const string filePath_configuration = dataPath + @"configuration.json";
 
         public const string filename_transaction = @"transaction.json";
 
@@ -32,11 +32,11 @@ namespace storage_managements
         public static List<string> newHeadercompany = new List<string> { "Mã cty", "Tên cty" };
         public static List<string> newHeaderconsumer = new List<string> { "Mã khách", "Tên khách" };
 
-        public static List<string> oldHeadertransaction = new List<string> { "ID", "transaction_direction", "company_name", "item_ID", "item_name", "item_quantity", "item_unit", "transaction_time" };
-        public static List<string> newHeadertransaction = new List<string> { "Mã", "Nhập/Xuất", "Đối tác", "Mã sản phẩm", "Tên sản phẩm", "Số lượng", "Quy cách", "Thời gian" };
+        public static List<string> oldHeadertransaction = new List<string> {"transaction_direction", "company_name", "item_ID", "item_name", "item_quantity", "item_unit", "transaction_time" };
+        public static List<string> newHeadertransaction = new List<string> {"Nhập/Xuất", "Đối tác", "Mã sản phẩm", "Tên sản phẩm", "Số lượng", "Quy cách", "Thời gian" };
 
         public static List<string> pdfHeader = new List<string> { "Thời gian", "Đối tác", "Giao dịch", "Sản phẩm", "Số lượng", "Quy cách" };
-        public static float[] pdfTableWidths = new float[] { 24.0f, 26f, 7.0f, 28f, 7.2f, 11.5f };
+        public static float[] pdfTableWidths = new float[] { 24.0f, 26f, 7.0f, 28f, 15f, 12.5f };
         /* create path for program if nonexist*/
         public static void Create_paths()
         {
@@ -44,7 +44,6 @@ namespace storage_managements
             string month = Lib_DateTime.GetMonth();
 
             Create_Path(Program_Parameters.dataPath);
-            Create_Path(Program_Parameters.backupPath);
             Create_Path(Program_Parameters.pdfPath);
             Create_Path(Program_Parameters.dataPath + year + "\\");
             Create_Path(Program_Parameters.dataPath + year + "\\" + month);

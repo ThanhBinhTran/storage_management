@@ -10,8 +10,8 @@ namespace storage_managements
     public partial class main_form : Form
     {
         /* 
-		 * Tab storage
-		 */
+* Tab storage
+*/
         // list of storage items
         private readonly List<DS_StorageItem> storages = new List<DS_StorageItem>();
         private readonly List<DS_StorageItem> storages_display = new List<DS_StorageItem>();
@@ -23,7 +23,6 @@ namespace storage_managements
         private readonly List<DS_TransactionGrid> transactions_history = new List<DS_TransactionGrid>();
         private List<DS_TransactionGrid> transactions_history_show = new List<DS_TransactionGrid>();
         private readonly List<DS_Transaction> retrieve_transactions = new List<DS_Transaction>(); // retrieve  transaction for search.
-        private int transactions_history_seperateby = 0;
         /*
 		 * tab information (items, company, consumer)
 		 */
@@ -69,6 +68,7 @@ namespace storage_managements
             InitialGUILabel();
             InitialGUITextBox();
             InitialGUIDataGridView();
+            InitialGUIComboBox();
         }
 
         private void InitialGUIComboBox()
@@ -109,9 +109,36 @@ namespace storage_managements
             DatagridDisplayItems();
         }
 
+        private void MessageResultTransaction(bool result)
+        {
+            if (result)
+            {
+                MessageOK(msg: "Giao dịch thành công!");
+                DatagridClearTransactions();
+            }
+            else
+            {
+                MessageFail(msg: "Giao dịch KHÔNG thành công!");
+            }
+        }
+        private void MessageResultAddition(bool result)
+        {
+            if (result)
+            {
+                MessageOK(msg: "Thêm thành công");
+            }
+            else
+            {
+                MessageFail(msg: "Thêm CHƯA thành công");
+            }
+        }
         private void MessageOK(string msg = "")
         {
             Lib_Message.ShowMessagebox(mstr: msg, mbutton: MessageBoxButtons.OK, micon: MessageBoxIcon.Information);
+        }
+        private void MessageFail(string msg = "")
+        {
+            Lib_Message.ShowMessagebox(mstr: msg, mbutton: MessageBoxButtons.OK, micon: MessageBoxIcon.Error);
         }
         private bool MessageEmptyField()
         {
@@ -135,7 +162,7 @@ namespace storage_managements
             Lib_Json.ReadDatabaseItem(database_items);
 
             // read storage items
-            Lib_Json.ReadStorageItem(storages);
+            Lib_Json.ReadStorage(storages);
 
             // read company 
             Lib_Json.ReadCompany(companies);
@@ -244,7 +271,7 @@ namespace storage_managements
                 string ID = item.ID;
                 string name = item.name;
                 string unit = item.unit;
-                int quantity = item.quantity;
+                float quantity = item.quantity;
                 DS_StorageItem s_preitem = new DS_StorageItem
                 {
                     ID = ID,
@@ -279,7 +306,7 @@ namespace storage_managements
             inday_transactions.Add(cur_transaction);
 
             Lib_Json.WriteTransaction(items: inday_transactions, filepath: file_path);
-            Lib_Json.WriteStorageItem(items: storages);
+            Lib_Json.WriteStorage(items: storages);
 
             return true;
         }
@@ -308,7 +335,7 @@ namespace storage_managements
                 {
                     DS_TransactionGrid trans_history = new DS_TransactionGrid
                     {
-                        ID = transitem.ID,
+                        //ID = transitem.ID,
                         company_name = transitem.company_name,
                         item_ID = trans_item.ID,
                         item_name = trans_item.name,
@@ -408,7 +435,7 @@ namespace storage_managements
                 {
                     DS_TransactionGrid trans_history = new DS_TransactionGrid
                     {
-                        ID = transitem.ID,
+                        //ID = transitem.ID,
                         company_name = transitem.company_name,
                         item_ID = trans_item.ID,
                         item_name = trans_item.name,
@@ -498,9 +525,17 @@ namespace storage_managements
             else
                 return "None";
         }
-        private void Notification(string msg)
+
+        private void WriteProgramConfiguration()
         {
-            Lib_FormText.DisplayNotification(label: label_message, msg: msg);
+            DS_Configuration config = new DS_Configuration();
+            config.page_left = 30f;
+            config.page_right = 30f;
+            config.page_top = 25f;
+            config.page_bottom = 25f;
+
+            config.pdfTableWidths = new float[] { 24f, 26f, 7f, 28f, 15f, 12.5f }; // Original list
+            Lib_Json.WriteProgramConfiguration(item: config);
         }
         /**************************************************************/
 
@@ -518,21 +553,13 @@ namespace storage_managements
         private void button5_Click(object sender, EventArgs e)
         {
             bool result = DoTransaction(dir: direction.export, tb: textBox_transaction_consumer);
-            if (result)
-            {
-                Notification(msg: "Giao dịch thành công!");
-                DatagridClearTransactions();
-            }
+            MessageResultTransaction(result: result);
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
             bool result = DoTransaction(dir: direction.import, tb: textBox_transaction_company);
-            if (result)
-            {
-                Notification(msg: "Giao dịch thành công!");
-                DatagridClearTransactions();
-            }
+            MessageResultTransaction(result: result);
         }
 
         private void button7_Click(object sender, EventArgs e)
@@ -564,28 +591,14 @@ namespace storage_managements
         {
             bool result = AddCompany();
             InitialGUIComboBox();
-            if (result)
-            {
-                Notification(msg: "Thêm thành công");
-            }
-            else
-            {
-                Notification(msg: "Chưa hoàn thành việc thêm");
-            }
+            MessageResultAddition(result: result);
         }
 
         private void button_add_consumer_Click_1(object sender, EventArgs e)
         {
             bool result = AddConsumer();
             InitialGUIComboBox();
-            if (result)
-            {
-                Notification(msg: "Thêm thành công");
-            }
-            else
-            {
-                Notification(msg: "Chưa hoàn thành việc thêm");
-            }
+            MessageResultAddition(result: result);
         }
 
         private void radioButton4_CheckedChanged(object sender, EventArgs e)
@@ -655,53 +668,7 @@ namespace storage_managements
         {
             SetSearchDateTimeRange();
         }
-        private void comboBox_history_transaction_sort_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            /*
-             * transactions_history_seperateby = 0 ; seperate by date 
-             * transactions_history_seperateby = 1 ; seperate by companys 
-             * transactions_history_seperateby = 2 ; seperate by items
-             */
-            transactions_history_seperateby = comboBox_history_transaction_sort.SelectedIndex;
-
-            RetrieveTransaction();
-            ShowTransaction();
-            if (comboBox_history_transaction_sort.SelectedIndex == 0)
-            {
-                var temp_transactions_history = transactions_history_show.OrderBy(th => th.transaction_time).ToList();
-                transactions_history_show = temp_transactions_history;
-            }
-            else if (comboBox_history_transaction_sort.SelectedIndex == 1)
-            {
-                var temp_transactions_history = transactions_history_show.OrderBy(th => th.company_name).ToList();
-                transactions_history_show = temp_transactions_history;
-            }
-            else if (comboBox_history_transaction_sort.SelectedIndex == 2)
-            {
-                var temp_transactions_history = transactions_history_show.OrderBy(th => th.item_ID).ToList();
-                transactions_history_show = temp_transactions_history;
-            }
-            DatagridDisplayTransactions();
-        }
-
-        private void comboBox_transaction_display_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            RetrieveTransaction();
-            if (comboBox_transaction_display.SelectedIndex == 0)
-            {
-                TransactionsFilter(filter_none: true);
-            }
-            else if (comboBox_transaction_display.SelectedIndex == 1)
-            {
-                TransactionsFilter(dir: direction.import);
-            }
-            else if (comboBox_transaction_display.SelectedIndex == 2)
-            {
-                TransactionsFilter(dir: direction.export);
-            }
-            DatagridDisplayTransactions();
-        }
-
+   
         private void dateTimePicker_to_ValueChanged(object sender, EventArgs e)
         {
             SetSearchDateTimeRange();
@@ -710,14 +677,7 @@ namespace storage_managements
         private void button_add_goods_Click(object sender, EventArgs e)
         {
             bool result = AddDatabaseItem();
-            if (result)
-            {
-                Notification(msg: "Thêm thành công");
-            }
-            else
-            {
-                Notification(msg: "Chưa hoàn thành việc thêm");
-            }
+            MessageResultAddition(result: result);
             DatagridDisplayItems();
         }
 
@@ -747,26 +707,34 @@ namespace storage_managements
 
         private void button_export_pdf_Click(object sender, EventArgs e)
         {
-            string seperateName = "_";
-            if (transactions_history_seperateby == 0)
+            int transactions_seperateby = 0;
+            string seperateName = "Ngay";
+            if (radioButton_transaction_sort_date.Checked)
             {
-                seperateName = "N";
+                transactions_seperateby = 0;
+                seperateName = "Ngay";
             }
-            else if (transactions_history_seperateby == 1)
+            else if (radioButton_transaction_sort_company.Checked)
             {
-                seperateName = "C";
+                transactions_seperateby = 1;
+                seperateName = "Cty";
             }
-            else if (transactions_history_seperateby == 2)
+            else if (radioButton_transaction_sort_item.Checked)
             {
-                seperateName = "S";
+                transactions_seperateby = 2;
+                seperateName = "Sp";
             }
             string filepath = Lib_DateTime.GetpdfPathFromCurrentDate(seperateby: seperateName);
-            if (transactions_history.Count > 0)
+            if (transactions_history_show.Count > 0)
             {
-                Lib_Pdf.CreatePdf(filepath, items: transactions_history, seperateby: transactions_history_seperateby);
-                string resultmgs = string.Format("Xuất file thành công\n{0}", Path.GetFullPath(filepath));
+                Lib_Pdf.CreatePdf(filepath, items: transactions_history_show, seperateby: transactions_seperateby);
+                string resultmgs = string.Format("Xuất file thành công\n{0}", filepath);
                 MessageOK(msg: resultmgs);
             }
+            else
+            {
+                MessageOK(msg: "Chọn dữ liệu để xuất file!");
+            }    
         }
 
         private void textBox_search_name_TextChanged_1(object sender, EventArgs e)
@@ -776,10 +744,6 @@ namespace storage_managements
             if (tab_active == 0)
             {
                 DisplayStorageByName(searchkey);
-            }
-            else if (tab_active == 1)
-            {
-                Lib_FormText.DisplayNotification(label: label_message, msg: "tab view 1");
             }
             else if (tab_active == 2)
             {
@@ -800,10 +764,6 @@ namespace storage_managements
             {
                 DisplayStorageByID(searchkey);
             }
-            else if (tab_active == 1)
-            {
-                Lib_FormText.DisplayNotification(label: label_message, msg: "tab view 1");
-            }
             else if (tab_active == 2)
             {
                 TransactionsFilter(filter_key: searchkey, searchenable:true);
@@ -813,6 +773,60 @@ namespace storage_managements
             {
                 DatagridDisplayItems();
             }
+        }
+
+        private void radioButton_transaction_display_all_CheckedChanged(object sender, EventArgs e)
+        {
+            RetrieveTransaction();
+            TransactionsFilter(filter_none: true);
+            DatagridDisplayTransactions();
+        }
+
+        private void radioButton_transaction_display_import_CheckedChanged(object sender, EventArgs e)
+        {
+            RetrieveTransaction();
+            TransactionsFilter(dir: direction.import);
+            DatagridDisplayTransactions();
+        }
+
+        private void radioButton_transaction_display_export_CheckedChanged(object sender, EventArgs e)
+        {
+            RetrieveTransaction();
+            TransactionsFilter(dir: direction.export);
+            DatagridDisplayTransactions();
+        }
+
+        private void radioButton_transaction_sort_date_CheckedChanged(object sender, EventArgs e)
+        {
+            RetrieveTransaction();
+            ShowTransaction();
+                var temp_transactions_history = transactions_history_show.OrderBy(th => th.transaction_time).ToList();
+                transactions_history_show = temp_transactions_history;
+            DatagridDisplayTransactions();
+        }
+
+        private void radioButton_transaction_sort_company_CheckedChanged(object sender, EventArgs e)
+        {
+            RetrieveTransaction();
+            ShowTransaction();
+            var temp_transactions_history = transactions_history_show.OrderBy(th => th.company_name).ToList();
+            transactions_history_show = temp_transactions_history;
+            DatagridDisplayTransactions();
+        }
+
+        private void radioButton_transaction_sort_item_CheckedChanged(object sender, EventArgs e)
+        {
+            RetrieveTransaction();
+            ShowTransaction();
+            var temp_transactions_history = transactions_history_show.OrderBy(th => th.item_ID).ToList();
+            transactions_history_show = temp_transactions_history;
+            DatagridDisplayTransactions();
+        }
+
+        private void button_goto_pdf_folder_Click(object sender, EventArgs e)
+        {
+            //WriteProgramConfiguration();
+            Lib_FileDialog.OpenPdfFolder();
         }
     }
 }
