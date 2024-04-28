@@ -16,7 +16,8 @@ namespace storage_managements
         private readonly List<DS_StorageItem> storages = new List<DS_StorageItem>();
         private readonly List<DS_StorageItem> storages_display = new List<DS_StorageItem>();
         // list of pre-transaction items
-        private readonly List<DS_StorageItem> pre_transaction_items = new List<DS_StorageItem>();
+        private List<DS_StorageItem> pre_transaction_items = new List<DS_StorageItem>();
+        private List<DS_StorageItem> transaction_items = new List<DS_StorageItem>();
         /*
 		 * Tab transactions
 		 */
@@ -160,6 +161,7 @@ namespace storage_managements
         {
             // read item information
             Lib_Json.ReadDatabaseItem(database_items);
+            Lib_Json.ReadDatabaseItem(pre_transaction_items);
 
             // read storage items
             Lib_Json.ReadStorage(storages);
@@ -259,14 +261,14 @@ namespace storage_managements
             {
                 return MessageEmptyField();
             }
-            if (pre_transaction_items.Count <= 0)
+            if (this.transaction_items.Count <= 0)
             {
                 return MessageEmptyItems();
             }
             List<DS_Transaction> inday_transactions = new List<DS_Transaction>();
             DS_Transaction cur_transaction = new DS_Transaction();
             List<DS_StorageItem> transaction_items = new List<DS_StorageItem>();
-            foreach (DS_StorageItem item in pre_transaction_items)
+            foreach (DS_StorageItem item in this.transaction_items)
             {
                 string ID = item.ID;
                 string name = item.name;
@@ -383,9 +385,13 @@ namespace storage_managements
         {
             Lib_DataGrid.DGVDisplayItem(dgv: datagrid_storage_items_info, items: database_items);
         }
+        private void DisplayPreTransactionItems()
+        {
+            Lib_DataGrid.DGVDisplayItem(dgv: datagrid_storage_items_info, items: pre_transaction_items);
+        }
         private void DatagridDisplayGoingTransaction()
         {
-            Lib_DataGrid.DGVDisplayItem(dgv: datagrid_storage_transaction, items: pre_transaction_items);
+            Lib_DataGrid.DGVDisplayItem(dgv: datagrid_storage_transaction, items: transaction_items);
         }
 
         private void StorageItemsFilterID(string ID)
@@ -512,7 +518,7 @@ namespace storage_managements
         }
         private void DatagridClearTransactions()
         {
-            pre_transaction_items.Clear();
+            transaction_items.Clear();
             DatagridDisplayGoingTransaction();
         }
 
@@ -536,6 +542,62 @@ namespace storage_managements
 
             config.pdfTableWidths = new float[] { 24f, 26f, 7f, 28f, 15f, 12.5f }; // Original list
             Lib_Json.WriteProgramConfiguration(item: config);
+        }
+        private List<DS_StorageItem> GetTickedItems()
+        {
+            List < DS_StorageItem > returnItems = new List<DS_StorageItem>();
+            foreach (DataGridViewRow row in datagrid_storage_items_info.Rows)
+            {
+                bool isChecked = Convert.ToBoolean(row.Cells[0].Value);
+                if (isChecked)
+                {
+                    DS_StorageItem item = new DS_StorageItem
+                    {
+                        ID = row.Cells["ID"].Value.ToString(),
+                        name = row.Cells["name"].Value.ToString(),
+                        unit = row.Cells["unit"].Value.ToString(),
+                        quantity = 1
+                    };
+                    returnItems.Add(item);
+                }
+            }
+            return returnItems;
+        }
+        private void DatabaseItemFilter(string filter_key, int searchmode=0)
+        {
+            if(filter_key.Trim().Count() == 0 )
+            {
+                Console.WriteLine("debug");
+                pre_transaction_items.Clear();
+                foreach (DS_StorageItem item in database_items)
+                {
+                    pre_transaction_items.Add(item);
+                }
+                    
+            }
+            else
+            {
+                List<DS_StorageItem> tickeditem = GetTickedItems();
+                foreach (DS_StorageItem item in database_items)
+                {
+                    bool found = (searchmode == 0 && item.ID.Contains(filter_key)) ||
+                        (searchmode != 0 && item.name.Contains(filter_key));
+                    if (found)
+                    {
+                        int idx = Lib_List.GetIdxDatabaseItemByID(ID: item.ID, items: tickeditem);
+                        if (idx == -1)
+                        {
+                            tickeditem.Add(item);
+                        }
+                    }
+                }
+                pre_transaction_items.Clear();
+                foreach (DS_StorageItem item in tickeditem)
+                {
+                    pre_transaction_items.Add(item);
+                }
+            }
+
         }
         /**************************************************************/
 
@@ -564,7 +626,7 @@ namespace storage_managements
 
         private void button7_Click(object sender, EventArgs e)
         {
-            pre_transaction_items.Clear();
+            transaction_items.Clear();
             DatagridDisplayGoingTransaction();
         }
 
@@ -683,24 +745,8 @@ namespace storage_managements
 
         private void button_add_Click(object sender, EventArgs e)
         {
-            pre_transaction_items.Clear();
-            foreach (DataGridViewRow row in datagrid_storage_items_info.Rows)
-            {
-
-                bool isChecked = Convert.ToBoolean(row.Cells[0].Value);
-
-                if (isChecked)
-                {
-                    DS_StorageItem item = new DS_StorageItem
-                    {
-                        ID = row.Cells["ID"].Value.ToString(),
-                        name = row.Cells["name"].Value.ToString(),
-                        unit = row.Cells["unit"].Value.ToString(),
-                        quantity = 1
-                    };
-                    pre_transaction_items.Add(item);
-                }
-            }
+            transaction_items.Clear();
+            transaction_items = GetTickedItems();
             DatagridDisplayGoingTransaction();
 
         }
@@ -745,6 +791,11 @@ namespace storage_managements
             {
                 DisplayStorageByName(searchkey);
             }
+            else if (tab_active == 1)
+            {
+                DatabaseItemFilter(filter_key: searchkey);
+                DisplayPreTransactionItems();
+            }
             else if (tab_active == 2)
             {
                 TransactionsFilter(filter_key: searchkey, searchenable: true);
@@ -763,6 +814,11 @@ namespace storage_managements
             if (tab_active == 0)
             {
                 DisplayStorageByID(searchkey);
+            }
+            else if (tab_active == 1)
+            {
+                DatabaseItemFilter(filter_key: searchkey);
+                DisplayPreTransactionItems();
             }
             else if (tab_active == 2)
             {
