@@ -539,9 +539,9 @@ namespace storage_managements
             this.label11.Dock = System.Windows.Forms.DockStyle.Left;
             this.label11.Location = new System.Drawing.Point(3, 0);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(115, 46);
+            this.label11.Size = new System.Drawing.Size(105, 46);
             this.label11.TabIndex = 19;
-            this.label11.Text = "Tên cty:";
+            this.label11.Text = "Mã cty:";
             // 
             // button_export
             // 
@@ -575,7 +575,7 @@ namespace storage_managements
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(155, 47);
             this.label12.TabIndex = 20;
-            this.label12.Text = "Tên khách:";
+            this.label12.Text = "Mã khách:";
             // 
             // textBox_transaction_company
             // 
@@ -1030,7 +1030,7 @@ namespace storage_managements
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(107, 53);
             this.label2.TabIndex = 3;
-            this.label2.Text = "Tên cty";
+            this.label2.Text = "Mã cty";
             // 
             // label3
             // 

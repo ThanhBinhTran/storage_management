@@ -74,8 +74,8 @@ namespace storage_managements
 
         private void InitialGUIComboBox()
         {
-            Lib_ComboBox.SourceItems(cb: comboBox_company, companies);
-            Lib_ComboBox.SourceItems(cb: comboBox_consumer, consumers);
+            Lib_ComboBox.SourceItems_ID(cb: comboBox_company, companies);
+            Lib_ComboBox.SourceItems_ID(cb: comboBox_consumer, consumers);
         }
         private void InitialGUILabel()
         {
@@ -640,12 +640,15 @@ namespace storage_managements
 
         private void comboBox_company_SelectedIndexChanged(object sender, EventArgs e)
         {
-            textBox_transaction_company.Text = comboBox_company.SelectedItem.ToString();
+            //textBox_transaction_company.Text = comboBox_company.SelectedItem.ToString();
+            int selectedID = comboBox_company.SelectedIndex;
+            textBox_transaction_company.Text = companies[selectedID].name;
         }
 
         private void comboBox_consumer_SelectedIndexChanged(object sender, EventArgs e)
         {
-            textBox_transaction_consumer.Text = comboBox_consumer.SelectedItem.ToString();
+            int selectedID = comboBox_consumer.SelectedIndex;
+            textBox_transaction_consumer.Text = consumers[selectedID].name;
         }
 
 
