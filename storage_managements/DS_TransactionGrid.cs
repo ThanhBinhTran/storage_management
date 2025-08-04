@@ -8,8 +8,8 @@ namespace storage_managements
         public DateTime transaction_time { get; set; }
 
         public string transaction_direction { get; set; }
+        public string taxID { get; set; }
         public string company_name { get; set; }
-        
 
         public string item_ID { get; set; }
         public string item_name { get; set; }

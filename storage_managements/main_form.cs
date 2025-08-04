@@ -448,6 +448,7 @@ namespace storage_managements
                         item_quantity = trans_item.quantity,
                         item_unit = trans_item.unit,
                         transaction_time = transitem.transaction_time,
+                        taxID = transitem.taxID
                     };
                     trans_history.transaction_direction = TransactionDirection2String(transitem.transaction_direction);
                     transactions_history.Add(trans_history);
@@ -859,8 +860,8 @@ namespace storage_managements
         {
             RetrieveTransaction();
             ShowTransaction();
-                var temp_transactions_history = transactions_history_show.OrderBy(th => th.transaction_time).ToList();
-                transactions_history_show = temp_transactions_history;
+            var temp_transactions_history = transactions_history_show.OrderBy(th => th.transaction_time).ToList();
+            transactions_history_show = temp_transactions_history;
             DatagridDisplayTransactions();
         }
 

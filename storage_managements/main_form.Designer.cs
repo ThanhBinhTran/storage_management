@@ -57,6 +57,7 @@ namespace storage_managements
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             this.comboBox_consumer = new System.Windows.Forms.ComboBox();
             this.label11 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
             this.button_export = new System.Windows.Forms.Button();
             this.button_import = new System.Windows.Forms.Button();
             this.label12 = new System.Windows.Forms.Label();
@@ -425,7 +426,7 @@ namespace storage_managements
             this.tableLayoutPanel1.RowCount = 3;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 100F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 150F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(1427, 543);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
@@ -500,26 +501,30 @@ namespace storage_managements
             // tableLayoutPanel5
             // 
             this.tableLayoutPanel5.ColumnCount = 4;
+            // color this tablelayoutpane15 in light blue
+            this.tableLayoutPanel5.BackColor = System.Drawing.Color.LightBlue; //binh
             this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 170F));
             this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 300F));
             this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 150F));
-            this.tableLayoutPanel5.Controls.Add(this.comboBox_consumer, 1, 1);
             this.tableLayoutPanel5.Controls.Add(this.label11, 0, 0);
-            this.tableLayoutPanel5.Controls.Add(this.button_export, 3, 1);
+            this.tableLayoutPanel5.Controls.Add(this.comboBox_company, 1, 0);
+            this.tableLayoutPanel5.Controls.Add(this.textBox_transaction_company, 2, 0);
             this.tableLayoutPanel5.Controls.Add(this.button_import, 3, 0);
             this.tableLayoutPanel5.Controls.Add(this.label12, 0, 1);
-            this.tableLayoutPanel5.Controls.Add(this.textBox_transaction_company, 2, 0);
+            this.tableLayoutPanel5.Controls.Add(this.comboBox_consumer, 1, 1);
             this.tableLayoutPanel5.Controls.Add(this.textBox_transaction_consumer, 2, 1);
-            this.tableLayoutPanel5.Controls.Add(this.comboBox_company, 1, 0);
+            this.tableLayoutPanel5.Controls.Add(this.button_export, 3, 1);
+            this.tableLayoutPanel5.Controls.Add(this.label8, 0, 2);
             this.tableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel5.Location = new System.Drawing.Point(3, 2);
             this.tableLayoutPanel5.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tableLayoutPanel5.Name = "tableLayoutPanel5";
-            this.tableLayoutPanel5.RowCount = 2;
-            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel5.Size = new System.Drawing.Size(1292, 93);
+            this.tableLayoutPanel5.RowCount = 3;
+            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33F));
+            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33F));
+            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33F));
+            this.tableLayoutPanel5.Size = new System.Drawing.Size(1292, 140);
             this.tableLayoutPanel5.TabIndex = 20;
             // 
             // comboBox_consumer
@@ -542,6 +547,16 @@ namespace storage_managements
             this.label11.Size = new System.Drawing.Size(105, 46);
             this.label11.TabIndex = 19;
             this.label11.Text = "Mã cty:";
+                        // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Dock = System.Windows.Forms.DockStyle.Left;
+            this.label8.Location = new System.Drawing.Point(3, 0);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(105, 46);
+            this.label8.TabIndex = 19;
+            this.label8.Text = "Mã h.đơn:";
             // 
             // button_export
             // 
@@ -1269,6 +1284,7 @@ namespace storage_managements
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel5;
         private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.TextBox textBox_transaction_company;
         private System.Windows.Forms.TextBox textBox_transaction_consumer;

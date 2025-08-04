@@ -32,8 +32,8 @@ namespace storage_managements
         public static List<string> newHeadercompany = new List<string> { "Mã cty", "Tên cty" };
         public static List<string> newHeaderconsumer = new List<string> { "Mã khách", "Tên khách" };
 
-        public static List<string> oldHeadertransaction = new List<string> {"transaction_direction", "company_name", "item_ID", "item_name", "item_quantity", "item_unit", "transaction_time" };
-        public static List<string> newHeadertransaction = new List<string> {"Nhập/Xuất", "Đối tác", "Mã sản phẩm", "Tên sản phẩm", "Số lượng", "Quy cách", "Thời gian" };
+        public static List<string> oldHeadertransaction = new List<string> {"transaction_direction", "company_name", "item_ID", "item_name", "item_quantity", "item_unit", "transaction_time", "taxID" };
+        public static List<string> newHeadertransaction = new List<string> {"Nhập/Xuất", "Đối tác", "Mã sản phẩm", "Tên sản phẩm", "Số lượng", "Quy cách", "Thời gian", "Mã hóa đơn" };
 
         public static List<string> pdfHeader = new List<string> { "Thời gian", "Đối tác", "Giao dịch", "Sản phẩm", "Số lượng", "Quy cách" };
         public static float[] pdfTableWidths = new float[] { 24.0f, 26f, 7.0f, 28f, 15f, 12.5f };

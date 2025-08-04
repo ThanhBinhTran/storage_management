@@ -14,6 +14,8 @@ namespace storage_managements
         public string ID { get; set; }
         public string company_name { get; set; }
 
+        public string taxID { get; set; }
+
         public List<DS_StorageItem> transaction_items { get; set; }
 
         public direction transaction_direction { get; set; }
