@@ -23,6 +23,7 @@ namespace storage_managements
 
         public const string filename_transaction = @"transaction.json";
 
+        public const int maxTaxID = 30;
         public const string message_empty_fields = "Thiếu thông tin\nĐiền vào phần tô đậm";
         public const string message_empty_items = "Thiếu sản phẩm\nChọn sản phẩm giao dịch";
 
@@ -36,8 +37,8 @@ namespace storage_managements
         public static List<string> oldHeadertransaction = new List<string> {"transaction_direction", "company_name", "item_ID", "item_name", "item_quantity", "item_unit", "transaction_time", "taxID" };
         public static List<string> newHeadertransaction = new List<string> {"Nhập/Xuất", "Đối tác", "Mã sản phẩm", "Tên sản phẩm", "Số lượng", "Quy cách", "Thời gian", "Mã hóa đơn" };
 
-        public static List<string> pdfHeader = new List<string> { "Thời gian", "Đối tác", "Giao dịch", "Sản phẩm", "Số lượng", "Quy cách" };
-        public static float[] pdfTableWidths = new float[] { 24.0f, 26f, 7.0f, 28f, 15f, 12.5f };
+        public static List<string> pdfHeader = new List<string> { "Thời gian", "Đối tác", "G.dịch", "Sản phẩm", "Số lượng", "Quy cách" };
+        public static float[] pdfTableWidths = new float[] { 24.0f, 26f, 9f, 28f, 15f, 12.5f };
         /* create path for program if nonexist*/
         public static void Create_paths()
         {

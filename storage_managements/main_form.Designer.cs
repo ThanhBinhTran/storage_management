@@ -817,7 +817,7 @@ namespace storage_managements
             this.radioButton_transaction_sort_item.Size = new System.Drawing.Size(154, 36);
             this.radioButton_transaction_sort_item.TabIndex = 1;
             this.radioButton_transaction_sort_item.TabStop = true;
-            this.radioButton_transaction_sort_item.Text = "Mặt hàng";
+            this.radioButton_transaction_sort_item.Text = "Mã s.phẩm";
             this.radioButton_transaction_sort_item.UseVisualStyleBackColor = true;
             this.radioButton_transaction_sort_item.CheckedChanged += new System.EventHandler(this.radioButton_transaction_sort_item_CheckedChanged);
             // 
@@ -874,16 +874,16 @@ namespace storage_managements
             this.dateTimePicker_from.Name = "dateTimePicker_from";
             this.dateTimePicker_from.Size = new System.Drawing.Size(300, 38);
             this.dateTimePicker_from.TabIndex = 0;
+            // select the dateTimePicker_from to 7 days ago
+            this.dateTimePicker_from.Value = DateTime.Now.AddDays(-7);
             this.dateTimePicker_from.ValueChanged += new System.EventHandler(this.dateTimePicker_from_ValueChanged);
             //set vietnamese language for dateTimePicker thứ ngày tháng năm
             this.dateTimePicker_from.CustomFormat = "dd/MM/yyyy";
             this.dateTimePicker_from.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            // select the dateTimePicker_from to 7 days ago
-            this.dateTimePicker_from.Value = DateTime.Now.AddDays(-7);
 
-            // 
+            //
             // label13
-            // 
+            //
             this.label13.AutoSize = true;
             this.label13.Dock = System.Windows.Forms.DockStyle.Left;
             this.label13.Location = new System.Drawing.Point(672, 0);

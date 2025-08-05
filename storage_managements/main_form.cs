@@ -268,7 +268,13 @@ namespace storage_managements
             bool result = Lib_List.doAddTaxID(items: taxIDs, ID: taxID, name: taxID);
             if (result)
             {
+                // keep 30 the most recent tax IDs
+                if (taxIDs.Count > Program_Parameters.maxTaxID)
+                {
+                    taxIDs.RemoveRange(0, taxIDs.Count - Program_Parameters.maxTaxID);
+                }
                 Lib_Json.WriteTaxID(items: taxIDs);
+                InitialGUIComboBox();
             }
 
             return true;
@@ -335,7 +341,7 @@ namespace storage_managements
             Lib_Json.WriteTransaction(items: inday_transactions, filepath: file_path);
             Lib_Json.WriteStorage(items: storages);
             // update tax IDs if a new tax ID is added
-            //AddTaxID(textbox_new_taxID: bt_taxID);
+            AddTaxID(textbox_new_taxID: bt_taxID);
             return true;
         }
 
@@ -787,34 +793,34 @@ namespace storage_managements
 
         private void button_export_pdf_Click(object sender, EventArgs e)
         {
-            int transactions_seperateby = 0;
-            string seperateName = "Ngay";
+            int separateByID = 0;
+            string separateByKey = "Ngay";
             if (radioButton_transaction_sort_date.Checked)
             {
-                transactions_seperateby = 0;
-                seperateName = "Ngay";
+                separateByID = 0;
+                separateByKey = "Ngay";
             }
             else if (radioButton_transaction_sort_company.Checked)
             {
-                transactions_seperateby = 1;
-                seperateName = "Cty";
+                separateByID = 1;
+                separateByKey = "Cty";
             }
             else if (radioButton_transaction_sort_item.Checked)
             {
-                transactions_seperateby = 2;
-                seperateName = "Sp";
+                separateByID = 2;
+                separateByKey = "Sp";
             }
-            string filepath = Lib_DateTime.GetpdfPathFromCurrentDate(seperateby: seperateName);
+            string filepath = Lib_DateTime.GetpdfPathFromCurrentDate(seperateby: separateByKey);
             if (transactions_history_show.Count > 0)
             {
-                Lib_Pdf.CreatePdf(filepath, items: transactions_history_show, seperateby: transactions_seperateby);
+                Lib_Pdf.CreatePdf(filepath, items: transactions_history_show, seperateby: separateByID);
                 string resultmgs = string.Format("Xuất file thành công\n{0}", filepath);
                 MessageOK(msg: resultmgs);
             }
             else
             {
                 MessageOK(msg: "Chọn dữ liệu để xuất file!");
-            }    
+            }
         }
 
         private void textBox_search_name_TextChanged_1(object sender, EventArgs e)

@@ -23,7 +23,7 @@ namespace storage_managements
                     page_right = 20,
                     pdfTableWidths = Program_Parameters.pdfTableWidths,
                 };
-            }    
+            }
             // Create a document object
             var document = new Document(PageSize.A4, pdfconfig.page_left, pdfconfig.page_right,
                 pdfconfig.page_top, pdfconfig.page_bottom);

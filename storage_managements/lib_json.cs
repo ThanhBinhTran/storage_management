@@ -86,7 +86,7 @@ namespace storage_managements
         }
 
         /*
-		 * company infomations
+		 * company informations
 		 */
         public static bool ReadCompany(List<DS_Company> items)
         {
