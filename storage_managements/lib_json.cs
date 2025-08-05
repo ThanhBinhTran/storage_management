@@ -96,6 +96,11 @@ namespace storage_managements
         {
             return ReadDSCompany(items: items, filepath: Program_Parameters.filePath_consumer);
         }
+
+        public static bool ReadTaxID(List<DS_Company> items)
+        {
+            return ReadDSCompany(items: items, filepath: Program_Parameters.filePath_taxID);
+        }
         private static bool ReadDSCompany(List<DS_Company> items, string filepath)
         {
             try

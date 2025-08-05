@@ -1,4 +1,4 @@
-﻿
+﻿using System;
 namespace storage_managements
 {
     partial class main_form
@@ -47,7 +47,7 @@ namespace storage_managements
             this.radioButton_in_storage = new System.Windows.Forms.RadioButton();
             this.numeric_threshold = new System.Windows.Forms.NumericUpDown();
             this.radioButton_all = new System.Windows.Forms.RadioButton();
-            this.tab_inport_export = new System.Windows.Forms.TabPage();
+            this.tab_import_export = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.datagrid_storage_items_info = new System.Windows.Forms.DataGridView();
             this.storage_item_select = new System.Windows.Forms.DataGridViewCheckBoxColumn();
@@ -63,7 +63,9 @@ namespace storage_managements
             this.label12 = new System.Windows.Forms.Label();
             this.textBox_transaction_company = new System.Windows.Forms.TextBox();
             this.textBox_transaction_consumer = new System.Windows.Forms.TextBox();
+            this.textBox_transaction_taxID = new System.Windows.Forms.TextBox();
             this.comboBox_company = new System.Windows.Forms.ComboBox();
+            this.comboBox_taxID = new System.Windows.Forms.ComboBox();
             this.tab_transaction_history = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
             this.dataGrid_transaction = new System.Windows.Forms.DataGridView();
@@ -123,7 +125,7 @@ namespace storage_managements
             ((System.ComponentModel.ISupportInitialize)(this.datagrid_storage)).BeginInit();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numeric_threshold)).BeginInit();
-            this.tab_inport_export.SuspendLayout();
+            this.tab_import_export.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.datagrid_storage_items_info)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.datagrid_storage_transaction)).BeginInit();
@@ -209,7 +211,7 @@ namespace storage_managements
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(62, 34);
             this.label7.TabIndex = 8;
-            this.label7.Text = "Tên";
+            this.label7.Text = "Tên:";
             // 
             // textBox_search_name
             // 
@@ -235,7 +237,7 @@ namespace storage_managements
             // tab_view
             // 
             this.tab_view.Controls.Add(this.tab_storage_info);
-            this.tab_view.Controls.Add(this.tab_inport_export);
+            this.tab_view.Controls.Add(this.tab_import_export);
             this.tab_view.Controls.Add(this.tab_transaction_history);
             this.tab_view.Controls.Add(this.tab_database_info);
             this.tab_view.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -400,17 +402,17 @@ namespace storage_managements
             this.radioButton_all.UseVisualStyleBackColor = true;
             this.radioButton_all.CheckedChanged += new System.EventHandler(this.radioButton4_CheckedChanged);
             // 
-            // tab_inport_export
+            // tab_import_export
             // 
-            this.tab_inport_export.Controls.Add(this.tableLayoutPanel1);
-            this.tab_inport_export.Location = new System.Drawing.Point(4, 40);
-            this.tab_inport_export.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.tab_inport_export.Name = "tab_inport_export";
-            this.tab_inport_export.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.tab_inport_export.Size = new System.Drawing.Size(1433, 547);
-            this.tab_inport_export.TabIndex = 1;
-            this.tab_inport_export.Text = "Ghi xuất/nhập hàng";
-            this.tab_inport_export.UseVisualStyleBackColor = true;
+            this.tab_import_export.Controls.Add(this.tableLayoutPanel1);
+            this.tab_import_export.Location = new System.Drawing.Point(4, 40);
+            this.tab_import_export.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tab_import_export.Name = "tab_inport_export";
+            this.tab_import_export.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tab_import_export.Size = new System.Drawing.Size(1433, 547);
+            this.tab_import_export.TabIndex = 1;
+            this.tab_import_export.Text = "Ghi xuất/nhập hàng";
+            this.tab_import_export.UseVisualStyleBackColor = true;
             // 
             // tableLayoutPanel1
             // 
@@ -502,7 +504,7 @@ namespace storage_managements
             // 
             this.tableLayoutPanel5.ColumnCount = 4;
             // color this tablelayoutpane15 in light blue
-            this.tableLayoutPanel5.BackColor = System.Drawing.Color.LightBlue; //binh
+            this.tableLayoutPanel5.BackColor = System.Drawing.Color.LightBlue;
             this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 170F));
             this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 300F));
             this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
@@ -516,6 +518,8 @@ namespace storage_managements
             this.tableLayoutPanel5.Controls.Add(this.textBox_transaction_consumer, 2, 1);
             this.tableLayoutPanel5.Controls.Add(this.button_export, 3, 1);
             this.tableLayoutPanel5.Controls.Add(this.label8, 0, 2);
+            this.tableLayoutPanel5.Controls.Add(this.comboBox_taxID, 1, 2);
+            this.tableLayoutPanel5.Controls.Add(this.textBox_transaction_taxID, 2, 2);
             this.tableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel5.Location = new System.Drawing.Point(3, 2);
             this.tableLayoutPanel5.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -609,6 +613,15 @@ namespace storage_managements
             this.textBox_transaction_consumer.Name = "textBox_transaction_consumer";
             this.textBox_transaction_consumer.Size = new System.Drawing.Size(666, 38);
             this.textBox_transaction_consumer.TabIndex = 22;
+            //
+            // textBox_transaction_taxID
+            //
+            this.textBox_transaction_taxID.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBox_transaction_taxID.Location = new System.Drawing.Point(473, 94);
+            this.textBox_transaction_taxID.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.textBox_transaction_taxID.Name = "textBox_transaction_taxID";
+            this.textBox_transaction_taxID.Size = new System.Drawing.Size(666, 38);
+            this.textBox_transaction_taxID.TabIndex = 25;
             // 
             // comboBox_company
             // 
@@ -620,7 +633,18 @@ namespace storage_managements
             this.comboBox_company.Size = new System.Drawing.Size(294, 39);
             this.comboBox_company.TabIndex = 23;
             this.comboBox_company.SelectedIndexChanged += new System.EventHandler(this.comboBox_company_SelectedIndexChanged);
-            // 
+            //
+            // comboBox_taxID
+            //
+            this.comboBox_taxID.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.comboBox_taxID.FormattingEnabled = true;
+            this.comboBox_taxID.Location = new System.Drawing.Point(173, 94);
+            this.comboBox_taxID.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.comboBox_taxID.Name = "comboBox_taxID";
+            this.comboBox_taxID.Size = new System.Drawing.Size(294, 39);
+            this.comboBox_taxID.TabIndex = 24;
+            this.comboBox_taxID.SelectedIndexChanged += new System.EventHandler(this.comboBox_taxID_SelectedIndexChanged);
+            //
             // tab_transaction_history
             // 
             this.tab_transaction_history.Controls.Add(this.tableLayoutPanel6);
@@ -848,9 +872,15 @@ namespace storage_managements
             this.dateTimePicker_from.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dateTimePicker_from.Location = new System.Drawing.Point(169, 3);
             this.dateTimePicker_from.Name = "dateTimePicker_from";
-            this.dateTimePicker_from.Size = new System.Drawing.Size(497, 38);
+            this.dateTimePicker_from.Size = new System.Drawing.Size(300, 38);
             this.dateTimePicker_from.TabIndex = 0;
             this.dateTimePicker_from.ValueChanged += new System.EventHandler(this.dateTimePicker_from_ValueChanged);
+            //set vietnamese language for dateTimePicker thứ ngày tháng năm
+            this.dateTimePicker_from.CustomFormat = "dd/MM/yyyy";
+            this.dateTimePicker_from.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            // select the dateTimePicker_from to 7 days ago
+            this.dateTimePicker_from.Value = DateTime.Now.AddDays(-7);
+
             // 
             // label13
             // 
@@ -867,9 +897,12 @@ namespace storage_managements
             this.dateTimePicker_to.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dateTimePicker_to.Location = new System.Drawing.Point(741, 3);
             this.dateTimePicker_to.Name = "dateTimePicker_to";
-            this.dateTimePicker_to.Size = new System.Drawing.Size(450, 38);
+            this.dateTimePicker_to.Size = new System.Drawing.Size(300, 38);
             this.dateTimePicker_to.TabIndex = 3;
             this.dateTimePicker_to.ValueChanged += new System.EventHandler(this.dateTimePicker_to_ValueChanged);
+            //set vietnamese language for dateTimePicker thứ ngày tháng năm
+            this.dateTimePicker_to.CustomFormat = "dd/MM/yyyy";
+            this.dateTimePicker_to.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             // 
             // tab_database_info
             // 
@@ -1222,7 +1255,7 @@ namespace storage_managements
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numeric_threshold)).EndInit();
-            this.tab_inport_export.ResumeLayout(false);
+            this.tab_import_export.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.datagrid_storage_items_info)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.datagrid_storage_transaction)).EndInit();
@@ -1259,7 +1292,7 @@ namespace storage_managements
         private System.Windows.Forms.DataGridView datagrid_information;
         private System.Windows.Forms.TabControl tab_view;
         private System.Windows.Forms.TabPage tab_database_info;
-        private System.Windows.Forms.TabPage tab_inport_export;
+        private System.Windows.Forms.TabPage tab_import_export;
         private System.Windows.Forms.TableLayoutPanel item_layout_L2_top;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label4;
@@ -1287,9 +1320,11 @@ namespace storage_managements
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.TextBox textBox_transaction_company;
+        private System.Windows.Forms.TextBox textBox_transaction_taxID;
         private System.Windows.Forms.TextBox textBox_transaction_consumer;
         private System.Windows.Forms.ComboBox comboBox_consumer;
         private System.Windows.Forms.ComboBox comboBox_company;
+        private System.Windows.Forms.ComboBox comboBox_taxID;
         private System.Windows.Forms.Button button_add_company;
         private System.Windows.Forms.Button button_add_consumer;
         private System.Windows.Forms.TabPage tab_transaction_history;

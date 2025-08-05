@@ -19,6 +19,7 @@ namespace storage_managements
         public const string filePath_company = dataPath + @"company.json";
         public const string filePath_consumer = dataPath + @"consumer.json";
         public const string filePath_configuration = dataPath + @"configuration.json";
+        public const string filePath_taxID = dataPath + @"taxID.json";
 
         public const string filename_transaction = @"transaction.json";
 
