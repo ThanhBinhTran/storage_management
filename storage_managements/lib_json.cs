@@ -132,6 +132,11 @@ namespace storage_managements
         {
             WriteDSCompany(items: items, filepath: Program_Parameters.filePath_consumer);
         }
+        // Write tax IDs to a file
+        public static void WriteTaxID(List<DS_Company> items)
+        {
+            WriteDSCompany(items: items, filepath: Program_Parameters.filePath_taxID);
+        }
         private static void WriteDSCompany(List<DS_Company> items, string filepath)
         {
             string json_str = JsonConvert.SerializeObject(items, Formatting.Indented);

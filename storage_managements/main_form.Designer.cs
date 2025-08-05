@@ -1078,7 +1078,7 @@ namespace storage_managements
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(107, 53);
             this.label2.TabIndex = 3;
-            this.label2.Text = "Mã cty";
+            this.label2.Text = "Tên cty";
             // 
             // label3
             // 
@@ -1120,7 +1120,7 @@ namespace storage_managements
             this.button_add_consumer.TabIndex = 14;
             this.button_add_consumer.Text = "Thêm khách";
             this.button_add_consumer.UseVisualStyleBackColor = true;
-            this.button_add_consumer.Click += new System.EventHandler(this.button_add_consumer_Click_1);
+            this.button_add_consumer.Click += new System.EventHandler(this.button_add_consumer_Click);
             // 
             // label4
             // 
@@ -1164,7 +1164,7 @@ namespace storage_managements
             this.button_add_company.TabIndex = 13;
             this.button_add_company.Text = "Thêm cty";
             this.button_add_company.UseVisualStyleBackColor = true;
-            this.button_add_company.Click += new System.EventHandler(this.button_add_company_Click_1);
+            this.button_add_company.Click += new System.EventHandler(this.button_add_company_Click);
             // 
             // label10
             // 

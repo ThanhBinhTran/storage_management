@@ -221,7 +221,6 @@ namespace storage_managements
             InitialGUITextBox();
             bool result1 = IsTextboxEmpty(textbox_new_company_ID);
             bool result2 = IsTextboxEmpty(textbox_new_company_name);
-            bool result;
             if (result1 || result2)
             {
                 return MessageEmptyField();
@@ -229,7 +228,7 @@ namespace storage_managements
 
             string ID = Lib_FormText.GetTextboxText(textbox_new_company_ID);
             string name = Lib_FormText.GetTextboxText(textbox_new_company_name);
-            result = Lib_List.DoAddUpdateCompany(items: companies, ID: ID, name: name);
+            bool result = Lib_List.DoAddUpdateCompany(items: companies, ID: ID, name: name);
             if (result)
             {
                 Lib_Json.WriteCompany(items: companies);
@@ -266,10 +265,10 @@ namespace storage_managements
             }
 
             string taxID = Lib_FormText.GetTextboxText(textbox_new_taxID);
-            bool result = Lib_List.DoAddUpdateCompany(items: taxIDs, ID: taxID, name: taxID);
+            bool result = Lib_List.doAddTaxID(items: taxIDs, ID: taxID, name: taxID);
             if (result)
             {
-                Lib_Json.WriteCompany(items: taxIDs);
+                Lib_Json.WriteTaxID(items: taxIDs);
             }
 
             return true;
@@ -335,7 +334,8 @@ namespace storage_managements
 
             Lib_Json.WriteTransaction(items: inday_transactions, filepath: file_path);
             Lib_Json.WriteStorage(items: storages);
-
+            // update tax IDs if a new tax ID is added
+            //AddTaxID(textbox_new_taxID: bt_taxID);
             return true;
         }
 
@@ -683,14 +683,14 @@ namespace storage_managements
             textBox_transaction_taxID.Text = comboBox_taxID.SelectedItem.ToString();
         }
 
-        private void button_add_company_Click_1(object sender, EventArgs e)
+        private void button_add_company_Click(object sender, EventArgs e)
         {
             bool result = AddCompany();
             InitialGUIComboBox();
             MessageResultAddition(result: result);
         }
 
-        private void button_add_consumer_Click_1(object sender, EventArgs e)
+        private void button_add_consumer_Click(object sender, EventArgs e)
         {
             bool result = AddConsumer();
             InitialGUIComboBox();

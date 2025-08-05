@@ -173,13 +173,15 @@ namespace storage_managements
          * do add tax ID
          */
 
-        public static void AddTaxID(List<DS_Company> items, string ID, string name)
+        public static bool doAddTaxID(List<DS_Company> items, string ID, string name)
         {
             int idx = Lib_List.GetIdxCompanyItemByID(ID: ID, items: items);
             if (idx == -1) // new one
             {
                 Lib_List.AddCompanyItem(items: items, ID: ID, name: name);
+                return true;
             }
+            return false;
         }
     }
 }
