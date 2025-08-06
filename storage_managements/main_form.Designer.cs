@@ -261,6 +261,8 @@ namespace storage_managements
             this.tab_storage_info.TabIndex = 2;
             this.tab_storage_info.Text = "Kho";
             this.tab_storage_info.UseVisualStyleBackColor = true;
+            // clicked on tab_storage_info
+            //
             // 
             // tableLayoutPanel2
             // 
@@ -805,7 +807,7 @@ namespace storage_managements
             this.radioButton_transaction_sort_company.Size = new System.Drawing.Size(212, 36);
             this.radioButton_transaction_sort_company.TabIndex = 2;
             this.radioButton_transaction_sort_company.TabStop = true;
-            this.radioButton_transaction_sort_company.Text = "Tên cty/khách";
+            this.radioButton_transaction_sort_company.Text = "Tên c.ty/khách";
             this.radioButton_transaction_sort_company.UseVisualStyleBackColor = true;
             this.radioButton_transaction_sort_company.CheckedChanged += new System.EventHandler(this.radioButton_transaction_sort_company_CheckedChanged);
             // 

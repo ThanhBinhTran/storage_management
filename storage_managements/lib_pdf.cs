@@ -104,7 +104,7 @@ namespace storage_managements
             }
             else if (seperateby == 1 && company != item.company_name) // date
             {
-                result = string.Format("Đối tác: {0}", item.company_name);
+                result = string.Format("Công ty/Khách hàng: {0}", item.company_name);
             }
             else if (seperateby == 2 && item_name != item.item_name) // item name
             {

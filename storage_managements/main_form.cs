@@ -640,6 +640,10 @@ namespace storage_managements
             int cur_tab_index = tab_view.SelectedIndex;
             if (cur_tab_index == 0)
             {
+                // when this tab select, i want to check on radioButton_all
+                this.radioButton_all.Checked = true;
+                DisplayStorageByQuantity();
+                //this.radioButton_all.se
                 Lib_DataGrid.DGVDisplayItem(dgv: datagrid_storage_items_info, items: database_items);
             }
 
@@ -871,25 +875,28 @@ namespace storage_managements
             }
         }
 
+        private void display_transactions(direction dir = direction.none, string filter_key = "",
+            bool searchenable=false, bool filter_none = false)
+        {
+
+            RetrieveTransaction();
+            // all include import & export
+            TransactionsFilter(dir:dir, filter_key: filter_key, searchenable: searchenable, filter_none: filter_none);
+            DatagridDisplayTransactions();
+        }
         private void radioButton_transaction_display_all_CheckedChanged(object sender, EventArgs e)
         {
-            RetrieveTransaction();
-            TransactionsFilter(filter_none: true);
-            DatagridDisplayTransactions();
+            display_transactions(filter_none: true);
         }
 
         private void radioButton_transaction_display_import_CheckedChanged(object sender, EventArgs e)
         {
-            RetrieveTransaction();
-            TransactionsFilter(dir: direction.import);
-            DatagridDisplayTransactions();
+            display_transactions(dir: direction.import);
         }
 
         private void radioButton_transaction_display_export_CheckedChanged(object sender, EventArgs e)
         {
-            RetrieveTransaction();
-            TransactionsFilter(dir: direction.export);
-            DatagridDisplayTransactions();
+            display_transactions(dir: direction.export);
         }
 
         private void radioButton_transaction_sort_date_CheckedChanged(object sender, EventArgs e)
