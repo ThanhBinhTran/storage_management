@@ -817,7 +817,7 @@ namespace storage_managements
             string filepath = Lib_DateTime.GetpdfPathFromCurrentDate(seperateby: separateByKey);
             if (transactions_history_show.Count > 0)
             {
-                Lib_Pdf.CreatePdf(filepath, items: transactions_history_show, seperateby: separateByID);
+                Lib_Pdf.CreatePdf(filepath, items: transactions_history_show, separateBy: separateByID);
                 string resultmgs = string.Format("Xuất file thành công\n{0}", filepath);
                 MessageOK(msg: resultmgs);
             }
@@ -925,7 +925,14 @@ namespace storage_managements
             transactions_history_show = temp_transactions_history;
             DatagridDisplayTransactions();
         }
-
+        private void radioButton_transaction_sort_taxID_CheckedChanged(object sender, EventArgs e)
+        {
+            RetrieveTransaction();
+            ShowTransaction();
+            var temp_transactions_history = transactions_history_show.OrderBy(th => th.taxID).ToList();
+            transactions_history_show = temp_transactions_history;
+            DatagridDisplayTransactions();
+        }
         private void button_goto_pdf_folder_Click(object sender, EventArgs e)
         {
             //WriteProgramConfiguration();

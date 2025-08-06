@@ -37,8 +37,8 @@ namespace storage_managements
         public static List<string> oldHeadertransaction = new List<string> {"transaction_direction", "company_name", "item_ID", "item_name", "item_quantity", "item_unit", "transaction_time", "taxID" };
         public static List<string> newHeadertransaction = new List<string> {"Nhập/Xuất", "C.ty/Khách", "Mã sản phẩm", "Tên sản phẩm", "Số lượng", "Quy cách", "Thời gian", "Mã hóa đơn" };
 
-        public static List<string> pdfHeader = new List<string> { "Thời gian", "Công ty/Khách hàng", "G.dịch", "Sản phẩm", "Số lượng", "Quy cách" };
-        public static float[] pdfTableWidths = new float[] { 24.0f, 26f, 9f, 28f, 15f, 12.5f };
+        public static List<string> pdfHeader = new List<string> { "Thời gian", "Mã hóa đơn", "Công ty/Khách hàng", "G.dịch", "Sản phẩm", "Số lượng", "Quy cách" };
+        public static float[] pdfTableWidths = new float[] { 15f, 15f, 26f, 8f, 17f, 8f, 8f };
         /* create path for program if nonexist*/
         public static void Create_paths()
         {

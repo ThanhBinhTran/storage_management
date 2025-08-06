@@ -80,6 +80,7 @@ namespace storage_managements
             this.radioButton_transaction_sort_date = new System.Windows.Forms.RadioButton();
             this.radioButton_transaction_sort_company = new System.Windows.Forms.RadioButton();
             this.radioButton_transaction_sort_item = new System.Windows.Forms.RadioButton();
+            this.radioButton_transaction_sort_taxID = new System.Windows.Forms.RadioButton();
             this.button_export_pdf = new System.Windows.Forms.Button();
             this.button_goto_pdf_folder = new System.Windows.Forms.Button();
             this.flowLayoutPanel5 = new System.Windows.Forms.FlowLayoutPanel();
@@ -781,6 +782,7 @@ namespace storage_managements
             this.flowLayoutPanel7.Controls.Add(this.radioButton_transaction_sort_date);
             this.flowLayoutPanel7.Controls.Add(this.radioButton_transaction_sort_company);
             this.flowLayoutPanel7.Controls.Add(this.radioButton_transaction_sort_item);
+            this.flowLayoutPanel7.Controls.Add(this.radioButton_transaction_sort_taxID);
             this.flowLayoutPanel7.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel7.Location = new System.Drawing.Point(3, 34);
             this.flowLayoutPanel7.Name = "flowLayoutPanel7";
@@ -822,6 +824,18 @@ namespace storage_managements
             this.radioButton_transaction_sort_item.Text = "Mã s.phẩm";
             this.radioButton_transaction_sort_item.UseVisualStyleBackColor = true;
             this.radioButton_transaction_sort_item.CheckedChanged += new System.EventHandler(this.radioButton_transaction_sort_item_CheckedChanged);
+            // 
+            // radioButton_transaction_sort_taxID
+            // 
+            this.radioButton_transaction_sort_taxID.AutoSize = true;
+            this.radioButton_transaction_sort_taxID.Location = new System.Drawing.Point(329, 3);
+            this.radioButton_transaction_sort_taxID.Name = "radioButton_transaction_sort_taxID";
+            this.radioButton_transaction_sort_taxID.Size = new System.Drawing.Size(154, 36);
+            this.radioButton_transaction_sort_taxID.TabIndex = 1;
+            this.radioButton_transaction_sort_taxID.TabStop = true;
+            this.radioButton_transaction_sort_taxID.Text = "Mã h.đơn";
+            this.radioButton_transaction_sort_taxID.UseVisualStyleBackColor = true;
+            this.radioButton_transaction_sort_taxID.CheckedChanged += new System.EventHandler(this.radioButton_transaction_sort_taxID_CheckedChanged);
             // 
             // button_export_pdf
             // 
@@ -1372,6 +1386,7 @@ namespace storage_managements
         private System.Windows.Forms.RadioButton radioButton_transaction_sort_date;
         private System.Windows.Forms.RadioButton radioButton_transaction_sort_company;
         private System.Windows.Forms.RadioButton radioButton_transaction_sort_item;
+        private System.Windows.Forms.RadioButton radioButton_transaction_sort_taxID;
         private System.Windows.Forms.Button button_export;
         private System.Windows.Forms.Button button_import;
         private System.Windows.Forms.Button button_clear_transaction_table;
