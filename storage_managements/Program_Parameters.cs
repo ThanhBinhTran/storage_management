@@ -27,19 +27,19 @@ namespace storage_managements
         public const string message_empty_fields = "Thiếu thông tin\nĐiền vào phần tô đậm";
         public const string message_empty_items = "Thiếu sản phẩm\nChọn sản phẩm giao dịch";
 
-        public static List<string> oldHeaderitems = new List<string> { "ID", "name", "quantity", "unit" };
-        public static List<string> newHeaderitems = new List<string> { "Mã sản phẩm", "Tên sản phẩm", "Số lượng", "Đơn vị" };
+        public static List<string> oldHeaderItems = new List<string> { "ID", "name", "quantity", "unit" };
+        public static List<string> newHeaderItems = new List<string> { "Mã sản phẩm", "Tên sản phẩm", "Số lượng", "Đơn vị" };
 
-        public static List<string> oldHeadercompany = new List<string> { "ID", "name" };
-        public static List<string> newHeadercompany = new List<string> { "Mã cty", "Tên cty" };
-        public static List<string> newHeaderconsumer = new List<string> { "Mã khách", "Tên khách" };
+        public static List<string> oldHeaderCompany = new List<string> { "ID", "name" };
+        public static List<string> newHeaderCompany = new List<string> { "Mã cty", "Tên cty" };
+        public static List<string> newHeaderConsumer = new List<string> { "Mã khách", "Tên khách" };
 
-        public static List<string> oldHeadertransaction = new List<string> {"transaction_direction", "company_name", "item_ID", "item_name", "item_quantity", "item_unit", "transaction_time", "taxID" };
-        public static List<string> newHeadertransaction = new List<string> {"Nhập/Xuất", "C.ty/Khách", "Mã sản phẩm", "Tên sản phẩm", "Số lượng", "Quy cách", "Thời gian", "Mã hóa đơn" };
+        public static List<string> oldHeaderTransaction = new List<string> {"transaction_direction", "company_name", "item_ID", "item_name", "item_quantity", "item_unit", "transaction_time", "taxID" };
+        public static List<string> newHeaderTransaction = new List<string> {"Nhập/Xuất", "C.ty/Khách", "Mã sản phẩm", "Tên sản phẩm", "Số lượng", "Quy cách", "Thời gian", "Mã hóa đơn" };
 
         public static List<string> pdfHeader = new List<string> { "Thời gian", "Mã hóa đơn", "Công ty/Khách hàng", "G.dịch", "Sản phẩm", "Số lượng", "Quy cách" };
         public static float[] pdfTableWidths = new float[] { 15f, 15f, 26f, 8f, 17f, 8f, 8f };
-        /* create path for program if nonexist*/
+        /* create path for program if non exist*/
         public static void Create_paths()
         {
             string year = Lib_DateTime.GetYear();

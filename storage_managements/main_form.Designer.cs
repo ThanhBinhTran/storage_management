@@ -329,7 +329,7 @@ namespace storage_managements
             this.radioButton_storage_greater_than.TabStop = true;
             this.radioButton_storage_greater_than.Text = "Hàng nhiều hơn";
             this.radioButton_storage_greater_than.UseVisualStyleBackColor = true;
-            this.radioButton_storage_greater_than.CheckedChanged += new System.EventHandler(this.radioButton8_CheckedChanged);
+            this.radioButton_storage_greater_than.CheckedChanged += new System.EventHandler(this.radioButton_storage_greater_than_CheckedChanged);
             // 
             // radioButton_less_than
             // 
@@ -343,7 +343,7 @@ namespace storage_managements
             this.radioButton_storage_less_than.TabStop = true;
             this.radioButton_storage_less_than.Text = "Hàng ít hơn";
             this.radioButton_storage_less_than.UseVisualStyleBackColor = true;
-            this.radioButton_storage_less_than.CheckedChanged += new System.EventHandler(this.radioButton7_CheckedChanged);
+            this.radioButton_storage_less_than.CheckedChanged += new System.EventHandler(this.radioButton_storage_less_than_CheckedChanged);
             // 
             // radioButton_out_of_storage
             // 
@@ -357,7 +357,7 @@ namespace storage_managements
             this.radioButton_storage_out_of_storage.TabStop = true;
             this.radioButton_storage_out_of_storage.Text = "đã hết";
             this.radioButton_storage_out_of_storage.UseVisualStyleBackColor = true;
-            this.radioButton_storage_out_of_storage.CheckedChanged += new System.EventHandler(this.radioButton6_CheckedChanged);
+            this.radioButton_storage_out_of_storage.CheckedChanged += new System.EventHandler(this.radioButton_storage_out_of_storage_CheckedChanged);
             // 
             // radioButton_in_storage
             // 
@@ -371,7 +371,7 @@ namespace storage_managements
             this.radioButton_storage_in_storage.TabStop = true;
             this.radioButton_storage_in_storage.Text = "đang trong kho";
             this.radioButton_storage_in_storage.UseVisualStyleBackColor = true;
-            this.radioButton_storage_in_storage.CheckedChanged += new System.EventHandler(this.radioButton5_CheckedChanged);
+            this.radioButton_storage_in_storage.CheckedChanged += new System.EventHandler(this.radioButton_storage_in_storage_CheckedChanged);
             // 
             // numeric_threshold
             // 
@@ -406,7 +406,7 @@ namespace storage_managements
             this.radioButton_storage_all.TabStop = true;
             this.radioButton_storage_all.Text = "Tất cả";
             this.radioButton_storage_all.UseVisualStyleBackColor = true;
-            this.radioButton_storage_all.CheckedChanged += new System.EventHandler(this.radioButton4_CheckedChanged);
+            this.radioButton_storage_all.CheckedChanged += new System.EventHandler(this.radioButton_storage_all_CheckedChanged);
             // 
             // tab_import_export
             // 
@@ -417,7 +417,7 @@ namespace storage_managements
             this.tab_import_export.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tab_import_export.Size = new System.Drawing.Size(1433, 547);
             this.tab_import_export.TabIndex = 1;
-            this.tab_import_export.Text = "Ghi xuất/nhập hàng";
+            this.tab_import_export.Text = "Xuất/nhập hàng";
             this.tab_import_export.UseVisualStyleBackColor = true;
             // 
             // tableLayoutPanel1
@@ -509,8 +509,7 @@ namespace storage_managements
             // tableLayoutPanel5
             // 
             this.tableLayoutPanel5.ColumnCount = 4;
-            // color this tablelayoutpane15 in light blue
-            this.tableLayoutPanel5.BackColor = System.Drawing.Color.LightBlue;
+            this.tableLayoutPanel5.BackColor = System.Drawing.Color.LightGray;
             this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 170F));
             this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 300F));
             this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
@@ -660,7 +659,7 @@ namespace storage_managements
             this.tab_transaction_history.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tab_transaction_history.Size = new System.Drawing.Size(1433, 547);
             this.tab_transaction_history.TabIndex = 3;
-            this.tab_transaction_history.Text = "Xem lịch sử đã giao dịch";
+            this.tab_transaction_history.Text = "Xem lịch sử";
             this.tab_transaction_history.UseVisualStyleBackColor = true;
             // 
             // tableLayoutPanel6
@@ -919,7 +918,7 @@ namespace storage_managements
             // label13
             //
             this.label13.AutoSize = true;
-            this.label13.Dock = System.Windows.Forms.DockStyle.Right;
+            this.label13.Dock = System.Windows.Forms.DockStyle.Left;
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(70, 32);
             this.label13.TabIndex = 2;
@@ -988,8 +987,8 @@ namespace storage_managements
             // tableLayoutPanel7
             // 
             this.tableLayoutPanel7.ColumnCount = 2;
-            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 84.55598F));
-            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 15.44402F));
+            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 84.5F));
+            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 15.5F));
             this.tableLayoutPanel7.Controls.Add(this.groupBox3, 1, 0);
             this.tableLayoutPanel7.Controls.Add(this.tableLayoutPanel3, 0, 0);
             this.tableLayoutPanel7.Dock = System.Windows.Forms.DockStyle.Fill;

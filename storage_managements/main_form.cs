@@ -69,9 +69,11 @@ namespace storage_managements
         {
             InitialGUILabel();
             InitialGUITextBox();
-            InitialGUIDataGridView();
+
             InitialGUIComboBox();
             InitialGUIRadioButton();
+            // last step, initial GUI data grid view
+            InitialGUIDataGridView();
         }
 
         private void InitialGUIComboBox()
@@ -111,7 +113,7 @@ namespace storage_managements
         private void InitialGUIDataGridView()
         {
             // storage tab
-            DisplayStorageByQuantity();
+            DisplayStorage();
 
             // storage import/export tab
             DisplayDatabaseItems();
@@ -373,7 +375,7 @@ namespace storage_managements
 
         private void DatagridDisplayStorage()
         {
-            Lib_DataGrid.DGVDisplayItem(dgv: datagrid_storage, items: storages_display);
+            Lib_DataGrid.displayGrid(dgv: datagrid_storage, items: storages_display);
         }
 
         private void DisplayStorageByID(string ID)
@@ -386,24 +388,45 @@ namespace storage_managements
             StorageItemsFilterName(name: name);
             DatagridDisplayStorage();
         }
-        private void DisplayStorageByQuantity(int threshold = int.MaxValue,
-            Display_relation relation = Display_relation.lessthan)
+
+        private void DisplayStorage()
         {
+            int threshold = int.MaxValue;                          // default threshold, select all items
+            Display_relation relation = Display_relation.lessthan; // default lessthan relation
+            if (radioButton_storage_in_storage.Checked)
+            {
+                threshold = 0;
+                relation = Display_relation.greaterthan;
+            }
+            else if (radioButton_storage_out_of_storage.Checked)
+            {
+                threshold = 0;
+            }
+            else if (radioButton_storage_less_than.Checked)
+            {
+                threshold = (int)numeric_threshold.Value;
+            }
+            else if (radioButton_storage_greater_than.Checked)
+            {
+                threshold = (int)numeric_threshold.Value - 1;
+                relation = Display_relation.greaterthan;
+            }
+
             StorageFilterQuantity(threshold: threshold, relation: relation);
             DatagridDisplayStorage();
         }
 
         private void DisplayDatabaseItems()
         {
-            Lib_DataGrid.DGVDisplayItem(dgv: datagrid_storage_items_info, items: database_items);
+            Lib_DataGrid.displayGrid(dgv: datagrid_storage_items_info, items: database_items);
         }
         private void DisplayPreTransactionItems()
         {
-            Lib_DataGrid.DGVDisplayItem(dgv: datagrid_storage_items_info, items: pre_transaction_items);
+            Lib_DataGrid.displayGrid(dgv: datagrid_storage_items_info, items: pre_transaction_items);
         }
         private void DatagridDisplayGoingTransaction()
         {
-            Lib_DataGrid.DGVDisplayItem(dgv: datagrid_storage_transaction, items: transaction_items);
+            Lib_DataGrid.displayGrid(dgv: datagrid_storage_transaction, items: transaction_items);
         }
 
         private void StorageItemsFilterID(string ID)
@@ -531,19 +554,19 @@ namespace storage_managements
 
         private void DatagridDisplayItems()
         {
-            Lib_DataGrid.DGVDisplayItem(dgv: datagrid_information, items: database_items);
+            Lib_DataGrid.displayGrid(dgv: datagrid_information, items: database_items);
         }
         private void DatagridDisplayCompanies()
         {
-            Lib_DataGrid.DGVDisplayCompany(dgv: datagrid_information, items: companies);
+            Lib_DataGrid.displayCompany(dgv: datagrid_information, items: companies);
         }
         private void DatagridDisplayConsumers()
         {
-            Lib_DataGrid.DGVDisplayCompany(dgv: datagrid_information, items: consumers, company: 1);
+            Lib_DataGrid.displayCompany(dgv: datagrid_information, items: consumers, company: 1);
         }
         private void DatagridDisplayTransactions()
         {
-            Lib_DataGrid.DGVDisplayTransactions(dgv: dataGrid_transaction, items: transactions_history_show);
+            Lib_DataGrid.displayTransactions(dgv: dataGrid_transaction, items: transactions_history_show);
 
         }
         private void DatagridClearTransactions()
@@ -597,13 +620,11 @@ namespace storage_managements
         {
             if(filter_key.Trim().Count() == 0 )
             {
-                Console.WriteLine("debug");
                 pre_transaction_items.Clear();
                 foreach (DS_StorageItem item in database_items)
                 {
                     pre_transaction_items.Add(item);
                 }
-                    
             }
             else
             {
@@ -636,7 +657,7 @@ namespace storage_managements
             int cur_tab_index = tab_view.SelectedIndex;
             if (cur_tab_index == 0)
             {
-                Lib_DataGrid.DGVDisplayItem(dgv: datagrid_storage_items_info, items: database_items);
+                DisplayStorage();
             }
 
         }
@@ -659,15 +680,6 @@ namespace storage_managements
             transaction_items.Clear();
             DatagridDisplayGoingTransaction();
         }
-
-        private void button8_Click(object sender, EventArgs e)
-        {
-            DisplayStorageByQuantity(0);
-        }
-
-
-
-
         private void comboBox_company_SelectedIndexChanged(object sender, EventArgs e)
         {
             //textBox_transaction_company.Text = comboBox_company.SelectedItem.ToString();
@@ -699,42 +711,35 @@ namespace storage_managements
             MessageResultAddition(result: result);
         }
 
-        private void radioButton4_CheckedChanged(object sender, EventArgs e)
+        private void radioButton_storage_all_CheckedChanged(object sender, EventArgs e)
         {
-            DisplayStorageByQuantity();
+            DisplayStorage();
         }
 
-        private void radioButton6_CheckedChanged(object sender, EventArgs e)
+        private void radioButton_storage_out_of_storage_CheckedChanged(object sender, EventArgs e)
         {
-            DisplayStorageByQuantity(threshold: 0);
+            DisplayStorage();
         }
 
-        private void radioButton7_CheckedChanged(object sender, EventArgs e)
+        private void radioButton_storage_less_than_CheckedChanged(object sender, EventArgs e)
         {
-            DisplayStorageByQuantity(threshold: (int)numeric_threshold.Value, relation: Display_relation.lessthan);
+            DisplayStorage();
         }
 
-        private void radioButton5_CheckedChanged(object sender, EventArgs e)
+        private void radioButton_storage_in_storage_CheckedChanged(object sender, EventArgs e)
         {
-            DisplayStorageByQuantity(threshold: 0, relation: Display_relation.greaterthan);
+            DisplayStorage();
         }
 
-        private void radioButton8_CheckedChanged(object sender, EventArgs e)
+        private void radioButton_storage_greater_than_CheckedChanged(object sender, EventArgs e)
         {
-            DisplayStorageByQuantity(threshold: (int)numeric_threshold.Value - 1, relation: Display_relation.greaterthan);
+            DisplayStorage();
         }
 
         private void numericUpDown1_ValueChanged(object sender, EventArgs e)
         {
             InitialGUILabel();
-            if (radioButton_storage_less_than.Checked)
-            {
-                DisplayStorageByQuantity(threshold: (int)numeric_threshold.Value, relation: Display_relation.lessthan);
-            }
-            else if (radioButton_storage_greater_than.Checked)
-            {
-                DisplayStorageByQuantity(threshold: (int)numeric_threshold.Value - 1, relation: Display_relation.greaterthan);
-            }
+            DisplayStorage();
         }
 
         private void textbox_search_ID_TextChanged(object sender, EventArgs e)
@@ -869,17 +874,15 @@ namespace storage_managements
         private void display_transactions(string filter_key = "", bool searchenable=false)
         {
             // if radioButton_storage_all.Checked  bool filter_none  = true, else false
-            bool filter_none = radioButton_storage_all.Checked;
+            bool filter_none = radioButton_transaction_display_all.Checked;
             direction dir = direction.none;
             if (radioButton_transaction_display_import.Checked)
             {
                 dir = direction.import;
-                filter_none = false; // if import is selected, then filter_none is false
             }
             else if (radioButton_transaction_display_export.Checked)
             {
                 dir = direction.export;
-                filter_none = false; // if export is selected, then filter_none is false
             }
             TransactionsFilter(dir:dir, filter_key: filter_key, searchenable: searchenable, filter_none: filter_none);
             DatagridDisplayTransactions();
