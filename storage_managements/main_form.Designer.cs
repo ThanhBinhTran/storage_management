@@ -41,12 +41,12 @@ namespace storage_managements
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.datagrid_storage = new System.Windows.Forms.DataGridView();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.radioButton_greater_than = new System.Windows.Forms.RadioButton();
-            this.radioButton_less_than = new System.Windows.Forms.RadioButton();
-            this.radioButton_out_of_storage = new System.Windows.Forms.RadioButton();
-            this.radioButton_in_storage = new System.Windows.Forms.RadioButton();
+            this.radioButton_storage_greater_than = new System.Windows.Forms.RadioButton();
+            this.radioButton_storage_less_than = new System.Windows.Forms.RadioButton();
+            this.radioButton_storage_out_of_storage = new System.Windows.Forms.RadioButton();
+            this.radioButton_storage_in_storage = new System.Windows.Forms.RadioButton();
             this.numeric_threshold = new System.Windows.Forms.NumericUpDown();
-            this.radioButton_all = new System.Windows.Forms.RadioButton();
+            this.radioButton_storage_all = new System.Windows.Forms.RadioButton();
             this.tab_import_export = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.datagrid_storage_items_info = new System.Windows.Forms.DataGridView();
@@ -69,7 +69,7 @@ namespace storage_managements
             this.tab_transaction_history = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
             this.dataGrid_transaction = new System.Windows.Forms.DataGridView();
-            this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
+            this.TableLayoutPanel8 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.flowLayoutPanel6 = new System.Windows.Forms.FlowLayoutPanel();
             this.radioButton_transaction_display_all = new System.Windows.Forms.RadioButton();
@@ -135,7 +135,7 @@ namespace storage_managements
             this.tab_transaction_history.SuspendLayout();
             this.tableLayoutPanel6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGrid_transaction)).BeginInit();
-            this.flowLayoutPanel2.SuspendLayout();
+            this.TableLayoutPanel8.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.flowLayoutPanel6.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -299,76 +299,77 @@ namespace storage_managements
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.radioButton_greater_than);
-            this.groupBox2.Controls.Add(this.radioButton_less_than);
-            this.groupBox2.Controls.Add(this.radioButton_out_of_storage);
-            this.groupBox2.Controls.Add(this.radioButton_in_storage);
+            this.groupBox2.Controls.Add(this.radioButton_storage_greater_than);
+            this.groupBox2.Controls.Add(this.radioButton_storage_less_than);
+            this.groupBox2.Controls.Add(this.radioButton_storage_out_of_storage);
+            this.groupBox2.Controls.Add(this.radioButton_storage_in_storage);
+
+            this.groupBox2.Controls.Add(this.radioButton_storage_all);
             this.groupBox2.Controls.Add(this.numeric_threshold);
-            this.groupBox2.Controls.Add(this.radioButton_all);
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox2.Location = new System.Drawing.Point(3, 445);
             this.groupBox2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.groupBox2.Size = new System.Drawing.Size(1421, 96);
+            this.groupBox2.Size = new System.Drawing.Size(1421, 70);
             this.groupBox2.TabIndex = 21;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Xem kho";
             // 
             // radioButton_greater_than
             // 
-            this.radioButton_greater_than.Dock = System.Windows.Forms.DockStyle.Top;
-            this.radioButton_greater_than.Location = new System.Drawing.Point(638, 33);
-            this.radioButton_greater_than.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.radioButton_greater_than.Name = "radioButton_greater_than";
-            this.radioButton_greater_than.Size = new System.Drawing.Size(569, 61);
-            this.radioButton_greater_than.TabIndex = 21;
-            this.radioButton_greater_than.TabStop = true;
-            this.radioButton_greater_than.Text = "Hàng nhiều hơn";
-            this.radioButton_greater_than.UseVisualStyleBackColor = true;
-            this.radioButton_greater_than.CheckedChanged += new System.EventHandler(this.radioButton8_CheckedChanged);
+            this.radioButton_storage_greater_than.Dock = System.Windows.Forms.DockStyle.Top;
+            this.radioButton_storage_greater_than.Location = new System.Drawing.Point(638, 33);
+            this.radioButton_storage_greater_than.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.radioButton_storage_greater_than.Name = "radioButton_greater_than";
+            this.radioButton_storage_greater_than.Size = new System.Drawing.Size(569, 61);
+            this.radioButton_storage_greater_than.TabIndex = 21;
+            this.radioButton_storage_greater_than.TabStop = true;
+            this.radioButton_storage_greater_than.Text = "Hàng nhiều hơn";
+            this.radioButton_storage_greater_than.UseVisualStyleBackColor = true;
+            this.radioButton_storage_greater_than.CheckedChanged += new System.EventHandler(this.radioButton8_CheckedChanged);
             // 
             // radioButton_less_than
             // 
-            this.radioButton_less_than.AutoSize = true;
-            this.radioButton_less_than.Dock = System.Windows.Forms.DockStyle.Left;
-            this.radioButton_less_than.Location = new System.Drawing.Point(457, 33);
-            this.radioButton_less_than.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.radioButton_less_than.Name = "radioButton_less_than";
-            this.radioButton_less_than.Size = new System.Drawing.Size(181, 61);
-            this.radioButton_less_than.TabIndex = 3;
-            this.radioButton_less_than.TabStop = true;
-            this.radioButton_less_than.Text = "Hàng ít hơn";
-            this.radioButton_less_than.UseVisualStyleBackColor = true;
-            this.radioButton_less_than.CheckedChanged += new System.EventHandler(this.radioButton7_CheckedChanged);
+            this.radioButton_storage_less_than.AutoSize = true;
+            this.radioButton_storage_less_than.Dock = System.Windows.Forms.DockStyle.Left;
+            this.radioButton_storage_less_than.Location = new System.Drawing.Point(457, 33);
+            this.radioButton_storage_less_than.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.radioButton_storage_less_than.Name = "radioButton_less_than";
+            this.radioButton_storage_less_than.Size = new System.Drawing.Size(181, 61);
+            this.radioButton_storage_less_than.TabIndex = 3;
+            this.radioButton_storage_less_than.TabStop = true;
+            this.radioButton_storage_less_than.Text = "Hàng ít hơn";
+            this.radioButton_storage_less_than.UseVisualStyleBackColor = true;
+            this.radioButton_storage_less_than.CheckedChanged += new System.EventHandler(this.radioButton7_CheckedChanged);
             // 
             // radioButton_out_of_storage
             // 
-            this.radioButton_out_of_storage.AutoSize = true;
-            this.radioButton_out_of_storage.Dock = System.Windows.Forms.DockStyle.Left;
-            this.radioButton_out_of_storage.Location = new System.Drawing.Point(342, 33);
-            this.radioButton_out_of_storage.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.radioButton_out_of_storage.Name = "radioButton_out_of_storage";
-            this.radioButton_out_of_storage.Size = new System.Drawing.Size(115, 61);
-            this.radioButton_out_of_storage.TabIndex = 2;
-            this.radioButton_out_of_storage.TabStop = true;
-            this.radioButton_out_of_storage.Text = "đã hết";
-            this.radioButton_out_of_storage.UseVisualStyleBackColor = true;
-            this.radioButton_out_of_storage.CheckedChanged += new System.EventHandler(this.radioButton6_CheckedChanged);
+            this.radioButton_storage_out_of_storage.AutoSize = true;
+            this.radioButton_storage_out_of_storage.Dock = System.Windows.Forms.DockStyle.Left;
+            this.radioButton_storage_out_of_storage.Location = new System.Drawing.Point(342, 33);
+            this.radioButton_storage_out_of_storage.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.radioButton_storage_out_of_storage.Name = "radioButton_out_of_storage";
+            this.radioButton_storage_out_of_storage.Size = new System.Drawing.Size(115, 61);
+            this.radioButton_storage_out_of_storage.TabIndex = 2;
+            this.radioButton_storage_out_of_storage.TabStop = true;
+            this.radioButton_storage_out_of_storage.Text = "đã hết";
+            this.radioButton_storage_out_of_storage.UseVisualStyleBackColor = true;
+            this.radioButton_storage_out_of_storage.CheckedChanged += new System.EventHandler(this.radioButton6_CheckedChanged);
             // 
             // radioButton_in_storage
             // 
-            this.radioButton_in_storage.AutoSize = true;
-            this.radioButton_in_storage.Dock = System.Windows.Forms.DockStyle.Left;
-            this.radioButton_in_storage.Location = new System.Drawing.Point(117, 33);
-            this.radioButton_in_storage.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.radioButton_in_storage.Name = "radioButton_in_storage";
-            this.radioButton_in_storage.Size = new System.Drawing.Size(225, 61);
-            this.radioButton_in_storage.TabIndex = 1;
-            this.radioButton_in_storage.TabStop = true;
-            this.radioButton_in_storage.Text = "đang trong kho";
-            this.radioButton_in_storage.UseVisualStyleBackColor = true;
-            this.radioButton_in_storage.CheckedChanged += new System.EventHandler(this.radioButton5_CheckedChanged);
+            this.radioButton_storage_in_storage.AutoSize = true;
+            this.radioButton_storage_in_storage.Dock = System.Windows.Forms.DockStyle.Left;
+            this.radioButton_storage_in_storage.Location = new System.Drawing.Point(117, 33);
+            this.radioButton_storage_in_storage.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.radioButton_storage_in_storage.Name = "radioButton_in_storage";
+            this.radioButton_storage_in_storage.Size = new System.Drawing.Size(225, 61);
+            this.radioButton_storage_in_storage.TabIndex = 1;
+            this.radioButton_storage_in_storage.TabStop = true;
+            this.radioButton_storage_in_storage.Text = "đang trong kho";
+            this.radioButton_storage_in_storage.UseVisualStyleBackColor = true;
+            this.radioButton_storage_in_storage.CheckedChanged += new System.EventHandler(this.radioButton5_CheckedChanged);
             // 
             // numeric_threshold
             // 
@@ -393,17 +394,17 @@ namespace storage_managements
             // 
             // radioButton_all
             // 
-            this.radioButton_all.AutoSize = true;
-            this.radioButton_all.Dock = System.Windows.Forms.DockStyle.Left;
-            this.radioButton_all.Location = new System.Drawing.Point(3, 33);
-            this.radioButton_all.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.radioButton_all.Name = "radioButton_all";
-            this.radioButton_all.Size = new System.Drawing.Size(114, 61);
-            this.radioButton_all.TabIndex = 0;
-            this.radioButton_all.TabStop = true;
-            this.radioButton_all.Text = "Tất cả";
-            this.radioButton_all.UseVisualStyleBackColor = true;
-            this.radioButton_all.CheckedChanged += new System.EventHandler(this.radioButton4_CheckedChanged);
+            this.radioButton_storage_all.AutoSize = true;
+            this.radioButton_storage_all.Dock = System.Windows.Forms.DockStyle.Left;
+            this.radioButton_storage_all.Location = new System.Drawing.Point(3, 33);
+            this.radioButton_storage_all.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.radioButton_storage_all.Name = "radioButton_all";
+            this.radioButton_storage_all.Size = new System.Drawing.Size(114, 61);
+            this.radioButton_storage_all.TabIndex = 0;
+            this.radioButton_storage_all.TabStop = true;
+            this.radioButton_storage_all.Text = "Tất cả";
+            this.radioButton_storage_all.UseVisualStyleBackColor = true;
+            this.radioButton_storage_all.CheckedChanged += new System.EventHandler(this.radioButton4_CheckedChanged);
             // 
             // tab_import_export
             // 
@@ -665,7 +666,7 @@ namespace storage_managements
             this.tableLayoutPanel6.ColumnCount = 1;
             this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel6.Controls.Add(this.dataGrid_transaction, 0, 0);
-            this.tableLayoutPanel6.Controls.Add(this.flowLayoutPanel2, 0, 1);
+            this.tableLayoutPanel6.Controls.Add(this.TableLayoutPanel8, 0, 1);
             this.tableLayoutPanel6.Controls.Add(this.flowLayoutPanel5, 0, 2);
             this.tableLayoutPanel6.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel6.Location = new System.Drawing.Point(3, 2);
@@ -673,7 +674,7 @@ namespace storage_managements
             this.tableLayoutPanel6.Name = "tableLayoutPanel6";
             this.tableLayoutPanel6.RowCount = 3;
             this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 80F));
+            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 140F));
             this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 60F));
             this.tableLayoutPanel6.Size = new System.Drawing.Size(1427, 543);
             this.tableLayoutPanel6.TabIndex = 0;
@@ -694,26 +695,34 @@ namespace storage_managements
             this.dataGrid_transaction.Size = new System.Drawing.Size(1421, 399);
             this.dataGrid_transaction.TabIndex = 0;
             // 
-            // flowLayoutPanel2
+            // TableLayoutPanel8
             // 
-            this.flowLayoutPanel2.Controls.Add(this.groupBox1);
-            this.flowLayoutPanel2.Controls.Add(this.groupBox4);
-            this.flowLayoutPanel2.Controls.Add(this.button_export_pdf);
-            this.flowLayoutPanel2.Controls.Add(this.button_goto_pdf_folder);
-            this.flowLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowLayoutPanel2.Location = new System.Drawing.Point(3, 405);
-            this.flowLayoutPanel2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.flowLayoutPanel2.Name = "flowLayoutPanel2";
-            this.flowLayoutPanel2.Size = new System.Drawing.Size(1421, 76);
-            this.flowLayoutPanel2.TabIndex = 1;
+            this.TableLayoutPanel8.ColumnCount = 3;
+            this.TableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40F));
+            this.TableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60F));
+            this.TableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 220F));
+            this.TableLayoutPanel8.Controls.Add(this.groupBox1, 0, 0);
+            this.TableLayoutPanel8.Controls.Add(this.groupBox4, 1, 0);
+            this.TableLayoutPanel8.Controls.Add(this.button_export_pdf, 2, 0);
+            this.TableLayoutPanel8.Controls.Add(this.button_goto_pdf_folder, 2, 1);
+            this.TableLayoutPanel8.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TableLayoutPanel8.Location = new System.Drawing.Point(3, 405);
+            this.TableLayoutPanel8.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.TableLayoutPanel8.Name = "TableLayoutPanel8";
+            this.tableLayoutPanel6.RowCount = 2;
+            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 80F));
+            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 60F));
+            this.TableLayoutPanel8.Size = new System.Drawing.Size(1421, 75);
+            this.TableLayoutPanel8.TabIndex = 1;
             // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.flowLayoutPanel6);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(3, 3);
+            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(404, 74);
+            this.groupBox1.Size = new System.Drawing.Size(400, 75);
             this.groupBox1.TabIndex = 8;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Hiển thị:";
@@ -772,7 +781,7 @@ namespace storage_managements
             this.groupBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox4.Location = new System.Drawing.Point(413, 3);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(565, 74);
+            this.groupBox4.Size = new System.Drawing.Size(750, 75);
             this.groupBox4.TabIndex = 9;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Sắp xếp theo:";
@@ -843,7 +852,7 @@ namespace storage_managements
             this.button_export_pdf.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button_export_pdf.Location = new System.Drawing.Point(984, 3);
             this.button_export_pdf.Name = "button_export_pdf";
-            this.button_export_pdf.Size = new System.Drawing.Size(209, 74);
+            this.button_export_pdf.Size = new System.Drawing.Size(210, 50);
             this.button_export_pdf.TabIndex = 7;
             this.button_export_pdf.Text = "Xuất file PDF";
             this.button_export_pdf.UseVisualStyleBackColor = true;
@@ -855,7 +864,7 @@ namespace storage_managements
             this.button_goto_pdf_folder.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button_goto_pdf_folder.Location = new System.Drawing.Point(1199, 3);
             this.button_goto_pdf_folder.Name = "button_goto_pdf_folder";
-            this.button_goto_pdf_folder.Size = new System.Drawing.Size(209, 74);
+            this.button_goto_pdf_folder.Size = new System.Drawing.Size(210, 50);
             this.button_goto_pdf_folder.TabIndex = 10;
             this.button_goto_pdf_folder.Text = "Tới file PDF";
             this.button_goto_pdf_folder.UseVisualStyleBackColor = true;
@@ -881,7 +890,7 @@ namespace storage_managements
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(160, 32);
             this.label15.TabIndex = 4;
-            this.label15.Text = "Chọn ngày:";
+            this.label15.Text = "Ngày";
             // 
             // dateTimePicker_from
             // 
@@ -1281,7 +1290,7 @@ namespace storage_managements
             this.tab_transaction_history.ResumeLayout(false);
             this.tableLayoutPanel6.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGrid_transaction)).EndInit();
-            this.flowLayoutPanel2.ResumeLayout(false);
+            this.TableLayoutPanel8.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.flowLayoutPanel6.ResumeLayout(false);
             this.flowLayoutPanel6.PerformLayout();
@@ -1346,14 +1355,14 @@ namespace storage_managements
         private System.Windows.Forms.TabPage tab_transaction_history;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel6;
         private System.Windows.Forms.DataGridView dataGrid_transaction;
-        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel2;
+        private System.Windows.Forms.TableLayoutPanel TableLayoutPanel8;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.RadioButton radioButton_all;
-        private System.Windows.Forms.RadioButton radioButton_out_of_storage;
-        private System.Windows.Forms.RadioButton radioButton_in_storage;
-        private System.Windows.Forms.RadioButton radioButton_less_than;
-        private System.Windows.Forms.RadioButton radioButton_greater_than;
+        private System.Windows.Forms.RadioButton radioButton_storage_all;
+        private System.Windows.Forms.RadioButton radioButton_storage_out_of_storage;
+        private System.Windows.Forms.RadioButton radioButton_storage_in_storage;
+        private System.Windows.Forms.RadioButton radioButton_storage_less_than;
+        private System.Windows.Forms.RadioButton radioButton_storage_greater_than;
         private System.Windows.Forms.DataGridViewCheckBoxColumn storage_item_select;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel7;
         private System.Windows.Forms.GroupBox groupBox3;

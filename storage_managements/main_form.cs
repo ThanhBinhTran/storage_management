@@ -71,6 +71,7 @@ namespace storage_managements
             InitialGUITextBox();
             InitialGUIDataGridView();
             InitialGUIComboBox();
+            InitialGUIRadioButton();
         }
 
         private void InitialGUIComboBox()
@@ -79,13 +80,19 @@ namespace storage_managements
             Lib_ComboBox.SourceItems_ID(cb: comboBox_consumer, consumers);
             Lib_ComboBox.SourceItems_ID(cb: comboBox_taxID, items: taxIDs);
         }
+        private void InitialGUIRadioButton()
+        {
+            radioButton_storage_all.Checked = true;
+            radioButton_transaction_display_all.Checked = true;
+            radioButton_transaction_sort_date.Checked = true;
+        }
         private void InitialGUILabel()
         {
             int num = (int)numeric_threshold.Value;
             string text_lt = string.Format("ít hơn {0} món", num);
             string text_gt = string.Format("nhiều hơn {0} món", num);
-            SetRadioButtonText(rb: radioButton_less_than, text: text_lt);
-            SetRadioButtonText(rb: radioButton_greater_than, text: text_gt);
+            SetRadioButtonText(rb: radioButton_storage_less_than, text: text_lt);
+            SetRadioButtonText(rb: radioButton_storage_greater_than, text: text_gt);
         }
         private void InitialGUITextBox()
         {
@@ -641,7 +648,7 @@ namespace storage_managements
             if (cur_tab_index == 0)
             {
                 // when this tab select, i want to check on radioButton_all
-                this.radioButton_all.Checked = true;
+                this.radioButton_storage_all.Checked = true;
                 DisplayStorageByQuantity();
                 //this.radioButton_all.se
                 Lib_DataGrid.DGVDisplayItem(dgv: datagrid_storage_items_info, items: database_items);
@@ -735,11 +742,11 @@ namespace storage_managements
         private void numericUpDown1_ValueChanged(object sender, EventArgs e)
         {
             InitialGUILabel();
-            if (radioButton_less_than.Checked)
+            if (radioButton_storage_less_than.Checked)
             {
                 DisplayStorageByQuantity(threshold: (int)numeric_threshold.Value, relation: Display_relation.lessthan);
             }
-            else if (radioButton_greater_than.Checked)
+            else if (radioButton_storage_greater_than.Checked)
             {
                 DisplayStorageByQuantity(threshold: (int)numeric_threshold.Value - 1, relation: Display_relation.greaterthan);
             }
