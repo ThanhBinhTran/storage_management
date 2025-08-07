@@ -79,11 +79,12 @@ namespace storage_managements
             this.flowLayoutPanel7 = new System.Windows.Forms.FlowLayoutPanel();
             this.radioButton_transaction_sort_date = new System.Windows.Forms.RadioButton();
             this.radioButton_transaction_sort_company = new System.Windows.Forms.RadioButton();
-            this.radioButton_transaction_sort_item = new System.Windows.Forms.RadioButton();
+            this.radioButton_transaction_sort_itemID = new System.Windows.Forms.RadioButton();
             this.radioButton_transaction_sort_taxID = new System.Windows.Forms.RadioButton();
             this.button_export_pdf = new System.Windows.Forms.Button();
             this.button_goto_pdf_folder = new System.Windows.Forms.Button();
             this.flowLayoutPanel5 = new System.Windows.Forms.FlowLayoutPanel();
+            this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
             this.label15 = new System.Windows.Forms.Label();
             this.dateTimePicker_from = new System.Windows.Forms.DateTimePicker();
             this.label13 = new System.Windows.Forms.Label();
@@ -141,6 +142,7 @@ namespace storage_managements
             this.groupBox4.SuspendLayout();
             this.flowLayoutPanel7.SuspendLayout();
             this.flowLayoutPanel5.SuspendLayout();
+            this.flowLayoutPanel2.SuspendLayout();
             this.tab_database_info.SuspendLayout();
             this.item_layout_L2_top.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.datagrid_information)).BeginInit();
@@ -667,15 +669,13 @@ namespace storage_managements
             this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel6.Controls.Add(this.dataGrid_transaction, 0, 0);
             this.tableLayoutPanel6.Controls.Add(this.TableLayoutPanel8, 0, 1);
-            this.tableLayoutPanel6.Controls.Add(this.flowLayoutPanel5, 0, 2);
             this.tableLayoutPanel6.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel6.Location = new System.Drawing.Point(3, 2);
             this.tableLayoutPanel6.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tableLayoutPanel6.Name = "tableLayoutPanel6";
-            this.tableLayoutPanel6.RowCount = 3;
+            this.tableLayoutPanel6.RowCount = 2;
             this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 140F));
-            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 60F));
             this.tableLayoutPanel6.Size = new System.Drawing.Size(1427, 543);
             this.tableLayoutPanel6.TabIndex = 0;
             // 
@@ -697,6 +697,8 @@ namespace storage_managements
             // 
             // TableLayoutPanel8
             // 
+            //color in light gray this TableLayoutPanel8
+
             this.TableLayoutPanel8.ColumnCount = 3;
             this.TableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40F));
             this.TableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60F));
@@ -704,15 +706,17 @@ namespace storage_managements
             this.TableLayoutPanel8.Controls.Add(this.groupBox1, 0, 0);
             this.TableLayoutPanel8.Controls.Add(this.groupBox4, 1, 0);
             this.TableLayoutPanel8.Controls.Add(this.button_export_pdf, 2, 0);
+
+            this.TableLayoutPanel8.Controls.Add(this.flowLayoutPanel5, 0, 1);
+            this.TableLayoutPanel8.Controls.Add(this.flowLayoutPanel2, 1, 1);
             this.TableLayoutPanel8.Controls.Add(this.button_goto_pdf_folder, 2, 1);
             this.TableLayoutPanel8.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.TableLayoutPanel8.Location = new System.Drawing.Point(3, 405);
+            //this.TableLayoutPanel8.Location = new System.Drawing.Point(3, 405);
             this.TableLayoutPanel8.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.TableLayoutPanel8.Name = "TableLayoutPanel8";
-            this.tableLayoutPanel6.RowCount = 2;
-            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 80F));
-            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 60F));
-            this.TableLayoutPanel8.Size = new System.Drawing.Size(1421, 75);
+            this.TableLayoutPanel8.RowCount = 2;
+            this.TableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 60F));
+            this.TableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 40F));
             this.TableLayoutPanel8.TabIndex = 1;
             // 
             // groupBox1
@@ -790,7 +794,7 @@ namespace storage_managements
             // 
             this.flowLayoutPanel7.Controls.Add(this.radioButton_transaction_sort_date);
             this.flowLayoutPanel7.Controls.Add(this.radioButton_transaction_sort_company);
-            this.flowLayoutPanel7.Controls.Add(this.radioButton_transaction_sort_item);
+            this.flowLayoutPanel7.Controls.Add(this.radioButton_transaction_sort_itemID);
             this.flowLayoutPanel7.Controls.Add(this.radioButton_transaction_sort_taxID);
             this.flowLayoutPanel7.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel7.Location = new System.Drawing.Point(3, 34);
@@ -822,17 +826,17 @@ namespace storage_managements
             this.radioButton_transaction_sort_company.UseVisualStyleBackColor = true;
             this.radioButton_transaction_sort_company.CheckedChanged += new System.EventHandler(this.radioButton_transaction_sort_company_CheckedChanged);
             // 
-            // radioButton_transaction_sort_item
+            // radioButton_transaction_sort_itemID
             // 
-            this.radioButton_transaction_sort_item.AutoSize = true;
-            this.radioButton_transaction_sort_item.Location = new System.Drawing.Point(329, 3);
-            this.radioButton_transaction_sort_item.Name = "radioButton_transaction_sort_item";
-            this.radioButton_transaction_sort_item.Size = new System.Drawing.Size(154, 36);
-            this.radioButton_transaction_sort_item.TabIndex = 1;
-            this.radioButton_transaction_sort_item.TabStop = true;
-            this.radioButton_transaction_sort_item.Text = "Mã s.phẩm";
-            this.radioButton_transaction_sort_item.UseVisualStyleBackColor = true;
-            this.radioButton_transaction_sort_item.CheckedChanged += new System.EventHandler(this.radioButton_transaction_sort_item_CheckedChanged);
+            this.radioButton_transaction_sort_itemID.AutoSize = true;
+            this.radioButton_transaction_sort_itemID.Location = new System.Drawing.Point(329, 3);
+            this.radioButton_transaction_sort_itemID.Name = "radioButton_transaction_sort_itemID";
+            this.radioButton_transaction_sort_itemID.Size = new System.Drawing.Size(154, 36);
+            this.radioButton_transaction_sort_itemID.TabIndex = 1;
+            this.radioButton_transaction_sort_itemID.TabStop = true;
+            this.radioButton_transaction_sort_itemID.Text = "Mã s.phẩm";
+            this.radioButton_transaction_sort_itemID.UseVisualStyleBackColor = true;
+            this.radioButton_transaction_sort_itemID.CheckedChanged += new System.EventHandler(this.radioButton_transaction_sort_item_CheckedChanged);
             // 
             // radioButton_transaction_sort_taxID
             // 
@@ -848,11 +852,11 @@ namespace storage_managements
             // 
             // button_export_pdf
             // 
-            this.button_export_pdf.Dock = System.Windows.Forms.DockStyle.Right;
+            this.button_export_pdf.Dock = System.Windows.Forms.DockStyle.Fill;
             this.button_export_pdf.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button_export_pdf.Location = new System.Drawing.Point(984, 3);
+            this.button_export_pdf.Location = new System.Drawing.Point(2, 3);
             this.button_export_pdf.Name = "button_export_pdf";
-            this.button_export_pdf.Size = new System.Drawing.Size(210, 50);
+            this.button_export_pdf.Size = new System.Drawing.Size(200, 30);
             this.button_export_pdf.TabIndex = 7;
             this.button_export_pdf.Text = "Xuất file PDF";
             this.button_export_pdf.UseVisualStyleBackColor = true;
@@ -860,11 +864,11 @@ namespace storage_managements
             // 
             // button_goto_pdf_folder
             // 
-            this.button_goto_pdf_folder.Dock = System.Windows.Forms.DockStyle.Right;
+            this.button_goto_pdf_folder.Dock = System.Windows.Forms.DockStyle.Fill;
             this.button_goto_pdf_folder.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button_goto_pdf_folder.Location = new System.Drawing.Point(1199, 3);
+            this.button_goto_pdf_folder.Location = new System.Drawing.Point(2, 0);
             this.button_goto_pdf_folder.Name = "button_goto_pdf_folder";
-            this.button_goto_pdf_folder.Size = new System.Drawing.Size(210, 50);
+            this.button_goto_pdf_folder.Size = new System.Drawing.Size(200, 30);
             this.button_goto_pdf_folder.TabIndex = 10;
             this.button_goto_pdf_folder.Text = "Tới file PDF";
             this.button_goto_pdf_folder.UseVisualStyleBackColor = true;
@@ -874,35 +878,40 @@ namespace storage_managements
             // 
             this.flowLayoutPanel5.Controls.Add(this.label15);
             this.flowLayoutPanel5.Controls.Add(this.dateTimePicker_from);
-            this.flowLayoutPanel5.Controls.Add(this.label13);
-            this.flowLayoutPanel5.Controls.Add(this.dateTimePicker_to);
             this.flowLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel5.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.flowLayoutPanel5.Location = new System.Drawing.Point(3, 486);
             this.flowLayoutPanel5.Name = "flowLayoutPanel5";
-            this.flowLayoutPanel5.Size = new System.Drawing.Size(1421, 54);
             this.flowLayoutPanel5.TabIndex = 2;
+            // 
+            // flowLayoutPanel2
+            // 
+            this.flowLayoutPanel2.Controls.Add(this.label13);
+            this.flowLayoutPanel2.Controls.Add(this.dateTimePicker_to);
+            this.flowLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flowLayoutPanel2.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.flowLayoutPanel2.Name = "flowLayoutPanel2";
+            this.flowLayoutPanel2.TabIndex = 3;
             // 
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(3, 0);
+            this.label15.Dock = System.Windows.Forms.DockStyle.Left;
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(160, 32);
+            this.label15.Size = new System.Drawing.Size(70, 32);
             this.label15.TabIndex = 4;
             this.label15.Text = "Ngày";
             // 
             // dateTimePicker_from
             // 
-            this.dateTimePicker_from.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dateTimePicker_from.Location = new System.Drawing.Point(169, 3);
+            this.dateTimePicker_from.Dock = System.Windows.Forms.DockStyle.Left;
             this.dateTimePicker_from.Name = "dateTimePicker_from";
+            this.dateTimePicker_to.Location = new System.Drawing.Point(72, 0);
             this.dateTimePicker_from.Size = new System.Drawing.Size(300, 38);
             this.dateTimePicker_from.TabIndex = 0;
             // select the dateTimePicker_from to 7 days ago
             this.dateTimePicker_from.Value = DateTime.Now.AddDays(-7);
             this.dateTimePicker_from.ValueChanged += new System.EventHandler(this.dateTimePicker_from_ValueChanged);
-            //set vietnamese language for dateTimePicker thứ ngày tháng năm
+            //set vietnamese language for dateTimePicker
             this.dateTimePicker_from.CustomFormat = "dd/MM/yyyy";
             this.dateTimePicker_from.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
 
@@ -910,22 +919,22 @@ namespace storage_managements
             // label13
             //
             this.label13.AutoSize = true;
-            this.label13.Dock = System.Windows.Forms.DockStyle.Left;
-            this.label13.Location = new System.Drawing.Point(672, 0);
+            this.label13.Dock = System.Windows.Forms.DockStyle.Right;
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(63, 32);
+            this.label13.Size = new System.Drawing.Size(70, 32);
             this.label13.TabIndex = 2;
             this.label13.Text = "đến";
             // 
             // dateTimePicker_to
             // 
-            this.dateTimePicker_to.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dateTimePicker_to.Location = new System.Drawing.Point(741, 3);
+            // place the dateTimePicker_to to the left of the label13
+            this.dateTimePicker_to.Location = new System.Drawing.Point(72, 0);
+            this.dateTimePicker_to.Dock = System.Windows.Forms.DockStyle.Left;
             this.dateTimePicker_to.Name = "dateTimePicker_to";
             this.dateTimePicker_to.Size = new System.Drawing.Size(300, 38);
             this.dateTimePicker_to.TabIndex = 3;
             this.dateTimePicker_to.ValueChanged += new System.EventHandler(this.dateTimePicker_to_ValueChanged);
-            //set vietnamese language for dateTimePicker thứ ngày tháng năm
+            //set vietnamese language for dateTimePicker
             this.dateTimePicker_to.CustomFormat = "dd/MM/yyyy";
             this.dateTimePicker_to.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             // 
@@ -1375,6 +1384,7 @@ namespace storage_managements
         private System.Windows.Forms.DateTimePicker dateTimePicker_to;
         private System.Windows.Forms.Button button_export_pdf;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel5;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel2;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.TextBox textbox_search_ID;
         private System.Windows.Forms.TextBox textBox_search_name;
@@ -1394,7 +1404,7 @@ namespace storage_managements
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel7;
         private System.Windows.Forms.RadioButton radioButton_transaction_sort_date;
         private System.Windows.Forms.RadioButton radioButton_transaction_sort_company;
-        private System.Windows.Forms.RadioButton radioButton_transaction_sort_item;
+        private System.Windows.Forms.RadioButton radioButton_transaction_sort_itemID;
         private System.Windows.Forms.RadioButton radioButton_transaction_sort_taxID;
         private System.Windows.Forms.Button button_export;
         private System.Windows.Forms.Button button_import;

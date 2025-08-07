@@ -23,7 +23,7 @@ namespace storage_managements
 		 */
         private readonly List<DS_TransactionGrid> transactions_history = new List<DS_TransactionGrid>();
         private List<DS_TransactionGrid> transactions_history_show = new List<DS_TransactionGrid>();
-        private readonly List<DS_Transaction> retrieve_transactions = new List<DS_Transaction>(); // retrieve  transaction for search.
+        private List<DS_Transaction> retrieve_transactions = new List<DS_Transaction>(); // retrieve  transaction for search.
         /*
 		 * tab information (items, company, consumer)
 		 */
@@ -192,6 +192,7 @@ namespace storage_managements
                 datetimeTo = dateTimePicker_from.Value;
                 datetimeFrom = dateTimePicker_to.Value;
             }
+            RetrieveTransaction();
         }
         /** read goods information from json file **/
 
@@ -364,38 +365,10 @@ namespace storage_managements
                 {
                     retrieve_transactions.Add(item);
                 }
+                // sort by descending transaction time
+                retrieve_transactions = retrieve_transactions.OrderByDescending(th => th.transaction_time).ToList();
             }
             Transactionstogrid();
-        }
-        private void ShowTransaction()
-        {
-            transactions_history.Clear();
-            foreach (DS_Transaction transitem in retrieve_transactions)
-            {
-                foreach (DS_StorageItem trans_item in transitem.transaction_items)
-                {
-                    DS_TransactionGrid trans_history = new DS_TransactionGrid
-                    {
-                        //ID = transitem.ID,
-                        company_name = transitem.company_name,
-                        item_ID = trans_item.ID,
-                        item_name = trans_item.name,
-                        item_quantity = trans_item.quantity,
-                        item_unit = trans_item.unit,
-                        transaction_time = transitem.transaction_time,
-                        //transaction_direction = transitem.transaction_direction
-                    };
-                    if (transitem.transaction_direction == direction.export)
-                    {
-                        trans_history.transaction_direction = "Xuất";
-                    }
-                    else if (transitem.transaction_direction == direction.import)
-                    {
-                        trans_history.transaction_direction = "Nhập";
-                    }
-                    transactions_history.Add(trans_history);
-                }
-            }
         }
 
         private void DatagridDisplayStorage()
@@ -494,8 +467,8 @@ namespace storage_managements
                 }
             }
         }
-        private void TransactionsFilter(direction dir = direction.none, string filter_key = "", 
-            bool searchenable=false, bool filter_none = false)
+        private void TransactionsFilter(direction dir = direction.none, string filter_key = "",
+            bool searchenable = false, bool filter_none = false)
         {
             string dir_str = TransactionDirection2String(dir);
             transactions_history_show.Clear();
@@ -503,11 +476,27 @@ namespace storage_managements
             {
                 bool filter_result = item.item_ID.Contains(filter_key) ||
                     item.item_name.Contains(filter_key) ||
-                    (item.taxID != null &&item.taxID.Contains(filter_key));
+                    (item.taxID != null && item.taxID.Contains(filter_key));
                 if (item.transaction_direction == dir_str || filter_none || (searchenable && filter_result))
                 {
                     transactions_history_show.Add(item);
                 }
+            }
+            if (radioButton_transaction_sort_date.Checked)
+            {
+                transactions_history_show = transactions_history_show.OrderByDescending(th => th.transaction_time).ToList();
+            }
+            else if (radioButton_transaction_sort_company.Checked)
+            {
+                transactions_history_show = transactions_history_show.OrderBy(th => th.company_name).ToList();
+            }
+            else if (radioButton_transaction_sort_itemID.Checked)
+            {
+                transactions_history_show = transactions_history_show.OrderBy(th => th.item_ID).ToList();
+            }
+            else if (radioButton_transaction_sort_taxID.Checked)
+            {
+                transactions_history_show = transactions_history_show.OrderBy(th => th.taxID).ToList();
             }
         }
 
@@ -647,10 +636,6 @@ namespace storage_managements
             int cur_tab_index = tab_view.SelectedIndex;
             if (cur_tab_index == 0)
             {
-                // when this tab select, i want to check on radioButton_all
-                this.radioButton_storage_all.Checked = true;
-                DisplayStorageByQuantity();
-                //this.radioButton_all.se
                 Lib_DataGrid.DGVDisplayItem(dgv: datagrid_storage_items_info, items: database_items);
             }
 
@@ -816,7 +801,7 @@ namespace storage_managements
                 separateByID = 1;
                 separateByKey = "Cty";
             }
-            else if (radioButton_transaction_sort_item.Checked)
+            else if (radioButton_transaction_sort_itemID.Checked)
             {
                 separateByID = 2;
                 separateByKey = "Sp";
@@ -873,8 +858,7 @@ namespace storage_managements
             }
             else if (tab_active == 2)    // transaction history tab
             {
-                TransactionsFilter(filter_key: searchkey, searchenable:true);
-                DatagridDisplayTransactions();
+                display_transactions();
             }
             else if (tab_active == 3)    // database info tab
             {
@@ -882,63 +866,56 @@ namespace storage_managements
             }
         }
 
-        private void display_transactions(direction dir = direction.none, string filter_key = "",
-            bool searchenable=false, bool filter_none = false)
+        private void display_transactions(string filter_key = "", bool searchenable=false)
         {
-
-            RetrieveTransaction();
-            // all include import & export
+            // if radioButton_storage_all.Checked  bool filter_none  = true, else false
+            bool filter_none = radioButton_storage_all.Checked;
+            direction dir = direction.none;
+            if (radioButton_transaction_display_import.Checked)
+            {
+                dir = direction.import;
+                filter_none = false; // if import is selected, then filter_none is false
+            }
+            else if (radioButton_transaction_display_export.Checked)
+            {
+                dir = direction.export;
+                filter_none = false; // if export is selected, then filter_none is false
+            }
             TransactionsFilter(dir:dir, filter_key: filter_key, searchenable: searchenable, filter_none: filter_none);
             DatagridDisplayTransactions();
         }
         private void radioButton_transaction_display_all_CheckedChanged(object sender, EventArgs e)
         {
-            display_transactions(filter_none: true);
+            display_transactions();
         }
 
         private void radioButton_transaction_display_import_CheckedChanged(object sender, EventArgs e)
         {
-            display_transactions(dir: direction.import);
+            display_transactions();
         }
 
         private void radioButton_transaction_display_export_CheckedChanged(object sender, EventArgs e)
         {
-            display_transactions(dir: direction.export);
+            display_transactions();
         }
 
         private void radioButton_transaction_sort_date_CheckedChanged(object sender, EventArgs e)
         {
-            RetrieveTransaction();
-            ShowTransaction();
-            var temp_transactions_history = transactions_history_show.OrderBy(th => th.transaction_time).ToList();
-            transactions_history_show = temp_transactions_history;
-            DatagridDisplayTransactions();
+            display_transactions();
         }
 
         private void radioButton_transaction_sort_company_CheckedChanged(object sender, EventArgs e)
         {
-            RetrieveTransaction();
-            ShowTransaction();
-            var temp_transactions_history = transactions_history_show.OrderBy(th => th.company_name).ToList();
-            transactions_history_show = temp_transactions_history;
-            DatagridDisplayTransactions();
+            display_transactions();
         }
 
         private void radioButton_transaction_sort_item_CheckedChanged(object sender, EventArgs e)
         {
-            RetrieveTransaction();
-            ShowTransaction();
-            var temp_transactions_history = transactions_history_show.OrderBy(th => th.item_ID).ToList();
-            transactions_history_show = temp_transactions_history;
-            DatagridDisplayTransactions();
+            display_transactions();
         }
         private void radioButton_transaction_sort_taxID_CheckedChanged(object sender, EventArgs e)
         {
-            RetrieveTransaction();
-            ShowTransaction();
-            var temp_transactions_history = transactions_history_show.OrderBy(th => th.taxID).ToList();
-            transactions_history_show = temp_transactions_history;
-            DatagridDisplayTransactions();
+            display_transactions();
         }
         private void button_goto_pdf_folder_Click(object sender, EventArgs e)
         {
