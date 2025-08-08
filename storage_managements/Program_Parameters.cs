@@ -7,8 +7,8 @@ namespace storage_managements
     /* for display items currently in store*/
     public enum Display_relation
     {
-        lessthan,
-        greaterthan
+        lesThan,
+        greaterThan
     };
     class Program_Parameters
     {
@@ -31,7 +31,7 @@ namespace storage_managements
         public static List<string> newHeaderItems = new List<string> { "Mã sản phẩm", "Tên sản phẩm", "Số lượng", "Đơn vị" };
 
         public static List<string> oldHeaderCompany = new List<string> { "ID", "name" };
-        public static List<string> newHeaderCompany = new List<string> { "Mã cty", "Tên cty" };
+        public static List<string> newHeaderCompany = new List<string> { "Mã công ty", "Tên công ty" };
         public static List<string> newHeaderConsumer = new List<string> { "Mã khách", "Tên khách" };
 
         public static List<string> oldHeaderTransaction = new List<string> {"transaction_direction", "company_name", "item_ID", "item_name", "item_quantity", "item_unit", "transaction_time", "taxID" };

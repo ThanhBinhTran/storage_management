@@ -95,9 +95,9 @@ namespace storage_managements
             this.tableLayoutPanel7 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            this.radioButton_items = new System.Windows.Forms.RadioButton();
-            this.radioButton_company = new System.Windows.Forms.RadioButton();
-            this.radioButton_consumer = new System.Windows.Forms.RadioButton();
+            this.radioButton_database_items = new System.Windows.Forms.RadioButton();
+            this.radioButton_database_company = new System.Windows.Forms.RadioButton();
+            this.radioButton_database_consumer = new System.Windows.Forms.RadioButton();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -1015,9 +1015,9 @@ namespace storage_managements
             // 
             // flowLayoutPanel1
             // 
-            this.flowLayoutPanel1.Controls.Add(this.radioButton_items);
-            this.flowLayoutPanel1.Controls.Add(this.radioButton_company);
-            this.flowLayoutPanel1.Controls.Add(this.radioButton_consumer);
+            this.flowLayoutPanel1.Controls.Add(this.radioButton_database_items);
+            this.flowLayoutPanel1.Controls.Add(this.radioButton_database_company);
+            this.flowLayoutPanel1.Controls.Add(this.radioButton_database_consumer);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(4, 33);
             this.flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(4);
@@ -1027,42 +1027,42 @@ namespace storage_managements
             // 
             // radioButton_items
             // 
-            this.radioButton_items.AutoSize = true;
-            this.radioButton_items.Location = new System.Drawing.Point(4, 4);
-            this.radioButton_items.Margin = new System.Windows.Forms.Padding(4);
-            this.radioButton_items.Name = "radioButton_items";
-            this.radioButton_items.Size = new System.Drawing.Size(139, 33);
-            this.radioButton_items.TabIndex = 0;
-            this.radioButton_items.TabStop = true;
-            this.radioButton_items.Text = "Mặt hàng";
-            this.radioButton_items.UseVisualStyleBackColor = true;
-            this.radioButton_items.CheckedChanged += new System.EventHandler(this.radioButton_items_CheckedChanged);
+            this.radioButton_database_items.AutoSize = true;
+            this.radioButton_database_items.Location = new System.Drawing.Point(4, 4);
+            this.radioButton_database_items.Margin = new System.Windows.Forms.Padding(4);
+            this.radioButton_database_items.Name = "radioButton_items";
+            this.radioButton_database_items.Size = new System.Drawing.Size(139, 33);
+            this.radioButton_database_items.TabIndex = 0;
+            this.radioButton_database_items.TabStop = true;
+            this.radioButton_database_items.Text = "Mặt hàng";
+            this.radioButton_database_items.UseVisualStyleBackColor = true;
+            this.radioButton_database_items.CheckedChanged += new System.EventHandler(this.radioButton_database_items_CheckedChanged);
             // 
             // radioButton_company
             // 
-            this.radioButton_company.AutoSize = true;
-            this.radioButton_company.Location = new System.Drawing.Point(4, 45);
-            this.radioButton_company.Margin = new System.Windows.Forms.Padding(4);
-            this.radioButton_company.Name = "radioButton_company";
-            this.radioButton_company.Size = new System.Drawing.Size(121, 33);
-            this.radioButton_company.TabIndex = 1;
-            this.radioButton_company.TabStop = true;
-            this.radioButton_company.Text = "Công ty";
-            this.radioButton_company.UseVisualStyleBackColor = true;
-            this.radioButton_company.CheckedChanged += new System.EventHandler(this.radioButton2_CheckedChanged);
+            this.radioButton_database_company.AutoSize = true;
+            this.radioButton_database_company.Location = new System.Drawing.Point(4, 45);
+            this.radioButton_database_company.Margin = new System.Windows.Forms.Padding(4);
+            this.radioButton_database_company.Name = "radioButton_company";
+            this.radioButton_database_company.Size = new System.Drawing.Size(121, 33);
+            this.radioButton_database_company.TabIndex = 1;
+            this.radioButton_database_company.TabStop = true;
+            this.radioButton_database_company.Text = "Công ty";
+            this.radioButton_database_company.UseVisualStyleBackColor = true;
+            this.radioButton_database_company.CheckedChanged += new System.EventHandler(this.radioButton_database_company_CheckedChanged);
             // 
             // radioButton_consumer
             // 
-            this.radioButton_consumer.AutoSize = true;
-            this.radioButton_consumer.Location = new System.Drawing.Point(4, 86);
-            this.radioButton_consumer.Margin = new System.Windows.Forms.Padding(4);
-            this.radioButton_consumer.Name = "radioButton_consumer";
-            this.radioButton_consumer.Size = new System.Drawing.Size(106, 33);
-            this.radioButton_consumer.TabIndex = 2;
-            this.radioButton_consumer.TabStop = true;
-            this.radioButton_consumer.Text = "Khách";
-            this.radioButton_consumer.UseVisualStyleBackColor = true;
-            this.radioButton_consumer.CheckedChanged += new System.EventHandler(this.radioButton_consumer_CheckedChanged);
+            this.radioButton_database_consumer.AutoSize = true;
+            this.radioButton_database_consumer.Location = new System.Drawing.Point(4, 86);
+            this.radioButton_database_consumer.Margin = new System.Windows.Forms.Padding(4);
+            this.radioButton_database_consumer.Name = "radioButton_consumer";
+            this.radioButton_database_consumer.Size = new System.Drawing.Size(106, 33);
+            this.radioButton_database_consumer.TabIndex = 2;
+            this.radioButton_database_consumer.TabStop = true;
+            this.radioButton_database_consumer.Text = "Khách";
+            this.radioButton_database_consumer.UseVisualStyleBackColor = true;
+            this.radioButton_database_consumer.CheckedChanged += new System.EventHandler(this.radioButton_database_consumer_CheckedChanged);
             // 
             // tableLayoutPanel3
             // 
@@ -1375,9 +1375,9 @@ namespace storage_managements
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel7;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
-        private System.Windows.Forms.RadioButton radioButton_items;
-        private System.Windows.Forms.RadioButton radioButton_company;
-        private System.Windows.Forms.RadioButton radioButton_consumer;
+        private System.Windows.Forms.RadioButton radioButton_database_items;
+        private System.Windows.Forms.RadioButton radioButton_database_company;
+        private System.Windows.Forms.RadioButton radioButton_database_consumer;
         private System.Windows.Forms.DateTimePicker dateTimePicker_from;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.DateTimePicker dateTimePicker_to;

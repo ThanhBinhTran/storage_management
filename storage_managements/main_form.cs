@@ -16,13 +16,13 @@ namespace storage_managements
         private readonly List<DS_StorageItem> storages = new List<DS_StorageItem>();
         private readonly List<DS_StorageItem> storages_display = new List<DS_StorageItem>();
         // list of pre-transaction items
-        private List<DS_StorageItem> pre_transaction_items = new List<DS_StorageItem>();
+        private List<DS_StorageItem> database_items_display = new List<DS_StorageItem>();
         private List<DS_StorageItem> transaction_items = new List<DS_StorageItem>();
         /*
 		 * Tab transactions
 		 */
         private readonly List<DS_TransactionGrid> transactions_history = new List<DS_TransactionGrid>();
-        private List<DS_TransactionGrid> transactions_history_show = new List<DS_TransactionGrid>();
+        private List<DS_TransactionGrid> transactions_history_display = new List<DS_TransactionGrid>();
         private List<DS_Transaction> retrieve_transactions = new List<DS_Transaction>(); // retrieve  transaction for search.
         /*
 		 * tab information (items, company, consumer)
@@ -87,6 +87,7 @@ namespace storage_managements
             radioButton_storage_all.Checked = true;
             radioButton_transaction_display_all.Checked = true;
             radioButton_transaction_sort_date.Checked = true;
+            radioButton_database_items.Checked = true;
         }
         private void InitialGUILabel()
         {
@@ -147,22 +148,22 @@ namespace storage_managements
         }
         private void MessageOK(string msg = "")
         {
-            Lib_Message.ShowMessagebox(mstr: msg, mbutton: MessageBoxButtons.OK, micon: MessageBoxIcon.Information);
+            Lib_Message.ShowMessageBox(mStr: msg, mbutton: MessageBoxButtons.OK, mIcon: MessageBoxIcon.Information);
         }
         private void MessageFail(string msg = "")
         {
-            Lib_Message.ShowMessagebox(mstr: msg, mbutton: MessageBoxButtons.OK, micon: MessageBoxIcon.Error);
+            Lib_Message.ShowMessageBox(mStr: msg, mbutton: MessageBoxButtons.OK, mIcon: MessageBoxIcon.Error);
         }
         private bool MessageEmptyField()
         {
-            Lib_Message.ShowMessagebox(mstr: Program_Parameters.message_empty_fields, mbutton: MessageBoxButtons.OK,
-                    micon: MessageBoxIcon.Error);
+            Lib_Message.ShowMessageBox(mStr: Program_Parameters.message_empty_fields, mbutton: MessageBoxButtons.OK,
+                    mIcon: MessageBoxIcon.Error);
             return false;
         }
         private bool MessageEmptyItems()
         {
-            Lib_Message.ShowMessagebox(mstr: Program_Parameters.message_empty_items, mbutton: MessageBoxButtons.OK,
-                    micon: MessageBoxIcon.Error);
+            Lib_Message.ShowMessageBox(mStr: Program_Parameters.message_empty_items, mbutton: MessageBoxButtons.OK,
+                    mIcon: MessageBoxIcon.Error);
             return false;
         }
         private bool IsTextboxEmpty(TextBox tb)
@@ -173,7 +174,7 @@ namespace storage_managements
         {
             // read item information
             Lib_Json.ReadDatabaseItem(database_items);
-            Lib_Json.ReadDatabaseItem(pre_transaction_items);
+            Lib_Json.ReadDatabaseItem(database_items_display);
 
             // read storage items
             Lib_Json.ReadStorage(storages);
@@ -392,11 +393,11 @@ namespace storage_managements
         private void DisplayStorage()
         {
             int threshold = int.MaxValue;                          // default threshold, select all items
-            Display_relation relation = Display_relation.lessthan; // default lessthan relation
+            Display_relation relation = Display_relation.lesThan; // default lessthan relation
             if (radioButton_storage_in_storage.Checked)
             {
                 threshold = 0;
-                relation = Display_relation.greaterthan;
+                relation = Display_relation.greaterThan;
             }
             else if (radioButton_storage_out_of_storage.Checked)
             {
@@ -409,7 +410,7 @@ namespace storage_managements
             else if (radioButton_storage_greater_than.Checked)
             {
                 threshold = (int)numeric_threshold.Value - 1;
-                relation = Display_relation.greaterthan;
+                relation = Display_relation.greaterThan;
             }
 
             StorageFilterQuantity(threshold: threshold, relation: relation);
@@ -422,7 +423,7 @@ namespace storage_managements
         }
         private void DisplayPreTransactionItems()
         {
-            Lib_DataGrid.displayGrid(dgv: datagrid_storage_items_info, items: pre_transaction_items);
+            Lib_DataGrid.displayGrid(dgv: datagrid_storage_items_info, items: database_items_display);
         }
         private void DatagridDisplayGoingTransaction()
         {
@@ -490,51 +491,57 @@ namespace storage_managements
                 }
             }
         }
+        /*
+        * search mode:
+        * 0 : no search
+        * 1 : search by ID
+        * 2 : search by Name
+        */
         private void TransactionsFilter(direction dir = direction.none, string filter_key = "",
-            bool searchenable = false, bool filter_none = false)
+            int searchMode = 0, bool filter_none = false)
         {
             string dir_str = TransactionDirection2String(dir);
-            transactions_history_show.Clear();
+            transactions_history_display.Clear();
             foreach (DS_TransactionGrid item in transactions_history)
             {
-                bool filter_result = item.item_ID.Contains(filter_key) ||
-                    item.item_name.Contains(filter_key) ||
-                    (item.taxID != null && item.taxID.Contains(filter_key));
-                if (item.transaction_direction == dir_str || filter_none || (searchenable && filter_result))
+                bool searchResult = (searchMode == 1 && item.item_ID.ToLower().Contains(filter_key.ToLower())) ||
+                                    (searchMode == 2 && item.company_name.ToLower().Contains(filter_key.ToLower())) ||
+                                    (searchMode == 1 && item.taxID != null && item.taxID.ToLower().Contains(filter_key.ToLower()));
+                if (item.transaction_direction == dir_str || filter_none || searchResult)
                 {
-                    transactions_history_show.Add(item);
+                    transactions_history_display.Add(item);
                 }
             }
             if (radioButton_transaction_sort_date.Checked)
             {
-                transactions_history_show = transactions_history_show.OrderByDescending(th => th.transaction_time).ToList();
+                transactions_history_display = transactions_history_display.OrderByDescending(th => th.transaction_time).ToList();
             }
             else if (radioButton_transaction_sort_company.Checked)
             {
-                transactions_history_show = transactions_history_show.OrderBy(th => th.company_name).ToList();
+                transactions_history_display = transactions_history_display.OrderBy(th => th.company_name).ToList();
             }
             else if (radioButton_transaction_sort_itemID.Checked)
             {
-                transactions_history_show = transactions_history_show.OrderBy(th => th.item_ID).ToList();
+                transactions_history_display = transactions_history_display.OrderBy(th => th.item_ID).ToList();
             }
             else if (radioButton_transaction_sort_taxID.Checked)
             {
-                transactions_history_show = transactions_history_show.OrderBy(th => th.taxID).ToList();
+                transactions_history_display = transactions_history_display.OrderBy(th => th.taxID).ToList();
             }
         }
 
         private void StorageFilterQuantity(int threshold = int.MaxValue,
-            Display_relation relation = Display_relation.lessthan)
+            Display_relation relation = Display_relation.lesThan)
         {
             storages_display.Clear();
             foreach (DS_StorageItem item in storages)
             {
                 bool insert = false;
-                if (relation == Display_relation.lessthan)
+                if (relation == Display_relation.lesThan)
                 {
                     insert = item.quantity <= threshold;
                 }
-                else if (relation == Display_relation.greaterthan)
+                else if (relation == Display_relation.greaterThan)
                 {
                     insert = item.quantity > threshold;
                 }
@@ -562,11 +569,11 @@ namespace storage_managements
         }
         private void DatagridDisplayConsumers()
         {
-            Lib_DataGrid.displayCompany(dgv: datagrid_information, items: consumers, company: 1);
+            Lib_DataGrid.displayCompany(dgv: datagrid_information, items: consumers, displayMode: 1);
         }
         private void DatagridDisplayTransactions()
         {
-            Lib_DataGrid.displayTransactions(dgv: dataGrid_transaction, items: transactions_history_show);
+            Lib_DataGrid.displayTransactions(dgv: dataGrid_transaction, items: transactions_history_display);
 
         }
         private void DatagridClearTransactions()
@@ -616,37 +623,39 @@ namespace storage_managements
             }
             return returnItems;
         }
-        private void DatabaseItemFilter(string filter_key, int searchmode=0)
+        /*
+        * search mode:
+        * 0 : no search
+        * 1 : search by ID
+        * 2 : search by Name
+        */
+        private void DatabaseItemSearch(string searchKey, int searchMode = 0)
         {
-            if(filter_key.Trim().Count() == 0 )
+            if (searchKey.Trim().Count() == 0)
             {
-                pre_transaction_items.Clear();
-                foreach (DS_StorageItem item in database_items)
-                {
-                    pre_transaction_items.Add(item);
-                }
+                database_items_display.Clear();
+                // deep copy from database_items to pre_transaction_items
+                database_items_display = new List<DS_StorageItem>(database_items);
             }
             else
             {
-                List<DS_StorageItem> tickeditem = GetTickedItems();
+                List<DS_StorageItem> tickedItems = GetTickedItems();
                 foreach (DS_StorageItem item in database_items)
                 {
-                    bool found = (searchmode == 0 && item.ID.Contains(filter_key)) ||
-                        (searchmode != 0 && item.name.Contains(filter_key));
+                    bool found = (searchMode == 1 && item.ID.ToLower().Contains(searchKey.ToLower())) ||
+                        (searchMode == 2 && item.name.ToLower().Contains(searchKey.ToLower()));
                     if (found)
                     {
-                        int idx = Lib_List.GetIdxDatabaseItemByID(ID: item.ID, items: tickeditem);
+                        int idx = Lib_List.GetIdxDatabaseItemByID(ID: item.ID, items: tickedItems);
                         if (idx == -1)
                         {
-                            tickeditem.Add(item);
+                            tickedItems.Add(item);
                         }
                     }
                 }
-                pre_transaction_items.Clear();
-                foreach (DS_StorageItem item in tickeditem)
-                {
-                    pre_transaction_items.Add(item);
-                }
+                database_items_display.Clear();
+                // deep copy from database_items to tickeditem
+                database_items_display = new List<DS_StorageItem>(tickedItems);
             }
 
         }
@@ -752,17 +761,17 @@ namespace storage_managements
 
         }
 
-        private void radioButton2_CheckedChanged(object sender, EventArgs e)
+        private void radioButton_database_company_CheckedChanged(object sender, EventArgs e)
         {
             DatagridDisplayCompanies();
         }
 
-        private void radioButton_consumer_CheckedChanged(object sender, EventArgs e)
+        private void radioButton_database_consumer_CheckedChanged(object sender, EventArgs e)
         {
             DatagridDisplayConsumers();
         }
 
-        private void radioButton_items_CheckedChanged(object sender, EventArgs e)
+        private void radioButton_database_items_CheckedChanged(object sender, EventArgs e)
         {
             DatagridDisplayItems();
         }
@@ -812,9 +821,9 @@ namespace storage_managements
                 separateByKey = "Sp";
             }
             string filepath = Lib_DateTime.GetpdfPathFromCurrentDate(seperateby: separateByKey);
-            if (transactions_history_show.Count > 0)
+            if (transactions_history_display.Count > 0)
             {
-                Lib_Pdf.CreatePdf(filepath, items: transactions_history_show, separateBy: separateByID);
+                Lib_Pdf.CreatePdf(filepath, items: transactions_history_display, separateBy: separateByID);
                 string resultmgs = string.Format("Xuất file thành công\n{0}", filepath);
                 MessageOK(msg: resultmgs);
             }
@@ -826,20 +835,20 @@ namespace storage_managements
 
         private void textBox_search_name_TextChanged_1(object sender, EventArgs e)
         {
-            string searchkey = textBox_search_name.Text.Trim();
+            string searchKey = textBox_search_name.Text.Trim();
             int tab_active = tab_view.SelectedIndex;
             if (tab_active == 0)
             {
-                DisplayStorageByName(searchkey);
+                DisplayStorageByName(searchKey);
             }
             else if (tab_active == 1)
             {
-                DatabaseItemFilter(filter_key: searchkey);
+                DatabaseItemSearch(searchKey: searchKey, searchMode: 2);
                 DisplayPreTransactionItems();
             }
             else if (tab_active == 2)
             {
-                TransactionsFilter(filter_key: searchkey, searchenable: true);
+                TransactionsFilter(filter_key: searchKey, searchMode: 2);
                 DatagridDisplayTransactions();
             }
             else if (tab_active == 3)
@@ -850,20 +859,21 @@ namespace storage_managements
 
         private void textBox_search_ID_TextChanged_1(object sender, EventArgs e)
         {
-            string searchkey = textbox_search_ID.Text.Trim();
+            string searchKey = textbox_search_ID.Text.Trim();
             int tab_active = tab_view.SelectedIndex;
             if (tab_active == 0)    // storage tab
             {
-                DisplayStorageByID(searchkey);
+                DisplayStorageByID(searchKey);
             }
             else if (tab_active == 1)    // import/export tab
             {
-                DatabaseItemFilter(filter_key: searchkey);
+                DatabaseItemSearch(searchKey: searchKey, searchMode: 1);
                 DisplayPreTransactionItems();
             }
             else if (tab_active == 2)    // transaction history tab
             {
-                display_transactions();
+                TransactionsFilter(filter_key: searchKey, searchMode:1);
+                DatagridDisplayTransactions();
             }
             else if (tab_active == 3)    // database info tab
             {
@@ -871,7 +881,7 @@ namespace storage_managements
             }
         }
 
-        private void display_transactions(string filter_key = "", bool searchenable=false)
+        private void display_transactions()
         {
             // if radioButton_storage_all.Checked  bool filter_none  = true, else false
             bool filter_none = radioButton_transaction_display_all.Checked;
@@ -884,7 +894,7 @@ namespace storage_managements
             {
                 dir = direction.export;
             }
-            TransactionsFilter(dir:dir, filter_key: filter_key, searchenable: searchenable, filter_none: filter_none);
+            TransactionsFilter(filter_none: filter_none, dir:dir);
             DatagridDisplayTransactions();
         }
         private void radioButton_transaction_display_all_CheckedChanged(object sender, EventArgs e)

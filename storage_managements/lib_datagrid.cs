@@ -20,7 +20,22 @@ namespace storage_managements
             };
             dgv.DataSource = source;
             source.ResetBindings(false);
+            //color even rows
+            dgv.AlternatingRowsDefaultCellStyle.BackColor = System.Drawing.Color.LightGray;
             dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            // if item number is less than threshold color red that row
+            /*
+            dgv.CellFormatting += (sender, e) =>
+            {
+                if (e.RowIndex >= 0 && e.ColumnIndex == dgv.Columns["quantity"].Index)
+                {
+                    if (int.TryParse(e.Value?.ToString(), out int quantity) && quantity < Program_Parameters.maxTaxID)
+                    {
+                        e.CellStyle.BackColor = System.Drawing.Color.Red;
+                    }
+                }
+            };
+            */
             renameHeader(dgv: dgv, oldHeader: Program_Parameters.oldHeaderItems,
                                    newHeader: Program_Parameters.newHeaderItems);
         }
@@ -29,9 +44,11 @@ namespace storage_managements
 
         /*
 		 * companies
+         * mode = 0 display company
+         * mode = 1 display consumer
 		 */
 
-        public static void displayCompany(DataGridView dgv, List<DS_Company> items, int company = 0)
+        public static void displayCompany(DataGridView dgv, List<DS_Company> items, int displayMode = 0)
         {
             if (items.Count > 0)
             {
@@ -42,15 +59,15 @@ namespace storage_managements
                 dgv.DataSource = source;
                 source.ResetBindings(false);
                 dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-                if (company == 0) // company
+                if (displayMode == 0) // company
                 {
                     renameHeader(dgv, oldHeader: Program_Parameters.oldHeaderCompany,
                         newHeader: Program_Parameters.newHeaderCompany);
                 }
-                else
+                else    // consumer
                 {
                     renameHeader(dgv, oldHeader: Program_Parameters.oldHeaderCompany,
-                        newHeader: Program_Parameters.newHeaderCompany);
+                        newHeader: Program_Parameters.newHeaderConsumer);
                 }
             }
         }

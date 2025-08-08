@@ -40,8 +40,8 @@ namespace storage_managements
             bool result = true;
             if (idx > -1) // existed one
             {
-                result = Lib_Message.ShowMessagebox(mstr: "Mã đã được dùng.\nVẫn muốn ghi đè?", mbutton: MessageBoxButtons.OKCancel,
-                    micon: MessageBoxIcon.Warning);
+                result = Lib_Message.ShowMessageBox(mStr: "Mã đã được dùng.\nVẫn muốn ghi đè?", mbutton: MessageBoxButtons.OKCancel,
+                    mIcon: MessageBoxIcon.Warning);
             }
             if (result)
             {
@@ -150,7 +150,7 @@ namespace storage_managements
             bool result = false;
             if (idx > -1)
             {
-                result = Lib_Message.ShowMessagebox(mstr: "Trùng mã, vẫn tiếp tục?", micon: System.Windows.Forms.MessageBoxIcon.Question,
+                result = Lib_Message.ShowMessageBox(mStr: "Trùng mã, vẫn tiếp tục?", mIcon: System.Windows.Forms.MessageBoxIcon.Question,
                     mbutton: System.Windows.Forms.MessageBoxButtons.OKCancel);
 
             }

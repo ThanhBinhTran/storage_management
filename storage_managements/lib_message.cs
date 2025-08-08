@@ -4,11 +4,11 @@ namespace storage_managements
 {
     class Lib_Message
     {
-        public static bool ShowMessagebox(string mstr = "message", string mtitle = "Quản lý kho",
-            MessageBoxButtons mbutton = MessageBoxButtons.OKCancel, MessageBoxIcon micon = MessageBoxIcon.None)
+        public static bool ShowMessageBox(string mStr = "message", string mtitle = "Quản lý kho",
+            MessageBoxButtons mbutton = MessageBoxButtons.OKCancel, MessageBoxIcon mIcon = MessageBoxIcon.None)
         {
             // Display a message box with Yes/No buttons
-            DialogResult result = MessageBox.Show(mstr, mtitle, mbutton, micon);
+            DialogResult result = MessageBox.Show(mStr, mtitle, mbutton, mIcon);
             return result == DialogResult.OK;
         }
     }
