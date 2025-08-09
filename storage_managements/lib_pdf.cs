@@ -180,7 +180,7 @@ namespace storage_managements
             }
             else if (separateBy == 3 && taxID != item.taxID)
             {
-                result = string.Format("Mã hóa đơn: {0}", item.taxID);
+                result = string.Format("Số hóa đơn: {0}", item.taxID);
             }
             result += "\n\n";
             return result;

@@ -14,7 +14,7 @@ namespace storage_managements
 */
         // list of storage items
         private readonly List<DS_StorageItem> storages = new List<DS_StorageItem>();
-        private readonly List<DS_StorageItem> storages_display = new List<DS_StorageItem>();
+        private List<DS_StorageItem> storages_display = new List<DS_StorageItem>();
         // list of pre-transaction items
         private List<DS_StorageItem> database_items_display = new List<DS_StorageItem>();
         private List<DS_StorageItem> transaction_items = new List<DS_StorageItem>();
@@ -27,10 +27,12 @@ namespace storage_managements
         /*
 		 * tab information (items, company, consumer)
 		 */
-        // list of consumers and company and tax IDs
-        private readonly List<DS_Company> taxIDs = new List<DS_Company>();
-        private readonly List<DS_Company> consumers = new List<DS_Company>();
-        private readonly List<DS_Company> companies = new List<DS_Company>();
+        // list of database of items, consumers and company and tax IDs
+        private List<DS_StorageItem> databaseItems = new List<DS_StorageItem>();
+        
+        private List<DS_Company> databaseConsumers = new List<DS_Company>();
+        private List<DS_Company> databaseCompanies = new List<DS_Company>();
+        private List<DS_Company> taxIDs = new List<DS_Company>();
 
         /*
          * list  taxIDs  if transaction of export is not equal to import
@@ -41,7 +43,7 @@ namespace storage_managements
         private List<DS_Company> taxIDs_Follow = new List<DS_Company>();
 
         // list of items information
-        private readonly List<DS_StorageItem> database_items = new List<DS_StorageItem>();
+        
 
         // range of history transactions
         private DateTime datetimeFrom;
@@ -77,15 +79,14 @@ namespace storage_managements
 
             InitialGUIComboBox();
             InitialGUIRadioButton();
-            SetSearchDateTimeRange();
             // last step, initial GUI data grid view
             InitialGUIDataGridView();
         }
 
         private void InitialGUIComboBox()
         {
-            Lib_ComboBox.SourceItems_ID(cb: comboBox_company, companies);
-            Lib_ComboBox.SourceItems_ID(cb: comboBox_consumer, consumers);
+            Lib_ComboBox.SourceItems_ID(cb: comboBox_company, databaseCompanies);
+            Lib_ComboBox.SourceItems_ID(cb: comboBox_consumer, databaseConsumers);
             Lib_ComboBox.SourceItems_ID(cb: comboBox_taxID, items: taxIDs);
         }
         private void InitialGUIRadioButton()
@@ -126,7 +127,7 @@ namespace storage_managements
             DisplayDatabaseItems();
 
             // database information tab
-            DatagridDisplayItems();
+            DisplayDatabaseItem();
         }
 
         private void RetrieveTaxIDs()
@@ -136,7 +137,7 @@ namespace storage_managements
             List<String> tempTaxIDs = new List<String>();
             foreach (var item in retrieve_transactions)
             {
-                if (item.taxID != null)
+                if (item.taxID != null && item.taxID != "")
                 {
                     tempTaxIDs.Add(item.taxID);
                 }
@@ -211,16 +212,18 @@ namespace storage_managements
         private void ReadAllInformation()
         {
             // read item information
-            Lib_Json.ReadDatabaseItem(database_items);
+            Lib_Json.ReadDatabaseItem(databaseItems);
             Lib_Json.ReadDatabaseItem(database_items_display);
 
             // read storage items
             Lib_Json.ReadStorage(storages);
 
-            // read company, consumer and tax IDs
-            Lib_Json.ReadCompany(companies);
-            Lib_Json.ReadConsumer(consumers);
+            // read database for company, consumer and tax IDs
+            Lib_Json.ReadCompany(databaseCompanies);
+            Lib_Json.ReadConsumer(databaseConsumers);
             Lib_Json.ReadTaxID(taxIDs);
+            // read transactions
+            SetSearchDateTimeRange();
         }
 
         /* get start and end dates for retrieval transactions */
@@ -241,7 +244,7 @@ namespace storage_managements
         {
             rb.Text = text.Trim();
         }
-        private bool AddDatabaseItem()
+        private bool AddItem()
         {
             InitialGUITextBox();
             bool result1 = IsTextboxEmpty(textbox_new_item_ID);
@@ -255,10 +258,15 @@ namespace storage_managements
             string ID = Lib_FormText.GetTextboxText(textbox_new_item_ID).ToUpper();
             string name = Lib_FormText.GetTextboxText(textbox_new_item_name);
             string unit = Lib_FormText.GetTextboxText(textbox_new_item_unit);
-            bool result = Lib_List.DoAddUpdateDatabaseItem(items: database_items, ID: ID, name: name, unit: unit);
+            bool result = Lib_List.DoAddUpdateDatabaseItem(items: databaseItems, ID: ID, name: name, unit: unit);
             if (result)
             {
-                Lib_Json.WriteDatabaseItem(items: database_items);
+                databaseItems = databaseItems.OrderBy(c => c.ID).ToList();
+                Lib_Json.WriteDatabaseItem(items: databaseItems);
+                // update database_items_display
+                database_items_display.Clear();
+                database_items_display = new List<DS_StorageItem>(databaseItems);
+                DisplayDatabase();
                 return true;
             }
 
@@ -277,10 +285,12 @@ namespace storage_managements
 
             string ID = Lib_FormText.GetTextboxText(textbox_new_company_ID);
             string name = Lib_FormText.GetTextboxText(textbox_new_company_name);
-            bool result = Lib_List.DoAddUpdateCompany(items: companies, ID: ID, name: name);
+            bool result = Lib_List.DoAddUpdateCompany(items: databaseCompanies, ID: ID, name: name);
             if (result)
             {
-                Lib_Json.WriteCompany(items: companies);
+                databaseCompanies = databaseCompanies.OrderBy(c => c.ID).ToList();
+                Lib_Json.WriteCompany(items: databaseCompanies);
+                DisplayDatabase();
             }
             return true;
         }
@@ -296,10 +306,12 @@ namespace storage_managements
 
             string ID = Lib_FormText.GetTextboxText(textbox_new_consumer_ID);
             string name = Lib_FormText.GetTextboxText(textbox_new_consumer_name);
-            bool result = Lib_List.DoAddUpdateCompany(items: consumers, ID: ID, name: name);
+            bool result = Lib_List.DoAddUpdateCompany(items: databaseConsumers, ID: ID, name: name);
             if (result)
             {
-                Lib_Json.WriteConsumer(items: consumers);
+                databaseConsumers = databaseConsumers.OrderBy(c => c.ID).ToList();
+                Lib_Json.WriteConsumer(items: databaseConsumers);
+                DisplayDatabase();
             }
 
             return true;
@@ -334,10 +346,6 @@ namespace storage_managements
             string pre_fix = "";
             InitialGUI();
             if (Lib_FormText.IsTextboxEmpty(tb_name))
-            {
-                return MessageEmptyField();
-            }
-            if (Lib_FormText.IsTextboxEmpty(bt_taxID))
             {
                 return MessageEmptyField();
             }
@@ -380,7 +388,12 @@ namespace storage_managements
             currentTransaction.ID = pre_fix + Lib_DateTime.GetIDByTime();
             currentTransaction.company_name = Lib_FormText.GetTextboxText(tb_name);
             currentTransaction.transaction_time = Lib_DateTime.GetCurrentTime();
-            currentTransaction.taxID = Lib_FormText.GetTextboxText(bt_taxID);
+            if (!Lib_FormText.IsTextboxEmpty(bt_taxID))
+            {
+                currentTransaction.taxID = Lib_FormText.GetTextboxText(bt_taxID);
+                // update tax IDs if a new tax ID is added
+                AddTaxID(textbox_new_taxID: bt_taxID);
+            }
             currentTransaction.print_item();
             // get exist transaction in the same day.
             string file_path = Lib_DateTime.GetTransactionPathFromCurrentDate();
@@ -389,11 +402,10 @@ namespace storage_managements
 
             Lib_Json.WriteTransaction(items: todayTransactions, filepath: file_path);
             Lib_Json.WriteStorage(items: storages);
-            // update tax IDs if a new tax ID is added
-            AddTaxID(textbox_new_taxID: bt_taxID);
-
             // update tab transaction
             RetrieveTransaction();
+            // DisplayPreTransactionItems
+            DisplayPreTransactionItems();
             return true;
         }
 
@@ -410,15 +422,16 @@ namespace storage_managements
                     retrieve_transactions.Add(item);
                 }
                 // sort by descending transaction time
-                retrieve_transactions = retrieve_transactions.OrderByDescending(th => th.transaction_time).ToList();
             }
+            retrieve_transactions = retrieve_transactions.OrderByDescending(th => th.transaction_time).ToList();
             RetrieveTaxIDs();
             TransactionsToGrid();
-            display_transactions();
+            DisplayTransactions();
         }
 
         private void DatagridDisplayStorage()
         {
+            storages_display = storages_display.OrderBy(x => x.ID).ToList();
             Lib_DataGrid.displayStorage(dgv: datagrid_storage, items: storages_display);
         }
 
@@ -460,12 +473,38 @@ namespace storage_managements
             DatagridDisplayStorage();
         }
 
+        private void DisplayDatabase()
+        {
+            if (radioButton_database_items.Checked)
+            {
+                DisplayDatabaseItem();
+            }
+            else if (radioButton_database_company.Checked)
+            {
+                DisplayDatabaseCompany();
+            }
+            else if (radioButton_database_consumer.Checked)
+            {
+                DisplayDatabaseConsumer();
+            }
+        }
+
         private void DisplayDatabaseItems()
         {
-            Lib_DataGrid.displayStorage(dgv: datagrid_storage_items_info, items: database_items);
+            Lib_DataGrid.displayStorage(dgv: datagrid_storage_items_info, items: databaseItems);
         }
         private void DisplayPreTransactionItems()
         {
+            // update quantity for easy viewing
+            // if database_items_display have id in storage, update quantity
+            foreach (DS_StorageItem item in database_items_display)
+            {
+                DS_StorageItem storageItem = storages.FirstOrDefault(x => x.ID == item.ID);
+                if (storageItem != null)
+                {
+                    item.quantity = storageItem.quantity;
+                }
+            }
             Lib_DataGrid.displayStorage(dgv: datagrid_storage_items_info, items: database_items_display);
         }
         private void DatagridDisplayGoingTransaction()
@@ -602,17 +641,17 @@ namespace storage_managements
             }
         }
 
-        private void DatagridDisplayItems()
+        private void DisplayDatabaseItem()
         {
-            Lib_DataGrid.displayStorage(dgv: datagrid_information, items: database_items);
+            Lib_DataGrid.displayStorage(dgv: datagrid_information, items: databaseItems);
         }
-        private void DatagridDisplayCompanies()
+        private void DisplayDatabaseCompany()
         {
-            Lib_DataGrid.displayCompany(dgv: datagrid_information, items: companies);
+            Lib_DataGrid.displayCompany(dgv: datagrid_information, items: databaseCompanies, displayMode: 0);
         }
-        private void DatagridDisplayConsumers()
+        private void DisplayDatabaseConsumer()
         {
-            Lib_DataGrid.displayCompany(dgv: datagrid_information, items: consumers, displayMode: 1);
+            Lib_DataGrid.displayCompany(dgv: datagrid_information, items: databaseConsumers, displayMode: 1);
         }
         private void DatagridDisplayTransactions()
         {
@@ -678,12 +717,12 @@ namespace storage_managements
             {
                 database_items_display.Clear();
                 // deep copy from database_items to pre_transaction_items
-                database_items_display = new List<DS_StorageItem>(database_items);
+                database_items_display = new List<DS_StorageItem>(databaseItems);
             }
             else
             {
                 List<DS_StorageItem> tickedItems = GetTickedItems();
-                foreach (DS_StorageItem item in database_items)
+                foreach (DS_StorageItem item in databaseItems)
                 {
                     bool found = (searchMode == 1 && item.ID.ToLower().Contains(searchKey.ToLower())) ||
                         (searchMode == 2 && item.name.ToLower().Contains(searchKey.ToLower()));
@@ -706,10 +745,22 @@ namespace storage_managements
 
         private void tab_view_SelectedIndexChanged(object sender, EventArgs e)
         {
-            int cur_tab_index = tab_view.SelectedIndex;
-            if (cur_tab_index == 0)
+            int tabActive = tab_view.SelectedIndex;
+            if (tabActive == 0) // storage tab
             {
                 DisplayStorage();
+            }
+            else if (tabActive == 1) // transaction tab
+            {
+                DisplayPreTransactionItems();
+            }
+            else if (tabActive == 2) // transaction history tab
+            {
+                DisplayTransactions();
+            }
+            else if (tabActive == 3) // information tab
+            {
+                DisplayDatabaseItem();
             }
 
         }
@@ -736,13 +787,13 @@ namespace storage_managements
         {
             //textBox_transaction_company.Text = comboBox_company.SelectedItem.ToString();
             int selectedID = comboBox_company.SelectedIndex;
-            textBox_transaction_company.Text = companies[selectedID].name;
+            textBox_transaction_company.Text = databaseCompanies[selectedID].name;
         }
 
         private void comboBox_consumer_SelectedIndexChanged(object sender, EventArgs e)
         {
             int selectedID = comboBox_consumer.SelectedIndex;
-            textBox_transaction_consumer.Text = consumers[selectedID].name;
+            textBox_transaction_consumer.Text = databaseConsumers[selectedID].name;
         }
         private void comboBox_taxID_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -806,17 +857,17 @@ namespace storage_managements
 
         private void radioButton_database_company_CheckedChanged(object sender, EventArgs e)
         {
-            DatagridDisplayCompanies();
+            DisplayDatabase();
         }
 
         private void radioButton_database_consumer_CheckedChanged(object sender, EventArgs e)
         {
-            DatagridDisplayConsumers();
+            DisplayDatabase();
         }
 
         private void radioButton_database_items_CheckedChanged(object sender, EventArgs e)
         {
-            DatagridDisplayItems();
+            DisplayDatabase();
         }
 
         private void dateTimePicker_from_ValueChanged(object sender, EventArgs e)
@@ -831,9 +882,9 @@ namespace storage_managements
 
         private void button_add_goods_Click(object sender, EventArgs e)
         {
-            bool result = AddDatabaseItem();
+            bool result = AddItem();
             MessageResultAddition(result: result);
-            DatagridDisplayItems();
+            DisplayDatabaseItem();
         }
 
         private void button_add_Click(object sender, EventArgs e)
@@ -884,51 +935,43 @@ namespace storage_managements
         {
             string searchKey = textBox_search_name.Text.Trim();
             int tab_active = tab_view.SelectedIndex;
-            if (tab_active == 0)
+            if (tab_active == 0)  // storage tab
             {
                 DisplayStorageByName(searchKey);
             }
-            else if (tab_active == 1)
+            else if (tab_active == 1) // import/export tab
             {
                 DatabaseItemSearch(searchKey: searchKey, searchMode: 2);
                 DisplayPreTransactionItems();
             }
-            else if (tab_active == 2)
+            else if (tab_active == 2) // transaction history tab
             {
                 TransactionsFilter(filter_key: searchKey, searchMode: 2);
                 DatagridDisplayTransactions();
-            }
-            else if (tab_active == 3)
-            {
-                DatagridDisplayItems();
             }
         }
 
         private void textBox_search_ID_TextChanged_1(object sender, EventArgs e)
         {
             string searchKey = textbox_search_ID.Text.Trim();
-            int tab_active = tab_view.SelectedIndex;
-            if (tab_active == 0)    // storage tab
+            int tabActive = tab_view.SelectedIndex;
+            if (tabActive == 0)    // storage tab
             {
                 DisplayStorageByID(searchKey);
             }
-            else if (tab_active == 1)    // import/export tab
+            else if (tabActive == 1)    // import/export tab
             {
                 DatabaseItemSearch(searchKey: searchKey, searchMode: 1);
                 DisplayPreTransactionItems();
             }
-            else if (tab_active == 2)    // transaction history tab
+            else if (tabActive == 2)    // transaction history tab
             {
                 TransactionsFilter(filter_key: searchKey, searchMode:1);
                 DatagridDisplayTransactions();
             }
-            else if (tab_active == 3)    // database info tab
-            {
-                DatagridDisplayItems();
-            }
         }
 
-        private void display_transactions()
+        private void DisplayTransactions()
         {
             // if radioButton_storage_all.Checked  bool filter_none  = true, else false
             bool filter_none = radioButton_transaction_display_all.Checked;
@@ -946,36 +989,36 @@ namespace storage_managements
         }
         private void radioButton_transaction_display_all_CheckedChanged(object sender, EventArgs e)
         {
-            display_transactions();
+            DisplayTransactions();
         }
 
         private void radioButton_transaction_display_import_CheckedChanged(object sender, EventArgs e)
         {
-            display_transactions();
+            DisplayTransactions();
         }
 
         private void radioButton_transaction_display_export_CheckedChanged(object sender, EventArgs e)
         {
-            display_transactions();
+            DisplayTransactions();
         }
 
         private void radioButton_transaction_sort_date_CheckedChanged(object sender, EventArgs e)
         {
-            display_transactions();
+            DisplayTransactions();
         }
 
         private void radioButton_transaction_sort_company_CheckedChanged(object sender, EventArgs e)
         {
-            display_transactions();
+            DisplayTransactions();
         }
 
         private void radioButton_transaction_sort_item_CheckedChanged(object sender, EventArgs e)
         {
-            display_transactions();
+            DisplayTransactions();
         }
         private void radioButton_transaction_sort_taxID_CheckedChanged(object sender, EventArgs e)
         {
-            display_transactions();
+            DisplayTransactions();
         }
         private void button_goto_pdf_folder_Click(object sender, EventArgs e)
         {

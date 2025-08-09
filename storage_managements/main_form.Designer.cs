@@ -262,7 +262,7 @@ namespace storage_managements
             this.tab_storage_info.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tab_storage_info.Size = new System.Drawing.Size(1433, 547);
             this.tab_storage_info.TabIndex = 2;
-            this.tab_storage_info.Text = "Kho";
+            this.tab_storage_info.Text = "Kho          ";
             this.tab_storage_info.UseVisualStyleBackColor = true;
             // clicked on tab_storage_info
             //
@@ -414,10 +414,10 @@ namespace storage_managements
             this.tab_import_export.Location = new System.Drawing.Point(4, 40);
             this.tab_import_export.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tab_import_export.Name = "tab_inport_export";
-            this.tab_import_export.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tab_import_export.Padding = new System.Windows.Forms.Padding(3, 2, 50, 2);
             this.tab_import_export.Size = new System.Drawing.Size(1433, 547);
             this.tab_import_export.TabIndex = 1;
-            this.tab_import_export.Text = "Xuất/nhập hàng";
+            this.tab_import_export.Text = "Xuất/nhập hàng          ";
             this.tab_import_export.UseVisualStyleBackColor = true;
             // 
             // tableLayoutPanel1
@@ -565,7 +565,7 @@ namespace storage_managements
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(105, 46);
             this.label8.TabIndex = 19;
-            this.label8.Text = "Mã h.đơn:";
+            this.label8.Text = "Số h.đơn:";
             // 
             // button_export
             // 
@@ -651,7 +651,8 @@ namespace storage_managements
             this.comboBox_taxID.SelectedIndexChanged += new System.EventHandler(this.comboBox_taxID_SelectedIndexChanged);
             //
             // tab_transaction_history
-            // 
+            //
+            
             this.tab_transaction_history.Controls.Add(this.tableLayoutPanel6);
             this.tab_transaction_history.Location = new System.Drawing.Point(4, 40);
             this.tab_transaction_history.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -659,7 +660,7 @@ namespace storage_managements
             this.tab_transaction_history.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tab_transaction_history.Size = new System.Drawing.Size(1433, 547);
             this.tab_transaction_history.TabIndex = 3;
-            this.tab_transaction_history.Text = "Xem lịch sử";
+            this.tab_transaction_history.Text = "Xem lịch sử giao dịch          ";
             this.tab_transaction_history.UseVisualStyleBackColor = true;
             // 
             // tableLayoutPanel6
@@ -845,7 +846,7 @@ namespace storage_managements
             this.radioButton_transaction_sort_taxID.Size = new System.Drawing.Size(154, 36);
             this.radioButton_transaction_sort_taxID.TabIndex = 1;
             this.radioButton_transaction_sort_taxID.TabStop = true;
-            this.radioButton_transaction_sort_taxID.Text = "Mã h.đơn";
+            this.radioButton_transaction_sort_taxID.Text = "Số h.đơn";
             this.radioButton_transaction_sort_taxID.UseVisualStyleBackColor = true;
             this.radioButton_transaction_sort_taxID.CheckedChanged += new System.EventHandler(this.radioButton_transaction_sort_taxID_CheckedChanged);
             // 
@@ -904,7 +905,7 @@ namespace storage_managements
             // 
             this.dateTimePicker_from.Dock = System.Windows.Forms.DockStyle.Left;
             this.dateTimePicker_from.Name = "dateTimePicker_from";
-            this.dateTimePicker_to.Location = new System.Drawing.Point(72, 0);
+            this.dateTimePicker_from.Location = new System.Drawing.Point(72, 0);
             this.dateTimePicker_from.Size = new System.Drawing.Size(300, 38);
             this.dateTimePicker_from.TabIndex = 0;
             // select the dateTimePicker_from to 7 days ago
@@ -932,6 +933,7 @@ namespace storage_managements
             this.dateTimePicker_to.Name = "dateTimePicker_to";
             this.dateTimePicker_to.Size = new System.Drawing.Size(300, 38);
             this.dateTimePicker_to.TabIndex = 3;
+            this.dateTimePicker_to.Value = DateTime.Now.AddDays(0);
             this.dateTimePicker_to.ValueChanged += new System.EventHandler(this.dateTimePicker_to_ValueChanged);
             //set vietnamese language for dateTimePicker
             this.dateTimePicker_to.CustomFormat = "dd/MM/yyyy";
@@ -947,7 +949,7 @@ namespace storage_managements
             this.tab_database_info.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tab_database_info.Size = new System.Drawing.Size(1433, 547);
             this.tab_database_info.TabIndex = 0;
-            this.tab_database_info.Text = "Thêm/sửa thông tin";
+            this.tab_database_info.Text = "Thêm/sửa thông tin          ";
             this.tab_database_info.UseVisualStyleBackColor = true;
             // 
             // item_layout_L2_top
