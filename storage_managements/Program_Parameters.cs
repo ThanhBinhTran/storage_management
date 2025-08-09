@@ -23,8 +23,15 @@ namespace storage_managements
 
         public const string filename_transaction = @"transaction.json";
 
-        public const int maxTaxID = 30;
+        /*
+        * transaction messages
+        */ 
+        public const string message_successful_transaction =  "Giao dịch thành công";
+        public const string message_failed_transaction =  "Giao dịch KHÔNG thành công!";
+        public const string message_successful_add =  "Thêm thành công";
+        public const string message_failed_add =  "Thêm CHƯA thành công";
         public const string message_empty_fields = "Thiếu thông tin\nĐiền vào phần tô đậm";
+        public const int maxTaxID = 30;
         public const string message_empty_items = "Thiếu sản phẩm\nChọn sản phẩm giao dịch";
 
         public static List<string> oldHeaderItems = new List<string> { "ID", "name", "quantity", "unit" };
@@ -37,8 +44,8 @@ namespace storage_managements
         public static List<string> oldHeaderTransaction = new List<string> {"transaction_direction", "company_name", "item_ID", "item_name", "item_quantity", "item_unit", "transaction_time", "taxID" };
         public static List<string> newHeaderTransaction = new List<string> {"Nhập/Xuất", "C.ty/Khách", "Mã sản phẩm", "Tên sản phẩm", "Số lượng", "Quy cách", "Thời gian", "Mã hóa đơn" };
 
-        public static List<string> pdfHeader = new List<string> { "Thời gian", "Mã hóa đơn", "Công ty/Khách hàng", "G.dịch", "Sản phẩm", "Số lượng", "Quy cách" };
-        public static float[] pdfTableWidths = new float[] { 15f, 15f, 26f, 8f, 17f, 8f, 8f };
+        public static List<string> pdfHeader = new List<string> { "Thời gian", "Mã hóa đơn", "Công ty/khách hàng", "Giao dịch", "Sản phẩm", "Số lượng", "Quy cách" };
+        public static float[] pdfTableWidths = new float[] { 15f, 15f, 26f, 9f, 16f, 8f, 8f };
         /* create path for program if non exist*/
         public static void Create_paths()
         {

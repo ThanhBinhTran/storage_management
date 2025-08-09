@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace storage_managements
@@ -12,7 +13,7 @@ namespace storage_managements
                 dgv.Columns[oldHeader[i]].HeaderText = newHeader[i];
             }
         }
-        public static void displayGrid(DataGridView dgv, List<DS_StorageItem> items)
+        public static void displayStorage(DataGridView dgv, List<DS_StorageItem> items)
         {
             BindingSource source = new BindingSource
             {
@@ -23,24 +24,9 @@ namespace storage_managements
             //color even rows
             dgv.AlternatingRowsDefaultCellStyle.BackColor = System.Drawing.Color.LightGray;
             dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            // if item number is less than threshold color red that row
-            /*
-            dgv.CellFormatting += (sender, e) =>
-            {
-                if (e.RowIndex >= 0 && e.ColumnIndex == dgv.Columns["quantity"].Index)
-                {
-                    if (int.TryParse(e.Value?.ToString(), out int quantity) && quantity < Program_Parameters.maxTaxID)
-                    {
-                        e.CellStyle.BackColor = System.Drawing.Color.Red;
-                    }
-                }
-            };
-            */
             renameHeader(dgv: dgv, oldHeader: Program_Parameters.oldHeaderItems,
                                    newHeader: Program_Parameters.newHeaderItems);
         }
-
-
 
         /*
 		 * companies
@@ -72,7 +58,7 @@ namespace storage_managements
             }
         }
 
-        public static void displayTransactions(DataGridView dgv, List<DS_TransactionGrid> items)
+        public static void displayTransactions(DataGridView dgv, List<DS_TransactionGrid> items, List<DS_Company> taxIDs)
         {
             BindingSource source = new BindingSource
             {
@@ -80,7 +66,33 @@ namespace storage_managements
             };
             dgv.DataSource = source;
             source.ResetBindings(false);
+
             dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            // highlight cell if taxID is inside taxIDs.ID
+            // light yellow if taxIDs.name is '+'
+            // light green if taxIDs.name is '-'
+            dgv.CellFormatting += (sender, e) =>
+            {
+                if (e.RowIndex >= 0 && e.ColumnIndex == dgv.Columns["taxID"].Index)
+                {
+                    if (e.Value != null && taxIDs != null)
+                    {
+                        var taxID = taxIDs.Where(x => x.ID == e.Value.ToString()).FirstOrDefault();
+                        if (taxID != null)
+                        {
+                            if (taxID.name == "+")
+                            {
+                                e.CellStyle.BackColor = System.Drawing.Color.LightCoral;
+                            }
+                            else if (taxID.name == "-")
+                            {
+                                e.CellStyle.BackColor = System.Drawing.Color.LightYellow;
+                            }
+                        }
+                    }
+
+                }
+            };
             renameHeader(dgv: dgv, oldHeader: Program_Parameters.oldHeaderTransaction,
                                         newHeader: Program_Parameters.newHeaderTransaction);
         }

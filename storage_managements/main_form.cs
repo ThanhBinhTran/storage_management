@@ -32,6 +32,14 @@ namespace storage_managements
         private readonly List<DS_Company> consumers = new List<DS_Company>();
         private readonly List<DS_Company> companies = new List<DS_Company>();
 
+        /*
+         * list  taxIDs  if transaction of export is not equal to import
+         * attribute name = '+' if import  is greater than export
+         * attribute name = '-' if export is greater than import
+         * reuse DS_Company to implement this feature
+        */
+        private List<DS_Company> taxIDs_Follow = new List<DS_Company>();
+
         // list of items information
         private readonly List<DS_StorageItem> database_items = new List<DS_StorageItem>();
 
@@ -49,7 +57,7 @@ namespace storage_managements
             InitialGUI();
         }
 
-        /* 
+        /*
 		 * DEFINE FUNCTIONS
 		 */
         /* initial program */
@@ -60,9 +68,6 @@ namespace storage_managements
 
             // read all information (storage, item, companies, consumers)
             ReadAllInformation();
-
-            SetSearchDateTimeRange();
-
         }
         /* GUI */
         private void InitialGUI()
@@ -72,6 +77,7 @@ namespace storage_managements
 
             InitialGUIComboBox();
             InitialGUIRadioButton();
+            SetSearchDateTimeRange();
             // last step, initial GUI data grid view
             InitialGUIDataGridView();
         }
@@ -123,27 +129,59 @@ namespace storage_managements
             DatagridDisplayItems();
         }
 
+        private void RetrieveTaxIDs()
+        {
+            // get all taxIDs in retrieve_transactions list ignore null values and storage in list of string
+            taxIDs_Follow.Clear();
+            List<String> tempTaxIDs = new List<String>();
+            foreach (var item in retrieve_transactions)
+            {
+                if (item.taxID != null)
+                {
+                    tempTaxIDs.Add(item.taxID);
+                }
+            }
+            // remove duplicated tempTaxIDs then store back
+            tempTaxIDs = tempTaxIDs.Distinct().ToList();
+            // for each tax ID in tempTaxIDs, calculate all quantities of export and import of each items
+            // if got negative result , show message and stop
+            foreach (var taxID in tempTaxIDs)
+            {
+                var exportQuantity = retrieve_transactions.Where(x => x.taxID == taxID && x.transaction_direction == direction.export).Sum(x => x.transaction_items.Sum(y => y.quantity));
+                var importQuantity = retrieve_transactions.Where(x => x.taxID == taxID && x.transaction_direction == direction.import).Sum(x => x.transaction_items.Sum(y => y.quantity));
+                // sign is - if export > import
+                // sign is + if export < import
+                // sign is '' if export = import
+                String sign = exportQuantity == importQuantity ? "" : exportQuantity < importQuantity ? "+" : "-";
+                taxIDs_Follow.Add(new DS_Company
+                {
+                    ID = taxID,
+                    name = sign,
+                });
+            }
+        }
+
         private void MessageResultTransaction(bool result)
         {
             if (result)
             {
-                MessageOK(msg: "Giao dịch thành công!");
+                MessageOK(msg: Program_Parameters.message_successful_transaction);
                 DatagridClearTransactions();
             }
             else
             {
-                MessageFail(msg: "Giao dịch KHÔNG thành công!");
+                MessageFail(msg: Program_Parameters.message_failed_transaction);
             }
         }
         private void MessageResultAddition(bool result)
         {
             if (result)
             {
-                MessageOK(msg: "Thêm thành công");
+                MessageOK(msg: Program_Parameters.message_successful_add);
             }
             else
             {
-                MessageFail(msg: "Thêm CHƯA thành công");
+                MessageFail(msg: Program_Parameters.message_failed_add);
             }
         }
         private void MessageOK(string msg = "")
@@ -307,8 +345,8 @@ namespace storage_managements
             {
                 return MessageEmptyItems();
             }
-            List<DS_Transaction> inday_transactions = new List<DS_Transaction>();
-            DS_Transaction cur_transaction = new DS_Transaction();
+            List<DS_Transaction> todayTransactions = new List<DS_Transaction>();
+            DS_Transaction currentTransaction = new DS_Transaction();
             List<DS_StorageItem> transaction_items = new List<DS_StorageItem>();
             foreach (DS_StorageItem item in this.transaction_items)
             {
@@ -328,7 +366,7 @@ namespace storage_managements
                 Lib_List.DoAddUpdateStorageItem(items: storages, ID: ID, name: name,
                         unit: unit, quantity: quantity, dir: dir);
             }
-            cur_transaction.transaction_direction = dir;
+            currentTransaction.transaction_direction = dir;
             if (dir == direction.import)
             {
                 pre_fix = "N";
@@ -338,21 +376,24 @@ namespace storage_managements
             {
                 pre_fix = "X";
             }
-            cur_transaction.transaction_items = transaction_items;
-            cur_transaction.ID = pre_fix + Lib_DateTime.GetIDByTime();
-            cur_transaction.company_name = Lib_FormText.GetTextboxText(tb_name);
-            cur_transaction.transaction_time = Lib_DateTime.GetCurrentTime();
-            cur_transaction.taxID = Lib_FormText.GetTextboxText(bt_taxID);
-            cur_transaction.print_item();
+            currentTransaction.transaction_items = transaction_items;
+            currentTransaction.ID = pre_fix + Lib_DateTime.GetIDByTime();
+            currentTransaction.company_name = Lib_FormText.GetTextboxText(tb_name);
+            currentTransaction.transaction_time = Lib_DateTime.GetCurrentTime();
+            currentTransaction.taxID = Lib_FormText.GetTextboxText(bt_taxID);
+            currentTransaction.print_item();
             // get exist transaction in the same day.
             string file_path = Lib_DateTime.GetTransactionPathFromCurrentDate();
-            Lib_Json.ReadTransactions(items: inday_transactions, filepath: file_path);
-            inday_transactions.Add(cur_transaction);
+            Lib_Json.ReadTransactions(items: todayTransactions, filepath: file_path);
+            todayTransactions.Add(currentTransaction);
 
-            Lib_Json.WriteTransaction(items: inday_transactions, filepath: file_path);
+            Lib_Json.WriteTransaction(items: todayTransactions, filepath: file_path);
             Lib_Json.WriteStorage(items: storages);
             // update tax IDs if a new tax ID is added
             AddTaxID(textbox_new_taxID: bt_taxID);
+
+            // update tab transaction
+            RetrieveTransaction();
             return true;
         }
 
@@ -371,12 +412,14 @@ namespace storage_managements
                 // sort by descending transaction time
                 retrieve_transactions = retrieve_transactions.OrderByDescending(th => th.transaction_time).ToList();
             }
-            Transactionstogrid();
+            RetrieveTaxIDs();
+            TransactionsToGrid();
+            display_transactions();
         }
 
         private void DatagridDisplayStorage()
         {
-            Lib_DataGrid.displayGrid(dgv: datagrid_storage, items: storages_display);
+            Lib_DataGrid.displayStorage(dgv: datagrid_storage, items: storages_display);
         }
 
         private void DisplayStorageByID(string ID)
@@ -419,15 +462,15 @@ namespace storage_managements
 
         private void DisplayDatabaseItems()
         {
-            Lib_DataGrid.displayGrid(dgv: datagrid_storage_items_info, items: database_items);
+            Lib_DataGrid.displayStorage(dgv: datagrid_storage_items_info, items: database_items);
         }
         private void DisplayPreTransactionItems()
         {
-            Lib_DataGrid.displayGrid(dgv: datagrid_storage_items_info, items: database_items_display);
+            Lib_DataGrid.displayStorage(dgv: datagrid_storage_items_info, items: database_items_display);
         }
         private void DatagridDisplayGoingTransaction()
         {
-            Lib_DataGrid.displayGrid(dgv: datagrid_storage_transaction, items: transaction_items);
+            Lib_DataGrid.displayStorage(dgv: datagrid_storage_transaction, items: transaction_items);
         }
 
         private void StorageItemsFilterID(string ID)
@@ -468,7 +511,7 @@ namespace storage_managements
             }
         }
 
-        private void Transactionstogrid()
+        private void TransactionsToGrid()
         {
             transactions_history.Clear();
             foreach (DS_Transaction transitem in retrieve_transactions)
@@ -561,7 +604,7 @@ namespace storage_managements
 
         private void DatagridDisplayItems()
         {
-            Lib_DataGrid.displayGrid(dgv: datagrid_information, items: database_items);
+            Lib_DataGrid.displayStorage(dgv: datagrid_information, items: database_items);
         }
         private void DatagridDisplayCompanies()
         {
@@ -573,7 +616,7 @@ namespace storage_managements
         }
         private void DatagridDisplayTransactions()
         {
-            Lib_DataGrid.displayTransactions(dgv: dataGrid_transaction, items: transactions_history_display);
+            Lib_DataGrid.displayTransactions(dgv: dataGrid_transaction, items: transactions_history_display, taxIDs: taxIDs_Follow);
 
         }
         private void DatagridClearTransactions()
@@ -672,13 +715,13 @@ namespace storage_managements
         }
 
 
-        private void button5_Click(object sender, EventArgs e)
+        private void button_export_Click(object sender, EventArgs e)
         {
             bool result = DoTransaction(dir: direction.export, tb_name: textBox_transaction_consumer, bt_taxID: textBox_transaction_taxID);
             MessageResultTransaction(result: result);
         }
 
-        private void button4_Click(object sender, EventArgs e)
+        private void button_import_Click(object sender, EventArgs e)
         {
             bool result = DoTransaction(dir: direction.import, tb_name: textBox_transaction_company, bt_taxID: textBox_transaction_taxID);
             MessageResultTransaction(result: result);
@@ -798,32 +841,36 @@ namespace storage_managements
             transaction_items.Clear();
             transaction_items = GetTickedItems();
             DatagridDisplayGoingTransaction();
-
         }
 
         private void button_export_pdf_Click(object sender, EventArgs e)
         {
             int separateByID = 0;
             string separateByKey = "Ngay";
-            if (radioButton_transaction_sort_date.Checked)
+            if (radioButton_transaction_sort_date.Checked)          // transaction data time
             {
                 separateByID = 0;
                 separateByKey = "Ngay";
             }
-            else if (radioButton_transaction_sort_company.Checked)
+            else if (radioButton_transaction_sort_company.Checked)  // company name
             {
                 separateByID = 1;
-                separateByKey = "Cty";
+                separateByKey = "CongTy";
             }
-            else if (radioButton_transaction_sort_itemID.Checked)
+            else if (radioButton_transaction_sort_itemID.Checked)   // sort by items ID
             {
                 separateByID = 2;
-                separateByKey = "Sp";
+                separateByKey = "SanPham";
+            }
+            else if (radioButton_transaction_sort_taxID.Checked)    // sort by tax ID
+            {
+                separateByID = 3;
+                separateByKey = "MaHoaDon";
             }
             string filepath = Lib_DateTime.GetpdfPathFromCurrentDate(seperateby: separateByKey);
             if (transactions_history_display.Count > 0)
             {
-                Lib_Pdf.CreatePdf(filepath, items: transactions_history_display, separateBy: separateByID);
+                Lib_Pdf.CreatePdf(filepath, items: transactions_history_display, taxIDs: taxIDs_Follow, separateBy: separateByID);
                 string resultmgs = string.Format("Xuất file thành công\n{0}", filepath);
                 MessageOK(msg: resultmgs);
             }

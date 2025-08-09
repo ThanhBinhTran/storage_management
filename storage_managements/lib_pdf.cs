@@ -3,21 +3,37 @@ using iTextSharp.text.pdf;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Windows.Forms;
 
 namespace storage_managements
 {
+    /// <summary>
+    /// Provides PDF generation utilities for transaction data.
+    /// </summary>
     class Lib_Pdf
     {
+        // Base font for PDF content
         private static readonly BaseFont baseFont = BaseFont.CreateFont("c:/windows/fonts/Arial.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+        // Default font style
         private static readonly Font font = new Font(baseFont, 12);
+        // List of tax IDs used for coloring table cells
+        private static List<DS_Company> pdfTaxIDs;
 
-        public static void CreatePdf(string filePath, List<DS_TransactionGrid> items, int separateBy = 0)
+        /// <summary>
+        /// Creates a PDF file with transaction data.
+        /// </summary>
+        /// <param name="filePath">Output PDF file path</param>
+        /// <param name="items">Transaction items to display</param>
+        /// <param name="taxIDs">Tax IDs for coloring</param>
+        /// <param name="separateBy">Grouping mode (0: date, 1: company, 2: item, 3: taxID)</param>
+        public static void CreatePdf(string filePath, List<DS_TransactionGrid> items, List<DS_Company> taxIDs, int separateBy = 0)
         {
+            // Read PDF configuration or use defaults
             DS_Configuration pdfConfig = Lib_Json.ReadProgramConfiguration();
+            pdfTaxIDs = taxIDs != null ? new List<DS_Company>(taxIDs) : null;
             if (pdfConfig is null)
             {
-                pdfConfig = new DS_Configuration() {
+                pdfConfig = new DS_Configuration()
+                {
                     page_top = 25,
                     page_bottom = 25,
                     page_left = 20,
@@ -25,29 +41,33 @@ namespace storage_managements
                     pdfTableWidths = Program_Parameters.pdfTableWidths,
                 };
             }
-            // Create a document object landscape page
-            // Set the page size to A4
+
+            // Create a landscape A4 document
             var document = new Document(PageSize.A4.Rotate(), pdfConfig.page_left, pdfConfig.page_right,
                 pdfConfig.page_top, pdfConfig.page_bottom);
-            // set document landscape page
 
-            // Create a writer that listens to the document
+            // Create a writer for the document
             PdfWriter.GetInstance(document, new FileStream(filePath, FileMode.Create));
 
-            // Open the document for writing
+            // Open and start the document
             document.Open();
-            // Add a new page to the document
             document.NewPage();
 
+            // Add print date as title
             string docTitle = string.Format("In ngày: {0}", Lib_DateTime.GetDateTime(DateTime.Now));
             DocumentAddParagraph(doc: document, str: docTitle);
-            // Add the table to the document
+
+            // Add transaction tables
             DocumentAddTables(doc: document, transItems: items, separateBy: separateBy, pdfPage: pdfConfig);
 
             // Close the document
             document.Close();
         }
-        private static PdfPTable CreatePdfTableHeader(float [] tableWidth)
+
+        /// <summary>
+        /// Creates the header row for the PDF table.
+        /// </summary>
+        private static PdfPTable CreatePdfTableHeader(float[] tableWidth)
         {
             int headCount = Program_Parameters.pdfHeader.Count;
             if (headCount <= 0)
@@ -58,91 +78,152 @@ namespace storage_managements
             {
                 WidthPercentage = 100
             };
-            // Set the relative widths of the table
             table.SetWidths(tableWidth);
-            // headers field
+
+            // Add header cells
             foreach (string itemStr in Program_Parameters.pdfHeader)
             {
-                table.AddCell(new Paragraph(itemStr, font));
+                AddCellToTable(table, itemStr);
             }
             return table;
         }
 
+        /// <summary>
+        /// Creates a table cell with optional background color and alignment.
+        /// </summary>
+        private static PdfPCell CreatePdfTableCell(string text, BaseColor bgColor = null, int alignment = Element.ALIGN_LEFT)
+        {
+            PdfPCell cell = new PdfPCell(new Phrase(text, font));
+            cell.HorizontalAlignment = alignment;
+            cell.VerticalAlignment = Element.ALIGN_MIDDLE;
+            if (bgColor != null)
+            {
+                cell.BackgroundColor = bgColor;
+            }
+            return cell;
+        }
+
+        /// <summary>
+        /// Adds a cell to the specified table.
+        /// </summary>
+        private static void AddCellToTable(PdfPTable table, string text, BaseColor bgColor = null, int alignment = Element.ALIGN_LEFT)
+        {
+            PdfPCell cell = CreatePdfTableCell(text, bgColor, alignment);
+            table.AddCell(cell);
+        }
+
+        /// <summary>
+        /// Creates a row for the PDF table based on a transaction item.
+        /// </summary>
         private static PdfPTable CreatePdfTableRow(DS_TransactionGrid item, float[] tableWidth)
         {
             PdfPTable table = new PdfPTable(7)
             {
                 WidthPercentage = 100
             };
-            // Set the relative widths of the table
             table.SetWidths(tableWidth);
+
+            // Add transaction time
             string time = Lib_DateTime.GetDateTime(item.transaction_time);
-            string direction = item.transaction_direction;
-            string taxID = item.taxID;
-            if (Lib_FormText.IsStringEmpty(taxID))
+            AddCellToTable(table, time);
+
+            // Color taxID cell if it matches a special company
+            var pdfTaxID = pdfTaxIDs?.Find(x => x.ID == item.taxID);
+            if (pdfTaxID != null)
             {
-                taxID = "Không có";
+                if (pdfTaxID.name == "+")
+                {
+                    // Light coral
+                    AddCellToTable(table, item.taxID, bgColor: new BaseColor(255, 182, 193));
+                }
+                else if (pdfTaxID.name == "-")
+                {
+                    // Light yellow
+                    AddCellToTable(table, item.taxID, bgColor: new BaseColor(255, 255, 224));
+                }
+                else
+                {
+                    AddCellToTable(table, item.taxID);
+                }
             }
-            string company_name = item.company_name;
-            string item_name = item.item_name;
-            string item_quantity = item.item_quantity.ToString();
-            string item_unit = item.item_unit;
-            //"Thời gian", "Mã Hóa đơn", "công ty/khách", "Giao dịch", "Sản Phẩm", "Số Lượng", "Quy cách"
-            table.AddCell(new Paragraph(time, font));
-            table.AddCell(new Paragraph(item.taxID, font));
-            table.AddCell(new Paragraph(company_name, font));
-            table.AddCell(new Paragraph(direction, font));
-            table.AddCell(new Paragraph(item_name, font));
-            PdfPCell quantity = new PdfPCell(new Phrase(item_quantity));
-            quantity.HorizontalAlignment = Element.ALIGN_RIGHT;
-            table.AddCell(quantity);
-            table.AddCell(new Paragraph(item_unit, font));
+            else
+            {
+                AddCellToTable(table, item.taxID);
+            }
+
+            // Add remaining columns
+            AddCellToTable(table, item.company_name);
+            AddCellToTable(table, item.transaction_direction);
+            AddCellToTable(table, item.item_name);
+            AddCellToTable(table, item.item_quantity.ToString(), alignment: Element.ALIGN_RIGHT);
+            AddCellToTable(table, item.item_unit);
             return table;
         }
 
-        private static string IsSeparated(string company, string item_name, DateTime transDate, DS_TransactionGrid item, int separateBy = 0)
+        /// <summary>
+        /// Determines if a new group should be started in the PDF (date/company/item/taxID).
+        /// </summary>
+        private static string IsSeparated(string company, string itemName, string taxID, DateTime transDate, DS_TransactionGrid item, int separateBy = 0)
         {
             string result = "";
             if (separateBy == 0 && transDate.Date != item.transaction_time.Date) // date
             {
                 result = string.Format("Ngày: {0}", Lib_DateTime.GetDateOnly(item.transaction_time.Date));
             }
-            else if (separateBy == 1 && company != item.company_name) // date
+            else if (separateBy == 1 && company != item.company_name) // company
             {
                 result = string.Format("Công ty/Khách hàng: {0}", item.company_name);
             }
-            else if (separateBy == 2 && item_name != item.item_name) // item name
+            else if (separateBy == 2 && itemName != item.item_name) // item name
             {
                 result = string.Format("Sản phẩm: {0}", item.item_name);
+            }
+            else if (separateBy == 3 && taxID != item.taxID)
+            {
+                result = string.Format("Mã hóa đơn: {0}", item.taxID);
             }
             result += "\n\n";
             return result;
         }
+
+        /// <summary>
+        /// Adds tables of transaction data to the PDF document, grouping as specified.
+        /// </summary>
         private static void DocumentAddTables(Document doc,
             List<DS_TransactionGrid> transItems, DS_Configuration pdfPage, int separateBy = 0)
         {
-            // separate by 0 (date), 1 (company), 2 (món hàng)
-            string company_name = "";
+            // Track current group values
+            string companyName = "";
             DateTime transactionDate = new DateTime();
-            string item_name = "";
+            string itemName = "";
+            string taxID = "";
 
             foreach (DS_TransactionGrid item in transItems)
             {
-                string textSeparate = IsSeparated(company: company_name, item_name: item_name,
-                    transDate: transactionDate, item: item, separateBy: separateBy);
+                // Check if a new group should start
+                string textSeparate = IsSeparated(company: companyName, itemName: itemName,
+                    taxID: taxID, transDate: transactionDate, item: item, separateBy: separateBy);
                 if (!Lib_FormText.IsStringEmpty(textSeparate))
                 {
-                    company_name = item.company_name;
-                    item_name = item.item_name;
+                    // Update group values
+                    companyName = item.company_name;
+                    itemName = item.item_name;
                     transactionDate = item.transaction_time;
+                    taxID = item.taxID;
+                    // Add group header
                     DocumentAddParagraph(doc: doc, str: textSeparate);
-                    PdfPTable tableHeader = CreatePdfTableHeader(tableWidth:pdfPage.pdfTableWidths);
+                    PdfPTable tableHeader = CreatePdfTableHeader(tableWidth: pdfPage.pdfTableWidths);
                     doc.Add(tableHeader);
                 }
+                // Add transaction row
                 PdfPTable tableRow = CreatePdfTableRow(item: item, tableWidth: pdfPage.pdfTableWidths);
                 doc.Add(tableRow);
             }
         }
+
+        /// <summary>
+        /// Adds a paragraph to the PDF document.
+        /// </summary>
         private static void DocumentAddParagraph(Document doc, string str, int alignment = Element.ALIGN_LEFT)
         {
             Paragraph paragraphText = new Paragraph(str, font)

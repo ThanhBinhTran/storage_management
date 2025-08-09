@@ -577,7 +577,7 @@ namespace storage_managements
             this.button_export.TabIndex = 18;
             this.button_export.Text = "Xuất";
             this.button_export.UseVisualStyleBackColor = true;
-            this.button_export.Click += new System.EventHandler(this.button5_Click);
+            this.button_export.Click += new System.EventHandler(this.button_export_Click);
             // 
             // button_import
             // 
@@ -589,7 +589,7 @@ namespace storage_managements
             this.button_import.TabIndex = 17;
             this.button_import.Text = "Nhập";
             this.button_import.UseVisualStyleBackColor = true;
-            this.button_import.Click += new System.EventHandler(this.button4_Click);
+            this.button_import.Click += new System.EventHandler(this.button_import_Click);
             // 
             // label12
             // 
