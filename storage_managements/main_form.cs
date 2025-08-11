@@ -765,7 +765,20 @@ namespace storage_managements
 
         }
 
-
+        private void button_storage_pdf_Click(object sender, EventArgs e)
+        {
+            string filepath = Lib_DateTime.GetPdfStoragePathFromCurrentDate();
+            if (transactions_history_display.Count > 0)
+            {
+                Lib_Pdf.CreateStoragePdf(filepath, items: storages);
+                string resultmgs = string.Format("Xuất file thành công\n{0}", filepath);
+                MessageOK(msg: resultmgs);
+            }
+            else
+            {
+                MessageOK(msg: "Chọn dữ liệu để xuất file!");
+            }
+        }
         private void button_export_Click(object sender, EventArgs e)
         {
             bool result = DoTransaction(dir: direction.export, tb_name: textBox_transaction_consumer, bt_taxID: textBox_transaction_taxID);
@@ -918,10 +931,10 @@ namespace storage_managements
                 separateByID = 3;
                 separateByKey = "MaHoaDon";
             }
-            string filepath = Lib_DateTime.GetpdfPathFromCurrentDate(seperateby: separateByKey);
+            string filepath = Lib_DateTime.GetPdfTransactionPathFromCurrentDate(seperateby: separateByKey);
             if (transactions_history_display.Count > 0)
             {
-                Lib_Pdf.CreatePdf(filepath, items: transactions_history_display, taxIDs: taxIDs_Follow, separateBy: separateByID);
+                Lib_Pdf.CreateTransactionPdf(filepath, items: transactions_history_display, taxIDs: taxIDs_Follow, separateBy: separateByID);
                 string resultmgs = string.Format("Xuất file thành công\n{0}", filepath);
                 MessageOK(msg: resultmgs);
             }

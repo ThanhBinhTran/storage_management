@@ -25,7 +25,7 @@ namespace storage_managements
         /// <param name="items">Transaction items to display</param>
         /// <param name="taxIDs">Tax IDs for coloring</param>
         /// <param name="separateBy">Grouping mode (0: date, 1: company, 2: item, 3: taxID)</param>
-        public static void CreatePdf(string filePath, List<DS_TransactionGrid> items, List<DS_Company> taxIDs, int separateBy = 0)
+        public static void CreateTransactionPdf(string filePath, List<DS_TransactionGrid> items, List<DS_Company> taxIDs, int separateBy = 0)
         {
             // Read PDF configuration or use defaults
             DS_Configuration pdfConfig = Lib_Json.ReadProgramConfiguration();
@@ -38,7 +38,7 @@ namespace storage_managements
                     page_bottom = 25,
                     page_left = 20,
                     page_right = 20,
-                    pdfTableWidths = Program_Parameters.pdfTableWidths,
+                    pdfTableWidths = Program_Parameters.pdfTransactionTableWidths,
                 };
             }
 
@@ -58,7 +58,45 @@ namespace storage_managements
             DocumentAddParagraph(doc: document, str: docTitle);
 
             // Add transaction tables
-            DocumentAddTables(doc: document, transItems: items, separateBy: separateBy, pdfPage: pdfConfig);
+            DocumentAddTransactionTables(doc: document, transItems: items, separateBy: separateBy, pdfPage: pdfConfig);
+
+            // Close the document
+            document.Close();
+        }
+
+        public static void CreateStoragePdf(string filePath, List<DS_StorageItem> items)
+        {
+            // Read PDF configuration or use defaults
+            DS_Configuration pdfConfig = Lib_Json.ReadProgramConfiguration();
+            if (pdfConfig is null)
+            {
+                pdfConfig = new DS_Configuration()
+                {
+                    page_top = 25,
+                    page_bottom = 25,
+                    page_left = 20,
+                    page_right = 20,
+                    pdfTableWidths = Program_Parameters.pdfStorageTableWidths,
+                };
+            }
+
+            // Create a landscape A4 document
+            var document = new Document(PageSize.A4, pdfConfig.page_left, pdfConfig.page_right,
+                pdfConfig.page_top, pdfConfig.page_bottom);
+
+            // Create a writer for the document
+            PdfWriter.GetInstance(document, new FileStream(filePath, FileMode.Create));
+
+            // Open and start the document
+            document.Open();
+            document.NewPage();
+
+            // Add print date as title
+            string docTitle = string.Format("In ngày: {0}", Lib_DateTime.GetDateTime(DateTime.Now));
+            DocumentAddParagraph(doc: document, str: docTitle);
+
+            // Add transaction tables
+            DocumentAddStorageTables(doc: document, storageItems: items, pdfPage: pdfConfig);
 
             // Close the document
             document.Close();
@@ -67,9 +105,9 @@ namespace storage_managements
         /// <summary>
         /// Creates the header row for the PDF table.
         /// </summary>
-        private static PdfPTable CreatePdfTableHeader(float[] tableWidth)
+        private static PdfPTable CreatePdfTableHeader(float[] tableWidth,  List<string> pdfHeader)
         {
-            int headCount = Program_Parameters.pdfHeader.Count;
+            int headCount = pdfHeader.Count;
             if (headCount <= 0)
             {
                 return null;
@@ -81,7 +119,7 @@ namespace storage_managements
             table.SetWidths(tableWidth);
 
             // Add header cells
-            foreach (string itemStr in Program_Parameters.pdfHeader)
+            foreach (string itemStr in pdfHeader)
             {
                 AddCellToTable(table, itemStr);
             }
@@ -115,9 +153,10 @@ namespace storage_managements
         /// <summary>
         /// Creates a row for the PDF table based on a transaction item.
         /// </summary>
-        private static PdfPTable CreatePdfTableRow(DS_TransactionGrid item, float[] tableWidth)
+        private static PdfPTable CreatePdfTransactionTableRow(DS_TransactionGrid item, float[] tableWidth)
         {
-            PdfPTable table = new PdfPTable(7)
+            int headCount = tableWidth.Length;
+            PdfPTable table = new PdfPTable(headCount)
             {
                 WidthPercentage = 100
             };
@@ -160,6 +199,22 @@ namespace storage_managements
             return table;
         }
 
+        private static PdfPTable CreatePdfStorageTableRow(DS_StorageItem item, float[] tableWidth)
+        {
+            int headCount = tableWidth.Length;
+            PdfPTable table = new PdfPTable(headCount)
+            {
+                WidthPercentage = 100
+            };
+            table.SetWidths(tableWidth);
+
+            // Add remaining columns
+            AddCellToTable(table, item.ID);
+            AddCellToTable(table, item.name);
+            AddCellToTable(table, item.quantity.ToString(), alignment: Element.ALIGN_RIGHT);
+            AddCellToTable(table, item.unit);
+            return table;
+        }
         /// <summary>
         /// Determines if a new group should be started in the PDF (date/company/item/taxID).
         /// </summary>
@@ -189,7 +244,7 @@ namespace storage_managements
         /// <summary>
         /// Adds tables of transaction data to the PDF document, grouping as specified.
         /// </summary>
-        private static void DocumentAddTables(Document doc,
+        private static void DocumentAddTransactionTables(Document doc,
             List<DS_TransactionGrid> transItems, DS_Configuration pdfPage, int separateBy = 0)
         {
             // Track current group values
@@ -212,15 +267,28 @@ namespace storage_managements
                     taxID = item.taxID;
                     // Add group header
                     DocumentAddParagraph(doc: doc, str: textSeparate);
-                    PdfPTable tableHeader = CreatePdfTableHeader(tableWidth: pdfPage.pdfTableWidths);
+                    PdfPTable tableHeader = CreatePdfTableHeader(tableWidth: pdfPage.pdfTableWidths, pdfHeader: Program_Parameters.pdfTransactionHeader);
                     doc.Add(tableHeader);
                 }
                 // Add transaction row
-                PdfPTable tableRow = CreatePdfTableRow(item: item, tableWidth: pdfPage.pdfTableWidths);
+                PdfPTable tableRow = CreatePdfTransactionTableRow(item: item, tableWidth: pdfPage.pdfTableWidths);
                 doc.Add(tableRow);
             }
         }
 
+private static void DocumentAddStorageTables(Document doc,
+            List<DS_StorageItem> storageItems, DS_Configuration pdfPage, int separateBy = 0)
+        {
+            // create header row
+            PdfPTable tableHeader = CreatePdfTableHeader(tableWidth: pdfPage.pdfTableWidths, pdfHeader: Program_Parameters.newHeaderItems);
+            doc.Add(tableHeader);
+            
+            foreach (DS_StorageItem item in storageItems)
+            {
+                PdfPTable tableRow = CreatePdfStorageTableRow(item: item, tableWidth: pdfPage.pdfTableWidths);
+                doc.Add(tableRow);
+            }
+        }
         /// <summary>
         /// Adds a paragraph to the PDF document.
         /// </summary>

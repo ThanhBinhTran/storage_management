@@ -63,9 +63,14 @@ namespace storage_managements
 
         }
 
-        public static string GetpdfPathFromCurrentDate(string seperateby = "")
+        public static string GetPdfTransactionPathFromCurrentDate(string seperateby = "")
         {
             string pdf_filename = string.Format("{0}_{1}", GetIDByDateTime(), seperateby);
+            return string.Format(@"{0}{1}.pdf", Program_Parameters.pdfPath, pdf_filename);
+        }
+        public static string GetPdfStoragePathFromCurrentDate()
+        {
+            string pdf_filename = string.Format("Kho_{0}", GetIDByDateTime());
             return string.Format(@"{0}{1}.pdf", Program_Parameters.pdfPath, pdf_filename);
         }
     }

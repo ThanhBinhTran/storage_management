@@ -107,7 +107,7 @@ namespace storage_managements
             int idx = Lib_List.GetIdxStorageID(ID: ID, items: items);
             if (idx == -1) // new one
             {
-                Lib_List.AddStorageItem(items: items, ID: ID, name: name, unit: unit, quantity: quantity);
+                Lib_List.AddStorageItem(items: items, ID: ID, name: name, unit: unit, quantity: quantity * in_out);
             }
             else // update existed item
             {
