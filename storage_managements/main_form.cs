@@ -773,6 +773,7 @@ namespace storage_managements
                 Lib_Pdf.CreateStoragePdf(filepath, items: storages);
                 string resultmgs = string.Format("Xuất file thành công\n{0}", filepath);
                 MessageOK(msg: resultmgs);
+                Lib_FileDialog.OpenPdfFolder();
             }
             else
             {
@@ -937,6 +938,7 @@ namespace storage_managements
                 Lib_Pdf.CreateTransactionPdf(filepath, items: transactions_history_display, taxIDs: taxIDs_Follow, separateBy: separateByID);
                 string resultmgs = string.Format("Xuất file thành công\n{0}", filepath);
                 MessageOK(msg: resultmgs);
+                Lib_FileDialog.OpenPdfFolder();
             }
             else
             {

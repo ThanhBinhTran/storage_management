@@ -402,7 +402,7 @@ namespace storage_managements
             0,
             0});
             this.numeric_threshold.Name = "numeric_threshold";
-            this.numeric_threshold.Size = new System.Drawing.Size(150, 30);
+            this.numeric_threshold.Size = new System.Drawing.Size(150, 37);
             this.numeric_threshold.TabIndex = 20;
             this.numeric_threshold.Value = new decimal(new int[] {
             5,
@@ -413,7 +413,6 @@ namespace storage_managements
             // 
             // radioButton_all
             // 
-            // color radioButton_storage_all in blue
             this.radioButton_storage_all.AutoSize = true;
             this.radioButton_storage_all.Dock = System.Windows.Forms.DockStyle.Fill;
             this.radioButton_storage_all.Location = new System.Drawing.Point(3, 33);
@@ -453,7 +452,7 @@ namespace storage_managements
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 150F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1427, 543);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1433, 543);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // datagrid_storage_items_info
@@ -470,7 +469,7 @@ namespace storage_managements
             this.datagrid_storage_items_info.Name = "datagrid_storage_items_info";
             this.datagrid_storage_items_info.RowHeadersWidth = 51;
             this.datagrid_storage_items_info.RowTemplate.Height = 24;
-            this.datagrid_storage_items_info.Size = new System.Drawing.Size(1421, 217);
+            this.datagrid_storage_items_info.Size = new System.Drawing.Size(1433, 217);
             this.datagrid_storage_items_info.TabIndex = 1;
             // 
             // storage_item_select
@@ -493,7 +492,7 @@ namespace storage_managements
             this.datagrid_storage_transaction.Name = "datagrid_storage_transaction";
             this.datagrid_storage_transaction.RowHeadersWidth = 51;
             this.datagrid_storage_transaction.RowTemplate.Height = 24;
-            this.datagrid_storage_transaction.Size = new System.Drawing.Size(1421, 217);
+            this.datagrid_storage_transaction.Size = new System.Drawing.Size(1433, 217);
             this.datagrid_storage_transaction.TabIndex = 2;
             // 
             // tableLayoutPanel4
@@ -742,7 +741,7 @@ namespace storage_managements
             this.button_storage_pdf.Location = new System.Drawing.Point(1250, 3);
             this.button_storage_pdf.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button_storage_pdf.Name = "button_storage_pdf";
-            this.button_storage_pdf.Size = new System.Drawing.Size(120, 43);
+            this.button_storage_pdf.Size = new System.Drawing.Size(120, 37);
             this.button_storage_pdf.TabIndex = 21;
             this.button_storage_pdf.Text = "In kho";
             this.button_storage_pdf.UseVisualStyleBackColor = true;
@@ -750,17 +749,16 @@ namespace storage_managements
             // 
             // TableLayoutPanel9
             // 
-            //color light blue table
-            this.TableLayoutPanel9.BackColor = System.Drawing.Color.LightBlue;
             this.TableLayoutPanel9.ColumnCount = 3;
             this.TableLayoutPanel9.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.TableLayoutPanel9.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 150F));
-            this.TableLayoutPanel9.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 120F));
+            this.TableLayoutPanel9.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 156F));
+            this.TableLayoutPanel9.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 126F));
             this.TableLayoutPanel9.Controls.Add(this.flowLayoutPanel4, 0, 0);
             this.TableLayoutPanel9.Controls.Add(this.numeric_threshold, 1, 0);
             this.TableLayoutPanel9.Controls.Add(this.button_storage_pdf, 2, 0);
             this.TableLayoutPanel9.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TableLayoutPanel9.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.TableLayoutPanel9.Size = new System.Drawing.Size(1421, 41);
             this.TableLayoutPanel9.Name = "TableLayoutPanel9";
             this.TableLayoutPanel9.RowCount = 1;
             this.TableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));

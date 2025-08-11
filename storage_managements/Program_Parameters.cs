@@ -46,7 +46,7 @@ namespace storage_managements
 
         public static List<string> pdfTransactionHeader = new List<string> { "Thời gian", "Số hóa đơn", "Công ty/khách hàng", "Giao dịch", "Sản phẩm", "Số lượng", "Quy cách" };
         public static float[] pdfTransactionTableWidths = new float[] { 15f, 15f, 26f, 9f, 16f, 8f, 8f };
-        public static float[] pdfStorageTableWidths = new float[] { 25f, 25f, 25f, 25f};
+        public static float[] pdfStorageTableWidths = new float[] { 15f, 55f, 15f, 15f};
         /* create path for program if non exist*/
         public static void Create_paths()
         {

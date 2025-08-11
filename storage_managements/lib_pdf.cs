@@ -92,7 +92,7 @@ namespace storage_managements
             document.NewPage();
 
             // Add print date as title
-            string docTitle = string.Format("In ngày: {0}", Lib_DateTime.GetDateTime(DateTime.Now));
+            string docTitle = string.Format("In ngày: {0}\n\n", Lib_DateTime.GetDateTime(DateTime.Now));
             DocumentAddParagraph(doc: document, str: docTitle);
 
             // Add transaction tables
@@ -105,7 +105,7 @@ namespace storage_managements
         /// <summary>
         /// Creates the header row for the PDF table.
         /// </summary>
-        private static PdfPTable CreatePdfTableHeader(float[] tableWidth,  List<string> pdfHeader)
+        private static PdfPTable CreatePdfTableHeader(float[] tableWidth, List<string> pdfHeader)
         {
             int headCount = pdfHeader.Count;
             if (headCount <= 0)
@@ -276,13 +276,13 @@ namespace storage_managements
             }
         }
 
-private static void DocumentAddStorageTables(Document doc,
-            List<DS_StorageItem> storageItems, DS_Configuration pdfPage, int separateBy = 0)
+        private static void DocumentAddStorageTables(Document doc,
+                    List<DS_StorageItem> storageItems, DS_Configuration pdfPage, int separateBy = 0)
         {
             // create header row
             PdfPTable tableHeader = CreatePdfTableHeader(tableWidth: pdfPage.pdfTableWidths, pdfHeader: Program_Parameters.newHeaderItems);
             doc.Add(tableHeader);
-            
+
             foreach (DS_StorageItem item in storageItems)
             {
                 PdfPTable tableRow = CreatePdfStorageTableRow(item: item, tableWidth: pdfPage.pdfTableWidths);
