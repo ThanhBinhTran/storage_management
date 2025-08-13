@@ -184,7 +184,6 @@ namespace storage_managements
             this.flowLayoutPanel3.Controls.Add(this.textBox_search_name);
             this.flowLayoutPanel3.Controls.Add(this.button_add);
             this.flowLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowLayoutPanel3.Font = new System.Drawing.Font("Tahoma", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.flowLayoutPanel3.Location = new System.Drawing.Point(3, 2);
             this.flowLayoutPanel3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.flowLayoutPanel3.Name = "flowLayoutPanel3";
@@ -194,7 +193,7 @@ namespace storage_managements
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Tahoma", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Font = new System.Drawing.Font("Tahoma", 16.2F);
             this.label6.Location = new System.Drawing.Point(3, 0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(119, 34);
@@ -305,8 +304,8 @@ namespace storage_managements
             // 
             this.TableLayoutPanel9.ColumnCount = 3;
             this.TableLayoutPanel9.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.TableLayoutPanel9.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 156F));
-            this.TableLayoutPanel9.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 126F));
+            this.TableLayoutPanel9.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 150F));
+            this.TableLayoutPanel9.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 130F));
             this.TableLayoutPanel9.Controls.Add(this.flowLayoutPanel4, 0, 0);
             this.TableLayoutPanel9.Controls.Add(this.numeric_threshold, 1, 0);
             this.TableLayoutPanel9.Controls.Add(this.button_storage_pdf, 2, 0);
@@ -332,7 +331,7 @@ namespace storage_managements
             this.flowLayoutPanel4.Location = new System.Drawing.Point(3, 2);
             this.flowLayoutPanel4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.flowLayoutPanel4.Name = "flowLayoutPanel4";
-            this.flowLayoutPanel4.Size = new System.Drawing.Size(1133, 37);
+            this.flowLayoutPanel4.Size = new System.Drawing.Size(1135, 37);
             this.flowLayoutPanel4.TabIndex = 0;
             // 
             // label14
@@ -341,15 +340,15 @@ namespace storage_managements
             this.label14.Dock = System.Windows.Forms.DockStyle.Left;
             this.label14.Location = new System.Drawing.Point(3, 0);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(61, 37);
+            this.label14.Size = new System.Drawing.Size(114, 37);
             this.label14.TabIndex = 19;
-            this.label14.Text = "Kho:";
+            this.label14.Text = "Xem kho:";
             // 
             // radioButton_storage_all
             // 
             this.radioButton_storage_all.AutoSize = true;
             this.radioButton_storage_all.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.radioButton_storage_all.Location = new System.Drawing.Point(70, 2);
+            this.radioButton_storage_all.Location = new System.Drawing.Point(123, 2);
             this.radioButton_storage_all.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.radioButton_storage_all.Name = "radioButton_storage_all";
             this.radioButton_storage_all.Size = new System.Drawing.Size(101, 33);
@@ -363,7 +362,7 @@ namespace storage_managements
             // 
             this.radioButton_storage_in_storage.AutoSize = true;
             this.radioButton_storage_in_storage.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.radioButton_storage_in_storage.Location = new System.Drawing.Point(177, 2);
+            this.radioButton_storage_in_storage.Location = new System.Drawing.Point(230, 2);
             this.radioButton_storage_in_storage.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.radioButton_storage_in_storage.Name = "radioButton_storage_in_storage";
             this.radioButton_storage_in_storage.Size = new System.Drawing.Size(197, 33);
@@ -377,7 +376,7 @@ namespace storage_managements
             // 
             this.radioButton_storage_out_of_storage.AutoSize = true;
             this.radioButton_storage_out_of_storage.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.radioButton_storage_out_of_storage.Location = new System.Drawing.Point(380, 2);
+            this.radioButton_storage_out_of_storage.Location = new System.Drawing.Point(433, 2);
             this.radioButton_storage_out_of_storage.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.radioButton_storage_out_of_storage.Name = "radioButton_storage_out_of_storage";
             this.radioButton_storage_out_of_storage.Size = new System.Drawing.Size(103, 33);
@@ -391,7 +390,7 @@ namespace storage_managements
             // 
             this.radioButton_storage_less_than.AutoSize = true;
             this.radioButton_storage_less_than.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.radioButton_storage_less_than.Location = new System.Drawing.Point(489, 2);
+            this.radioButton_storage_less_than.Location = new System.Drawing.Point(542, 2);
             this.radioButton_storage_less_than.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.radioButton_storage_less_than.Name = "radioButton_storage_less_than";
             this.radioButton_storage_less_than.Size = new System.Drawing.Size(158, 33);
@@ -405,7 +404,7 @@ namespace storage_managements
             // 
             this.radioButton_storage_greater_than.AutoSize = true;
             this.radioButton_storage_greater_than.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.radioButton_storage_greater_than.Location = new System.Drawing.Point(653, 2);
+            this.radioButton_storage_greater_than.Location = new System.Drawing.Point(706, 2);
             this.radioButton_storage_greater_than.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.radioButton_storage_greater_than.Name = "radioButton_storage_greater_than";
             this.radioButton_storage_greater_than.Size = new System.Drawing.Size(202, 33);
@@ -418,7 +417,7 @@ namespace storage_managements
             // numeric_threshold
             // 
             this.numeric_threshold.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.numeric_threshold.Location = new System.Drawing.Point(1142, 2);
+            this.numeric_threshold.Location = new System.Drawing.Point(1144, 2);
             this.numeric_threshold.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.numeric_threshold.Maximum = new decimal(new int[] {
             1410065408,
@@ -426,7 +425,7 @@ namespace storage_managements
             0,
             0});
             this.numeric_threshold.Name = "numeric_threshold";
-            this.numeric_threshold.Size = new System.Drawing.Size(150, 38);
+            this.numeric_threshold.Size = new System.Drawing.Size(144, 38);
             this.numeric_threshold.TabIndex = 20;
             this.numeric_threshold.Value = new decimal(new int[] {
             5,
@@ -438,10 +437,10 @@ namespace storage_managements
             // button_storage_pdf
             // 
             this.button_storage_pdf.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button_storage_pdf.Location = new System.Drawing.Point(1298, 2);
+            this.button_storage_pdf.Location = new System.Drawing.Point(1294, 2);
             this.button_storage_pdf.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button_storage_pdf.Name = "button_storage_pdf";
-            this.button_storage_pdf.Size = new System.Drawing.Size(120, 37);
+            this.button_storage_pdf.Size = new System.Drawing.Size(124, 37);
             this.button_storage_pdf.TabIndex = 21;
             this.button_storage_pdf.Text = "In kho";
             this.button_storage_pdf.UseVisualStyleBackColor = true;
@@ -461,12 +460,14 @@ namespace storage_managements
             // 
             // tableLayoutPanel1
             // 
+            this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tableLayoutPanel1.ColumnCount = 1;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.Controls.Add(this.datagrid_storage_items_info, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.datagrid_storage_transaction, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel4, 0, 2);
-            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 2);
             this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -474,7 +475,7 @@ namespace storage_managements
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 150F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1380, 543);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1430, 543);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // datagrid_storage_items_info
@@ -491,7 +492,7 @@ namespace storage_managements
             this.datagrid_storage_items_info.Name = "datagrid_storage_items_info";
             this.datagrid_storage_items_info.RowHeadersWidth = 51;
             this.datagrid_storage_items_info.RowTemplate.Height = 24;
-            this.datagrid_storage_items_info.Size = new System.Drawing.Size(1374, 192);
+            this.datagrid_storage_items_info.Size = new System.Drawing.Size(1424, 192);
             this.datagrid_storage_items_info.TabIndex = 1;
             // 
             // storage_item_select
@@ -514,7 +515,7 @@ namespace storage_managements
             this.datagrid_storage_transaction.Name = "datagrid_storage_transaction";
             this.datagrid_storage_transaction.RowHeadersWidth = 51;
             this.datagrid_storage_transaction.RowTemplate.Height = 24;
-            this.datagrid_storage_transaction.Size = new System.Drawing.Size(1374, 192);
+            this.datagrid_storage_transaction.Size = new System.Drawing.Size(1424, 192);
             this.datagrid_storage_transaction.TabIndex = 2;
             // 
             // tableLayoutPanel4
@@ -530,13 +531,13 @@ namespace storage_managements
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
             this.tableLayoutPanel4.RowCount = 1;
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(1374, 147);
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(1424, 147);
             this.tableLayoutPanel4.TabIndex = 4;
             // 
             // button_clear_transaction_table
             // 
             this.button_clear_transaction_table.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button_clear_transaction_table.Location = new System.Drawing.Point(1254, 2);
+            this.button_clear_transaction_table.Location = new System.Drawing.Point(1304, 2);
             this.button_clear_transaction_table.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button_clear_transaction_table.Name = "button_clear_transaction_table";
             this.button_clear_transaction_table.Size = new System.Drawing.Size(117, 143);
@@ -572,7 +573,7 @@ namespace storage_managements
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.3F));
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.3F));
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.3F));
-            this.tableLayoutPanel5.Size = new System.Drawing.Size(1245, 143);
+            this.tableLayoutPanel5.Size = new System.Drawing.Size(1295, 143);
             this.tableLayoutPanel5.TabIndex = 20;
             // 
             // label11
@@ -602,13 +603,13 @@ namespace storage_managements
             this.textBox_transaction_company.Location = new System.Drawing.Point(473, 2);
             this.textBox_transaction_company.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBox_transaction_company.Name = "textBox_transaction_company";
-            this.textBox_transaction_company.Size = new System.Drawing.Size(619, 38);
+            this.textBox_transaction_company.Size = new System.Drawing.Size(669, 38);
             this.textBox_transaction_company.TabIndex = 21;
             // 
             // button_import
             // 
             this.button_import.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button_import.Location = new System.Drawing.Point(1098, 2);
+            this.button_import.Location = new System.Drawing.Point(1148, 2);
             this.button_import.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button_import.Name = "button_import";
             this.button_import.Size = new System.Drawing.Size(144, 43);
@@ -644,13 +645,13 @@ namespace storage_managements
             this.textBox_transaction_consumer.Location = new System.Drawing.Point(473, 49);
             this.textBox_transaction_consumer.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBox_transaction_consumer.Name = "textBox_transaction_consumer";
-            this.textBox_transaction_consumer.Size = new System.Drawing.Size(619, 38);
+            this.textBox_transaction_consumer.Size = new System.Drawing.Size(669, 38);
             this.textBox_transaction_consumer.TabIndex = 22;
             // 
             // button_export
             // 
             this.button_export.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button_export.Location = new System.Drawing.Point(1098, 49);
+            this.button_export.Location = new System.Drawing.Point(1148, 49);
             this.button_export.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button_export.Name = "button_export";
             this.button_export.Size = new System.Drawing.Size(144, 43);
@@ -686,7 +687,7 @@ namespace storage_managements
             this.textBox_transaction_taxID.Location = new System.Drawing.Point(473, 96);
             this.textBox_transaction_taxID.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBox_transaction_taxID.Name = "textBox_transaction_taxID";
-            this.textBox_transaction_taxID.Size = new System.Drawing.Size(619, 38);
+            this.textBox_transaction_taxID.Size = new System.Drawing.Size(669, 38);
             this.textBox_transaction_taxID.TabIndex = 25;
             // 
             // tab_transaction_history

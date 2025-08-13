@@ -6,9 +6,7 @@ using System.IO;
 
 namespace storage_managements
 {
-    /// <summary>
     /// Provides PDF generation utilities for transaction data.
-    /// </summary>
     class Lib_Pdf
     {
         // Base font for PDF content
@@ -18,9 +16,7 @@ namespace storage_managements
         // List of tax IDs used for coloring table cells
         private static List<DS_Company> pdfTaxIDs;
 
-        /// <summary>
         /// Creates a PDF file with transaction data.
-        /// </summary>
         /// <param name="filePath">Output PDF file path</param>
         /// <param name="items">Transaction items to display</param>
         /// <param name="taxIDs">Tax IDs for coloring</param>
@@ -102,9 +98,7 @@ namespace storage_managements
             document.Close();
         }
 
-        /// <summary>
         /// Creates the header row for the PDF table.
-        /// </summary>
         private static PdfPTable CreatePdfTableHeader(float[] tableWidth, List<string> pdfHeader)
         {
             int headCount = pdfHeader.Count;
@@ -126,9 +120,7 @@ namespace storage_managements
             return table;
         }
 
-        /// <summary>
         /// Creates a table cell with optional background color and alignment.
-        /// </summary>
         private static PdfPCell CreatePdfTableCell(string text, BaseColor bgColor = null, int alignment = Element.ALIGN_LEFT)
         {
             PdfPCell cell = new PdfPCell(new Phrase(text, font));
@@ -141,18 +133,14 @@ namespace storage_managements
             return cell;
         }
 
-        /// <summary>
         /// Adds a cell to the specified table.
-        /// </summary>
         private static void AddCellToTable(PdfPTable table, string text, BaseColor bgColor = null, int alignment = Element.ALIGN_LEFT)
         {
             PdfPCell cell = CreatePdfTableCell(text, bgColor, alignment);
             table.AddCell(cell);
         }
 
-        /// <summary>
         /// Creates a row for the PDF table based on a transaction item.
-        /// </summary>
         private static PdfPTable CreatePdfTransactionTableRow(DS_TransactionGrid item, float[] tableWidth)
         {
             int headCount = tableWidth.Length;
@@ -215,9 +203,7 @@ namespace storage_managements
             AddCellToTable(table, item.unit);
             return table;
         }
-        /// <summary>
         /// Determines if a new group should be started in the PDF (date/company/item/taxID).
-        /// </summary>
         private static string IsSeparated(string company, string itemName, string taxID, DateTime transDate, DS_TransactionGrid item, int separateBy = 0)
         {
             string result = "";
@@ -241,9 +227,7 @@ namespace storage_managements
             return result;
         }
 
-        /// <summary>
         /// Adds tables of transaction data to the PDF document, grouping as specified.
-        /// </summary>
         private static void DocumentAddTransactionTables(Document doc,
             List<DS_TransactionGrid> transItems, DS_Configuration pdfPage, int separateBy = 0)
         {
@@ -289,9 +273,7 @@ namespace storage_managements
                 doc.Add(tableRow);
             }
         }
-        /// <summary>
         /// Adds a paragraph to the PDF document.
-        /// </summary>
         private static void DocumentAddParagraph(Document doc, string str, int alignment = Element.ALIGN_LEFT)
         {
             Paragraph paragraphText = new Paragraph(str, font)
