@@ -270,7 +270,7 @@ namespace storage_managements
                 return true;
             }
 
-            return true;
+            return false;
         }
 
         private bool AddCompany()
@@ -291,8 +291,9 @@ namespace storage_managements
                 databaseCompanies = databaseCompanies.OrderBy(c => c.ID).ToList();
                 Lib_Json.WriteCompany(items: databaseCompanies);
                 DisplayDatabase();
+                return true;
             }
-            return true;
+            return false;
         }
         private bool AddConsumer()
         {
@@ -312,9 +313,10 @@ namespace storage_managements
                 databaseConsumers = databaseConsumers.OrderBy(c => c.ID).ToList();
                 Lib_Json.WriteConsumer(items: databaseConsumers);
                 DisplayDatabase();
+                return true;
             }
 
-            return true;
+            return false;
         }
 
         private bool AddTaxID(TextBox textbox_new_taxID)
@@ -760,7 +762,7 @@ namespace storage_managements
             }
             else if (tabActive == 3) // information tab
             {
-                DisplayDatabaseItem();
+                DisplayDatabase();
             }
 
         }

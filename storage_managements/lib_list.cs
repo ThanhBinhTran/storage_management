@@ -25,40 +25,34 @@ namespace storage_managements
         }
         public static int GetIdxDatabaseItemByID(string ID, List<DS_StorageItem> items)
         {
-            for (int i = 0; i < items.Count; i++)
-            {
-                if (items[i].ID == ID)
-                {
-                    return i;
-                }
-            }
-            return -1;
+            return items.FindIndex(item => item.ID == ID);
         }
         public static bool DoAddUpdateDatabaseItem(List<DS_StorageItem> items, string ID, string name, string unit)
         {
-            int idx = Lib_List.GetIdxDatabaseItemByID(ID: ID, items: items);
-            bool result = true;
+            int idx = Lib_List.GetIdxDatabaseItemByID(ID, items);
+
             if (idx > -1) // existed one
             {
-                result = Lib_Message.ShowMessageBox(mStr: "Mã đã được dùng.\nVẫn muốn ghi đè?", mbutton: MessageBoxButtons.OKCancel,
-                    mIcon: MessageBoxIcon.Warning);
+                bool confirm = Lib_Message.ShowMessageBox(
+                    mStr: "Mã đã được dùng.\nVẫn muốn ghi đè?",
+                    mbutton: MessageBoxButtons.OKCancel,
+                    mIcon: MessageBoxIcon.Warning
+                );
+
+                if (!confirm)
+                    return false;
             }
-            if (result)
+
+            if (idx == -1) // new one
             {
-                if (idx == -1) // new one
-                {
-                    Lib_List.AddDatabaseItem(items: items, ID: ID, name: name, unit: unit);
-                }
-                else // update existed item
-                {
-                    Lib_List.UpdateDatabaseItemByIdx(items: items, ID: ID, name: name, unit: unit, idx: idx);
-                }
-                return true;
+                Lib_List.AddDatabaseItem(items, ID, name, unit);
             }
-            else
+            else // update existed item
             {
-                return false;
+                Lib_List.UpdateDatabaseItemByIdx(items, ID, name, unit, idx);
             }
+
+            return true;
 
         }
 
@@ -79,14 +73,7 @@ namespace storage_managements
         }
         public static int GetIdxStorageID(string ID, List<DS_StorageItem> items)
         {
-            for (int i = 0; i < items.Count; i++)
-            {
-                if (items[i].ID == ID)
-                {
-                    return i;
-                }
-            }
-            return -1;
+            return items.FindIndex(item => item.ID == ID);
         }
         public static void UpdateStorageItemQuantityByIdx(List<DS_StorageItem> items, int idx, float quantity)
         {
@@ -95,15 +82,7 @@ namespace storage_managements
         public static void DoAddUpdateStorageItem(List<DS_StorageItem> items, string ID, string name,
             string unit, float quantity, direction dir) // in = 1 ; out = -1 
         {
-            int in_out = 0;
-            if (dir == direction.import)
-            {
-                in_out = 1;
-            }
-            else if (dir == direction.export)
-            {
-                in_out = -1;
-            }
+            int in_out = dir == direction.import ? 1 : dir == direction.export ? -1 : 0;
             int idx = Lib_List.GetIdxStorageID(ID: ID, items: items);
             if (idx == -1) // new one
             {
@@ -120,52 +99,40 @@ namespace storage_managements
          */
         public static void AddCompanyItem(List<DS_Company> items, string ID, string name)
         {
-            DS_Company item = new DS_Company
-            {
-                ID = ID,
-                name = name
-            };
-            items.Add(item);
-
+            items.Add(new DS_Company { ID = ID, name = name });
         }
         public static int GetIdxCompanyItemByID(string ID, List<DS_Company> items)
         {
-            for (int i = 0; i < items.Count; i++)
-            {
-                if (items[i].ID == ID)
-                {
-                    return i;
-                }
-            }
-            return -1;
+            return items.FindIndex(item => item.ID == ID);
         }
-        public static void UpdateCompanybyIdx(List<DS_Company> items, int idx, string name)
+
+        public static void UpdateCompanyByIdx(List<DS_Company> items, int idx, string name)
         {
             items[idx].name = name;
         }
 
         public static bool DoAddUpdateCompany(List<DS_Company> items, string ID, string name)
         {
-            int idx = Lib_List.GetIdxCompanyItemByID(ID: ID, items: items);
-            bool result = false;
+            int idx = Lib_List.GetIdxCompanyItemByID(ID, items);
+
             if (idx > -1)
             {
-                result = Lib_Message.ShowMessageBox(mStr: "Trùng mã, vẫn tiếp tục?", mIcon: System.Windows.Forms.MessageBoxIcon.Question,
-                    mbutton: System.Windows.Forms.MessageBoxButtons.OKCancel);
+                bool confirm = Lib_Message.ShowMessageBox(
+                    mStr: "Trùng mã, vẫn tiếp tục?",
+                    mIcon: MessageBoxIcon.Question,
+                    mbutton: MessageBoxButtons.OKCancel
+                );
 
+                if (!confirm)
+                    return false;
+
+                Lib_List.UpdateCompanyByIdx(items, idx, name);
             }
-            if (result)
+            else
             {
-                return false;
+                Lib_List.AddCompanyItem(items, ID, name);
             }
-            if (idx == -1) // new one
-            {
-                Lib_List.AddCompanyItem(items: items, ID: ID, name: name);
-            }
-            else // update existed item
-            {
-                Lib_List.UpdateCompanybyIdx(items: items, idx: idx, name: name);
-            }
+
             return true;
         }
 

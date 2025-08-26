@@ -120,23 +120,18 @@ namespace storage_managements
             return table;
         }
 
-        /// Creates a table cell with optional background color and alignment.
-        private static PdfPCell CreatePdfTableCell(string text, BaseColor bgColor = null, int alignment = Element.ALIGN_LEFT)
+        /// Adds a cell to the specified table.
+        private static void AddCellToTable(PdfPTable table, string text, BaseColor bgColor = null, int alignment = Element.ALIGN_LEFT)
         {
-            PdfPCell cell = new PdfPCell(new Phrase(text, font));
-            cell.HorizontalAlignment = alignment;
-            cell.VerticalAlignment = Element.ALIGN_MIDDLE;
+            PdfPCell cell = new PdfPCell(new Phrase(text, font))
+            {
+                HorizontalAlignment = alignment,
+                VerticalAlignment = Element.ALIGN_MIDDLE
+            };
             if (bgColor != null)
             {
                 cell.BackgroundColor = bgColor;
             }
-            return cell;
-        }
-
-        /// Adds a cell to the specified table.
-        private static void AddCellToTable(PdfPTable table, string text, BaseColor bgColor = null, int alignment = Element.ALIGN_LEFT)
-        {
-            PdfPCell cell = CreatePdfTableCell(text, bgColor, alignment);
             table.AddCell(cell);
         }
 
@@ -276,11 +271,7 @@ namespace storage_managements
         /// Adds a paragraph to the PDF document.
         private static void DocumentAddParagraph(Document doc, string str, int alignment = Element.ALIGN_LEFT)
         {
-            Paragraph paragraphText = new Paragraph(str, font)
-            {
-                Alignment = alignment
-            };
-            doc.Add(paragraphText);
+            doc.Add(new Paragraph(str,font){Alignment= alignment});
         }
     }
 }

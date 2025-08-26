@@ -929,7 +929,7 @@ namespace storage_managements
             this.dateTimePicker_from.Name = "dateTimePicker_from";
             this.dateTimePicker_from.Size = new System.Drawing.Size(300, 38);
             this.dateTimePicker_from.TabIndex = 0;
-            this.dateTimePicker_from.Value = new System.DateTime(2025, 8, 4, 23, 53, 56, 700);
+            this.dateTimePicker_from.Value = DateTime.Today.AddDays(-7);
             this.dateTimePicker_from.ValueChanged += new System.EventHandler(this.dateTimePicker_from_ValueChanged);
             // 
             // flowLayoutPanel2
@@ -962,7 +962,7 @@ namespace storage_managements
             this.dateTimePicker_to.Name = "dateTimePicker_to";
             this.dateTimePicker_to.Size = new System.Drawing.Size(300, 38);
             this.dateTimePicker_to.TabIndex = 3;
-            this.dateTimePicker_to.Value = new System.DateTime(2025, 8, 11, 23, 53, 56, 707);
+            this.dateTimePicker_to.Value = DateTime.Today;
             this.dateTimePicker_to.ValueChanged += new System.EventHandler(this.dateTimePicker_to_ValueChanged);
             // 
             // button_goto_pdf_folder
